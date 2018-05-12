@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   var rideInfo = sequelize.define('rideInfo', {
     startPoint: DataTypes.STRING,
     endPoint: DataTypes.STRING,
-    costEst: DataTypes.INTEGER,
-    costAct: DataTypes.INTEGER,
-    receipts: DataTypes.INTEGER
+    costEst: DataTypes.FLOAT(2),
+    costAct: DataTypes.FLOAT(2),
+    receipts: DataTypes.STRING
   }, {});
   rideInfo.associate = function(models) {
     // associations can be defined here
