@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     receipts: DataTypes.STRING
   }, {});
   rideInfo.associate = function(models) {
+      rideInfo.belongsTo(models.user);
     // associations can be defined here
   };
   return rideInfo;
