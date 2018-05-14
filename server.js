@@ -6,20 +6,26 @@ const passport = require('passport');
 
 const app = express();
 
-const uber = require('./routes/uber_routes.js');
-const lyft = require('./routes/lyft_routes.js');
-const maps = require('./routes/maps_routes.js');
-const html = require('./routes/html_routes');
+const db = require("./models");
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
 
-const port = process.env.PORT || 3000;
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+require('./routes/uber_routes.js')(app);
+// require('./routes/lyft_routes.js')(app);
+require('./routes/html_routes.js')(app);
 require('./routes/maps_routes.js')(app);
 
-app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+const PORT = process.env.PORT || 3000;
+
+db.sequelize.sync().then(function () {
+    app.listen(PORT, function () {
+        console.log(`Server started on port ${PORT}`);
+    });
 });
