@@ -1,3 +1,120 @@
+@font-face {
+  font-family: "Jupiter";
+  src: url("../fonts/jupiter.ttf"); }
+* {
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none; }
+
+nav {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  height: 65px;
+  position: static;
+  z-index: 1;
+  margin-bottom: 5px; }
+  nav #brand {
+    float: left;
+    display: block;
+    margin-left: 84px;
+    font-size: 30px;
+    line-height: 70px;
+    font-weight: bold; }
+    nav #brand a {
+      color: #ffffff;
+      transition: all 0.3s ease-out;
+      font-family: jupiter;
+      font-weight: 300; }
+  nav #menu {
+    float: left;
+    left: 65%;
+    position: relative; }
+    nav #menu li {
+      display: inline-block;
+      padding: 0px 30px;
+      cursor: pointer;
+      line-height: 70px;
+      position: relative;
+      transition: all 0.3s ease-out; }
+    nav #menu a {
+      color: #ffffff;
+      font-family: jupiter;
+      font-weight: 200; }
+
+#toggle {
+  position: absolute;
+  right: 20px;
+  top: 14px;
+  z-index: 999;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  float: right;
+  transition: all 0.3s ease-out;
+  visibility: hidden;
+  opacity: 0; }
+  #toggle .span {
+    height: 3px;
+    background: #ffffff;
+    transition: all 0.3s ease-out;
+    backface-visibility: hidden;
+    margin: 5px auto; }
+  #toggle .on #one {
+    transform: rotate(45deg) translateX(2px) translateY(4px); }
+  #toggle .on #two {
+    opacity: 0; }
+  #toggle .on #three {
+    transform: rotate(-45deg) translateX(8px) translateY(-10px); }
+
+#resize {
+  z-index: 1;
+  top: 0px;
+  position: absolute;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s ease-out;
+  display: table; }
+  #resize .active {
+    visibility: visible;
+    opacity: 0.99; }
+  #resize #menu {
+    height: 50px;
+    display: table-cell;
+    vertical-align: center; }
+    #resize #menu li {
+      display: block;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 50px;
+      min-height: 50px;
+      font-weight: 200;
+      cursor: pointer;
+      transition: all 0.3s ease-out; }
+    #resize #menu a {
+      color: #ffffff; }
+
+@media (max-width: 768px) {
+  #toggle {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 6px; }
+
+  nav #brand {
+    margin-left: 18px; }
+
+  #menu a {
+    font-family: jupiter;
+    font-weight: 200;
+    font-size: 20px; }
+
+  nav #menu {
+    display: none; } }
+@media (min-width: 768px) {
+  #resize {
+    visibility: hidden !important; } }
 * {
   box-sizing: border-box; }
 
@@ -59,8 +176,7 @@
   height: 50rem;
   border-radius: 50%;
   margin: 0 auto;
-  position: relative;
-  top: -1rem; }
+  position: relative; }
 
 .ellipse {
   border-radius: 50%;
@@ -136,130 +252,5 @@
   left: 0;
   position: fixed;
   z-index: -999; }
-
-.landingPageContainer {
-  width: 100%;
-  min-height: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: table;
-  color: #ffffff; }
-
-.contentWrapper {
-  max-width: 1200px;
-  width: 90%;
-  height: 100%;
-  margin: 0 auto;
-  position: relative; }
-
-.header {
-  width: 100%;
-  height: 2rem;
-  padding: 3rem 0;
-  display: block; }
-
-.menuIcon {
-  width: 2.5rem;
-  height: 1.5rem;
-  display: inline-block;
-  cursor: pointer; }
-
-.headerItem {
-  display: inline-block;
-  float: left; }
-
-.menuIconLine {
-  width: 1.5rem;
-  height: 0.2rem;
-  background: #ffffff;
-  display: block; }
-
-.menuIconLine:before,
-.menuIconLine:after {
-  content: "";
-  width: 1.5rem;
-  height: 0.2rem;
-  background: #ffffff;
-  display: inline-block;
-  position: relative; }
-
-.menuIconLine:before {
-  left: 0.5rem;
-  top: -0.6rem; }
-
-.menuIconLine:after {
-  top: -1.8rem; }
-
-.ellipseContainer {
-  width: 50rem;
-  height: 50rem;
-  border-radius: 50%;
-  margin: 0 auto;
-  position: relative;
-  top: -1rem; }
-
-.ellipse {
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  border-style: solid; }
-
-.ellipseOuterThin {
-  width: 100%;
-  height: 100%;
-  border-width: 1px;
-  border-color: rgba(255, 255, 255, 0.1);
-  animation: ellipseOrbit 15s ease-in-out infinite; }
-
-.ellipseOuterThin:after {
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  color: #000;
-  position: absolute;
-  opacity: 0.3; }
-
-.ellipseOuterThick {
-  width: 100%;
-  height: 100%;
-  border-color: #ffffff transparent;
-  border-width: 2px;
-  transform: rotate(-45deg);
-  animation: ellipseRotate 15s ease-in-out infinite; }
-
-.ellipseOrbit {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-width: 2px;
-  border-color: #ffffff;
-  top: 5rem;
-  right: 7.15rem; }
-
-.ellipseOrbit:before {
-  content: "";
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  display: inline-block;
-  background-color: #ffffff;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%); }
-
-@keyframes ellipseRotate {
-  0% {
-    transform: rotate(-45deg); }
-  100% {
-    transform: rotate(-405deg); } }
-@keyframes ellipseOrbit {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
 
 /*# sourceMappingURL=app.css.map */
