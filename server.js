@@ -18,13 +18,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./routes/uber_routes.js')(app);
-require('./routes/lyft_routes.js')(app);
+// require('./routes/lyft_routes.js')(app);
 require('./routes/html_routes.js')(app);
 require('./routes/maps_routes.js')(app);
 
 const PORT = process.env.PORT || 3000;
 
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
     app.listen(PORT, function () {
         console.log(`Server started on port ${PORT}`);
     });
