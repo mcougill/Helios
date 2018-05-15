@@ -125,9 +125,9 @@ module.exports = function (app) {
             }
         });
     });
-<<<<<<< HEAD
+
 };
 
-=======
+
 };
->>>>>>> f92a60431b609e0771eaacc7f90a325265a1fb90
+
