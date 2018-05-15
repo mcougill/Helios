@@ -1,6 +1,6 @@
 $(document).ready(function() {
   //   TOGGLES THE HAMBURGER MENU
-  $("#toggle").on(click, function() {
+  $("#toggle").click(function() {
     $(this).toggleClass("on");
     $("#resize").toggleClass("active");
   });
