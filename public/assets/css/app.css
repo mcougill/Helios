@@ -53,18 +53,22 @@ nav {
   transition: all 0.3s ease-out;
   visibility: hidden;
   opacity: 0; }
-  #toggle .span {
-    height: 3px;
-    background: #ffffff;
-    transition: all 0.3s ease-out;
-    backface-visibility: hidden;
-    margin: 5px auto; }
-  #toggle .on #one {
-    transform: rotate(45deg) translateX(2px) translateY(4px); }
-  #toggle .on #two {
-    opacity: 0; }
-  #toggle .on #three {
-    transform: rotate(-45deg) translateX(8px) translateY(-10px); }
+
+#toggle .span {
+  height: 3px;
+  background: #ffffff;
+  transition: all 0.3s ease-out;
+  backface-visibility: hidden;
+  margin: 5px auto; }
+
+#toggle.on #one {
+  transform: rotate(45deg) translateX(2px) translateY(4px); }
+
+#toggle.on #two {
+  opacity: 0; }
+
+#toggle.on #three {
+  transform: rotate(-45deg) translateX(8px) translateY(-10px); }
 
 #resize {
   z-index: 1;
@@ -77,24 +81,28 @@ nav {
   opacity: 0;
   transition: all 1s ease-out;
   display: table; }
-  #resize .active {
-    visibility: visible;
-    opacity: 0.99; }
-  #resize #menu {
-    height: 50px;
-    display: table-cell;
-    vertical-align: center; }
-    #resize #menu li {
-      display: block;
-      text-align: center;
-      padding: 20px 0;
-      font-size: 50px;
-      min-height: 50px;
-      font-weight: 200;
-      cursor: pointer;
-      transition: all 0.3s ease-out; }
-    #resize #menu a {
-      color: #ffffff; }
+
+#resize #menu {
+  height: 50px;
+  display: table-cell;
+  vertical-align: center; }
+
+#resize #menu li {
+  display: block;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 50px;
+  min-height: 50px;
+  font-weight: 200;
+  cursor: pointer;
+  transition: all 0.3s ease-out; }
+
+#resize #menu li a {
+  color: #ffffff; }
+
+#resize.active {
+  visibility: visible;
+  opacity: 0.99; }
 
 @media (max-width: 768px) {
   #toggle {
