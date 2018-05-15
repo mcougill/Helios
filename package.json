@@ -26,6 +26,7 @@
     "node-lyft": "^1.0.3",
     "node-uber": "^2.0.0",
     "nodemon": "^1.17.4",
+    "npm": "^6.0.1",
     "passport": "^0.4.0",
     "request": "^2.85.0",
     "sequelize": "^4.37.7"
