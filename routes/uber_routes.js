@@ -79,8 +79,8 @@ module.exports = function (app) {
 
     const start_latitude = query.lat;
     const start_longitude = query.lng;
-    const end_latitude;
-    const end_longitude;
+    //const end_latitude;
+    //const end_longitude;
 
     //Price estimate request
     app.get('/api/price', function (request, response) {
