@@ -11,7 +11,44 @@ module.exports = function (app) {
         redirect_uri: '',
         name: 'Student Project',
         language: 'en_US',
+        sandbox: true
     });
+
+
+
+
+    //SANDBOX 
+
+    // SANDBOX: set driver's availability by product_id
+    uber.products.setDriversAvailabilityByIDAsync(uber.client_id, false)
+        .then(function (res) {
+            console.log(res);
+        })
+        .error(function (err) {
+            console.error(err);
+        });
+
+
+    // SANDBOX: set surge multiplier by product_id
+    uber.products.setSurgeMultiplierByIDAsync(uber.client_id, 2.2)
+        .then(function (res) {
+            console.log(res);
+        })
+        .error(function (err) {
+            console.error(err);
+        });
+
+    //SANDBOX: set request status by request_id
+    uber.requests.setStatusByIDAsync(uber.client_id, 'accepted')
+        .then(function (res) {
+            console.log(res);
+        })
+        .error(function (err) {
+            console.error(err);
+        });
+    //END SANDBOX
+
+
 
 
     //redirect user to authorization URL
@@ -19,6 +56,7 @@ module.exports = function (app) {
         var url = uber.getAuthorizeUrl(['history', 'profile', 'request', 'places']);
         response.redirect(url);
     });
+
 
     //receive redirect and get an access token
     app.get('/api/callback', function (request, response) {
@@ -39,21 +77,25 @@ module.exports = function (app) {
     });
 
 
+    const start_latitude = query.lat;
+    const start_longitude = query.lng;
+    const end_latitude;
+    const end_longitude;
 
-    
-    //make HTTP requests to available resources
+    //Price estimate request
     app.get('/api/price', function (request, response) {
 
         // extract the query from the request URL
         var query = url.parse(request.url, true).query;
 
+
         // if no query params sent, respond with Bad Request
-        if (!query || !query.lat || !query.lng) {
+        if (!query || !start_latitude || !start_longitude) {
             response.sendStatus(400);
         } else {
-            uber.estimates.getPriceForRouteAsync(query.lat, query.lng)
+            uber.estimates.getPriceForRouteAsync(start_latitude, start_longitude, end_latitude, end_longitude)
                 .then(function (res) {
-                    response.json(res);
+                    console.log(res);
                 })
                 .error(function (err) {
                     console.error(err);
@@ -62,6 +104,45 @@ module.exports = function (app) {
         }
     });
 
+
+    //book Uber
+    app.get('/api/book', function (request, response) {
+
+        // extract the query from the request URL
+        var query = url.parse(request.url, true).query;
+
+
+        // if no query params sent, respond with Bad Request
+        if (!query || !start_latitude || !start_longitude) {
+            response.sendStatus(400);
+        } else {
+            uber.requests.createAsync({
+                "start_latitude": start_latitude,
+                "start_longitude": start_longitude,
+                "end_latitude": end_latitude,
+                "end_longitude": end_longitude
+            })
+                .then(function (res) {
+                    console.log(res);
+                })
+                .error(function (err) {
+                    console.error(err);
+                });
+
+        }
+    });
+
+
+    //receipt
+    uber.requests.getReceiptByIDAsync(uber.client_id)
+        .then(function (res) {
+            console.log(res);
+        })
+        .error(function (err) {
+            console.error(err);
+        });
+
+
+
 };
 
-   
