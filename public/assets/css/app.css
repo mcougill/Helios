@@ -1,7 +1,8 @@
 @font-face {
   font-family: "Jupiter";
   src: url("../fonts/jupiter.ttf"); }
-* {
+body *,
+html * {
   box-sizing: border-box;
   list-style: none;
   text-decoration: none; }
@@ -25,6 +26,63 @@ nav {
       transition: all 0.3s ease-out;
       font-family: jupiter;
       font-weight: 300; }
+  nav body *,
+  nav html * {
+    box-sizing: border-box; }
+  nav .searchBoxContainer {
+    position: absolute;
+    left: 50%;
+    top: 2%;
+    transform: translate(-50%); }
+  nav .searchBox input {
+    border: none;
+    background: none;
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+    transition: all 0.25s ease-in 0.25s;
+    color: transparent;
+    font-size: 1em;
+    line-height: 25px; }
+  nav .searchBox input:hover {
+    cursor: pointer; }
+  nav .searchBox input:hover:focus {
+    cursor: text; }
+  nav .searchBox input:hover + span {
+    background: rgba(255, 255, 255, 0.2); }
+  nav .searchBox input:focus {
+    width: 200px;
+    padding: 0 10px;
+    outline: none;
+    color: #000;
+    background: none;
+    color: #ffffff; }
+  nav .searchBox input:focus + span {
+    width: 200px; }
+  nav .searchBox input:focus + span::before {
+    width: 2px;
+    opacity: 0;
+    transition: all 0.25s ease-in; }
+  nav .searchBox input + span {
+    z-index: -1;
+    position: absolute;
+    border: 2px solid #ffffff;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    transition: all 0.25s ease-in 0.25s;
+    border-radius: 25px;
+    left: 0; }
+  nav .searchBox input + span::before {
+    transition: all 0.25s ease-in 0.25s;
+    transform-origin: left top;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    border-radius: 5px;
+    background: #ffffff;
+    transform: rotate(45deg) translate(26px, -2px); }
   nav #menu {
     float: left;
     left: 65%;
@@ -180,6 +238,7 @@ nav {
   top: -1.8rem; }
 
 .ellipseContainer {
+  z-index: -10;
   width: 50rem;
   height: 50rem;
   border-radius: 50%;
