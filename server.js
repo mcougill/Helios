@@ -6,9 +6,8 @@ const passport = require('passport');
 
 const app = express();
 
-const uber = require('./routes/uber_routes.js');
+//const uber = require('./routes/uber_routes.js');
 const lyft = require('./routes/lyft_routes.js');
-const maps = require('./routes/maps_routes.js');
 const html = require('./routes/html_routes');
 
 app.engine('handlebars', exphbs({
@@ -16,9 +15,14 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static('./public'));
+
 const port = process.env.PORT || 3000;
 
-require('./routes/maps_routes.js')(app);
+require('./routes/lyft_routes.js')(app);
+require('./routes/html_routes.js')(app);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
