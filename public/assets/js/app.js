@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+$(document).ready(function() {
+  // Closing tag for document.ready
+=======
+=======
+
+>>>>>>> a26a398077ef5a213a7546e54f3c2192f25c3408
 
 $(document).ready(function () {
 
@@ -50,5 +58,10 @@ $(document).ready(function () {
         })
     })
 
+<<<<<<< HEAD
+>>>>>>> a1501f9deb1d8e0a17367847b4cb8fa89ce6cb47
+=======
+
+>>>>>>> a26a398077ef5a213a7546e54f3c2192f25c3408
 });
 
