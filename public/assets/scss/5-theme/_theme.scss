@@ -1,0 +1,21 @@
+// Global Colors
+$whiteColor: #ffffff;
+$grayColor: rgba(255, 255, 255, 0.1);
+$BlackColor: #000;
+// Box Sizing
+* {
+  box-sizing: border-box;
+}
+
+// Background image
+.darkOverlay {
+  background-color: #484848;
+  background-image: url("../images/landingBG.jpg");
+  background-blend-mode: multiply;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -999;
+}

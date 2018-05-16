@@ -10,6 +10,7 @@ module.exports = function (app) {
         let clientAuth = defaultClient.authentications['Client Authentication'];
         clientAuth.accessToken = process.env.lyft_token;
 
+
         let apiInstance = new lyft.PublicApi();
         let destination = req.body.destination
         let pickup = req.body.pickup
@@ -101,3 +102,10 @@ module.exports = function (app) {
     });
 
 };
+
+apiInstance.getCost(37.7763, -122.3918, opts).then((data) => {
+  console.log(data);
+}, (error) => {
+  console.error(error);
+});
+

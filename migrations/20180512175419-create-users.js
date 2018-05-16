@@ -14,10 +14,13 @@ module.exports = {
             lastName: {
                 type: Sequelize.STRING
             },
-            name: {
+            username: {
                 type: Sequelize.STRING
             },
             password: {
+                type: Sequelize.STRING
+            },
+            googleID: {
                 type: Sequelize.STRING
             },
             createdAt: {

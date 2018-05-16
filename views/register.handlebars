@@ -1,0 +1,21 @@
+<p>This is just a mock registration page.</p>
+
+{{#if messages}}
+    {{#each messages}}
+        <div>{{this}}</div>
+    {{/each}}
+{{/if}}
+
+<form action="/register" method="POST">
+    <label for="firstName">First Name</label>
+    <input type="text" name="firstName">
+    <label for="lastName">Last Name</label>
+    <input type="text" name="lastName">
+    <label for="username">Username</label>
+    <input type="text" name="username">
+    <label for="password">Password</label>
+    <input type="password" name="password">
+    <label for="password2">Confirm Password</label>
+    <input type="password" name="password2">
+    <button type="submit">Submit</button>
+</form>
