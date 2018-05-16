@@ -6,48 +6,16 @@ module.exports = function (app) {
 
     const uber = new Uber({
         client_id: 'process.env.client_id',
+
         client_secret: 'process.env.client_secret',
+        
         server_token: 'process.env.server_token',
-        redirect_uri: '',
+      
+        redirect_uri: 'http://localhost:3000/api/callback',
         name: 'Student Project',
         language: 'en_US',
         sandbox: true
     });
-
-
-
-
-    //SANDBOX 
-
-    // SANDBOX: set driver's availability by product_id
-    uber.products.setDriversAvailabilityByIDAsync(uber.client_id, false)
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
-
-
-    // SANDBOX: set surge multiplier by product_id
-    uber.products.setSurgeMultiplierByIDAsync(uber.client_id, 2.2)
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
-
-    //SANDBOX: set request status by request_id
-    uber.requests.setStatusByIDAsync(uber.client_id, 'accepted')
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
-    //END SANDBOX
-
 
 
 
@@ -62,14 +30,9 @@ module.exports = function (app) {
     app.get('/api/callback', function (request, response) {
         uber.authorizationAsync({ authorization_code: request.query.code })
             .spread(function (access_token, refresh_token, authorizedScopes, tokenExpiration) {
-                // store the user id and associated access_token, refresh_token, scopes and token expiration date
-                console.log('New access_token retrieved: ' + access_token);
-                console.log('... token allows access to scopes: ' + authorizedScopes);
-                console.log('... token is valid until: ' + tokenExpiration);
-                console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
-
+                console.log("login success!");
                 // redirect the user back to your actual app
-                response.redirect('/web/index.html');
+                response.redirect('/');
             })
             .error(function (err) {
                 console.error(err);
@@ -77,20 +40,27 @@ module.exports = function (app) {
     });
 
 
+<<<<<<< HEAD
     // const start_latitude = query.lat;
     // const start_longitude = query.lng;
     // const end_latitude;
     // const end_longitude;
+=======
+    //placeholder testing variables
+    const start_latitude = 29.7497;
+    const start_longitude = -95.3773;
+    const end_latitude = 29.743151
+    const end_longitude = -95.388720;
+    const product_id = "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f";
+>>>>>>> 40d5d3c399bfdfa9495d58b69ceed385bd6aa0bb
+
+
 
     //Price estimate request
     app.get('/api/price', function (request, response) {
 
-        // extract the query from the request URL
-        var query = url.parse(request.url, true).query;
-
-
         // if no query params sent, respond with Bad Request
-        if (!query || !start_latitude || !start_longitude) {
+        if (!start_latitude || !start_longitude) {
             response.sendStatus(400);
         } else {
             uber.estimates.getPriceForRouteAsync(start_latitude, start_longitude, end_latitude, end_longitude)
@@ -105,18 +75,18 @@ module.exports = function (app) {
     });
 
 
+
+    //NOT WORKING YET 
     //book Uber
     app.get('/api/book', function (request, response) {
 
-        // extract the query from the request URL
-        var query = url.parse(request.url, true).query;
-
-
         // if no query params sent, respond with Bad Request
-        if (!query || !start_latitude || !start_longitude) {
+        if (!start_latitude || !start_longitude) {
             response.sendStatus(400);
         } else {
             uber.requests.createAsync({
+                "fare_id": null,
+                "product_id": "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f",
                 "start_latitude": start_latitude,
                 "start_longitude": start_longitude,
                 "end_latitude": end_latitude,
@@ -133,16 +103,19 @@ module.exports = function (app) {
     });
 
 
+
     //receipt
-    uber.requests.getReceiptByIDAsync(uber.client_id)
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
+    app.get('/api/receipt', function (request, response) {
+        uber.requests.getReceiptByIDAsync(uber.client_id)
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            })
+
+    });
 
 
 
-};
-
+}

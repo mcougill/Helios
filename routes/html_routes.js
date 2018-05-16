@@ -139,9 +139,17 @@ module.exports = function (app) {
         });
     });
 
+<<<<<<< HEAD
     app.get('/logout', function (req, res) {
         messageObj.user = 'not logged in';
         req.logout();
         res.redirect('/');
     });
 };
+=======
+};
+
+
+
+
+>>>>>>> 40d5d3c399bfdfa9495d58b69ceed385bd6aa0bb
