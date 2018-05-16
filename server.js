@@ -3,18 +3,42 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const passportSetup = require('./config/passport-setup');
+const passportGoogleSetup = require('./config/passport_google_setup');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const authRoutes = require('./routes/auth_routes');
+// const session = require('express-session');
 
 const app = express();
 
+// const sess = {
+//     secret: process.env.expressSessionCookieKey,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {}
+// };
+
 const db = require("./models");
+
+// if (app.get('env') === 'production') {
+//     app.set('trust proxy', 1);
+//     sess.cookie.secure = true;
+// }
+
+// app.use(session(sess));
+// app.use(function (req, res, next) {
+//     if (!req.session.views) {
+//         req.session.views = {};
+//     }
+//     next();
+// });
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+
+app.use('/auth', authRoutes);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
