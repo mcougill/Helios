@@ -4,16 +4,18 @@ $grayColor: rgba(255, 255, 255, 0.1);
 $BlackColor: #000;
 // Box Sizing
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 // Background image
-#backgroundImage {
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    position: fixed;
-    z-index: -999;
+.darkOverlay {
+  background-color: #484848;
+  background-image: url("../images/landingBG.jpg");
+  background-blend-mode: multiply;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -999;
 }
