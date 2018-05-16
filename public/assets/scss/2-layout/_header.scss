@@ -74,6 +74,11 @@ $blackColor: #000000;
   }
 }
 
+.inputContainer {
+  margin: auto;
+  max-width: 500px;
+}
+
 @media (max-width: 960) {
   .container {
     padding-right: 3rem;

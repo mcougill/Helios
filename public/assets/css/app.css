@@ -52,10 +52,26 @@
     display: block;
     padding-bottom: 2rem; }
 
+.inputContainer {
+  margin: auto;
+  max-width: 500px; }
+
 @media (max-width: 960) {
   .container {
     padding-right: 3rem;
     padding-left: 3rem; } }
+* {
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: "jupiter";
+  src: url("../fonts/jupiter.ttf"); }
+@font-face {
+  font-family: "vdub";
+  src: url("../fonts/VDUB.TTF"); }
+.heliosBrand {
+  font-family: vdub; }
+
 * {
   box-sizing: border-box; }
 
