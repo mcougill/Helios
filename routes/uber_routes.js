@@ -16,36 +16,41 @@ module.exports = function (app) {
 
 
 
-
     //SANDBOX 
 
     // SANDBOX: set driver's availability by product_id
-    uber.products.setDriversAvailabilityByIDAsync(uber.client_id, false)
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
+    app.get('/api/sandboxDrivers', function (request, response) {
+        uber.products.setDriversAvailabilityByIDAsync(uber.client_id, false)
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    });
 
 
     // SANDBOX: set surge multiplier by product_id
-    uber.products.setSurgeMultiplierByIDAsync(uber.client_id, 2.2)
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
+    app.get('/api/sandboxSurge', function (request, response) {
+        uber.products.setSurgeMultiplierByIDAsync(uber.client_id, 2.2)
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    });
 
     //SANDBOX: set request status by request_id
-    uber.requests.setStatusByIDAsync(uber.client_id, 'accepted')
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
+    app.get('/api/sandboxRequest', function (request, response) {
+        uber.requests.setStatusByIDAsync(uber.client_id, 'accepted')
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    });
     //END SANDBOX
 
 
@@ -77,10 +82,10 @@ module.exports = function (app) {
     });
 
 
-    const start_latitude = query.lat;
-    const start_longitude = query.lng;
-    //const end_latitude;
-    //const end_longitude;
+    const start_latitude = 37.7763;
+    const start_longitude = -122.3918;
+    const end_latitude = 37.7972;
+    const end_longitude = -122.4533;
 
     //Price estimate request
     app.get('/api/price', function (request, response) {
@@ -103,6 +108,8 @@ module.exports = function (app) {
                 });
         }
     });
+
+
 
 
     //book Uber
@@ -134,15 +141,17 @@ module.exports = function (app) {
 
 
     //receipt
-    uber.requests.getReceiptByIDAsync(uber.client_id)
-        .then(function (res) {
-            console.log(res);
-        })
-        .error(function (err) {
-            console.error(err);
-        });
+    app.get('/api/receipt', function (request, response) {
+        uber.requests.getReceiptByIDAsync(uber.client_id)
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            })
+
+    });
 
 
 
-};
-
+}
