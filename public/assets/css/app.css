@@ -9,11 +9,10 @@ html * {
 
 nav {
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  height: 65px;
-  position: static;
-  z-index: 1;
-  margin-bottom: 5px; }
+  background: transparent;
+  height: 70px;
+  position: absolute;
+  z-index: 1; }
   nav #brand {
     float: left;
     display: block;
@@ -29,60 +28,6 @@ nav {
   nav body *,
   nav html * {
     box-sizing: border-box; }
-  nav .searchBoxContainer {
-    position: absolute;
-    left: 50%;
-    top: 2%;
-    transform: translate(-50%); }
-  nav .searchBox input {
-    border: none;
-    background: none;
-    z-index: 1;
-    width: 25px;
-    height: 25px;
-    transition: all 0.25s ease-in 0.25s;
-    color: transparent;
-    font-size: 1em;
-    line-height: 25px; }
-  nav .searchBox input:hover {
-    cursor: pointer; }
-  nav .searchBox input:hover:focus {
-    cursor: text; }
-  nav .searchBox input:hover + span {
-    background: rgba(255, 255, 255, 0.2); }
-  nav .searchBox input:focus {
-    width: 200px;
-    padding: 0 10px;
-    outline: none;
-    color: #000;
-    background: none;
-    color: #ffffff; }
-  nav .searchBox input:focus + span {
-    width: 200px; }
-  nav .searchBox input:focus + span::before {
-    width: 2px;
-    opacity: 0;
-    transition: all 0.25s ease-in; }
-  nav .searchBox input + span {
-    z-index: -1;
-    position: absolute;
-    border: 2px solid #ffffff;
-    top: 0;
-    width: 25px;
-    height: 25px;
-    transition: all 0.25s ease-in 0.25s;
-    border-radius: 25px;
-    left: 0; }
-  nav .searchBox input + span::before {
-    transition: all 0.25s ease-in 0.25s;
-    transform-origin: left top;
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 5px;
-    border-radius: 5px;
-    background: #ffffff;
-    transform: rotate(45deg) translate(26px, -2px); }
   nav #menu {
     float: left;
     left: 65%;
@@ -190,7 +135,7 @@ nav {
   height: 100vh;
   overflow: hidden;
   display: table;
-  color: #ffffff; }
+  color: #adadad; }
 
 .contentWrapper {
   max-width: 1200px;
@@ -218,7 +163,7 @@ nav {
 .menuIconLine {
   width: 1.5rem;
   height: 0.2rem;
-  background: #ffffff;
+  background: #adadad;
   display: block; }
 
 .menuIconLine:before,
@@ -226,7 +171,7 @@ nav {
   content: "";
   width: 1.5rem;
   height: 0.2rem;
-  background: #ffffff;
+  background: #adadad;
   display: inline-block;
   position: relative; }
 
@@ -238,12 +183,14 @@ nav {
   top: -1.8rem; }
 
 .ellipseContainer {
-  z-index: -10;
+  z-index: 1;
   width: 50rem;
   height: 50rem;
   border-radius: 50%;
   margin: 0 auto;
-  position: relative; }
+  position: fixed;
+  top: 15%;
+  left: 26%; }
 
 .ellipse {
   border-radius: 50%;
@@ -271,7 +218,7 @@ nav {
 .ellipseOuterThick {
   width: 100%;
   height: 100%;
-  border-color: #ffffff transparent;
+  border-color: #adadad transparent;
   border-width: 2px;
   transform: rotate(-45deg);
   animation: ellipseRotate 15s ease-in-out infinite; }
@@ -280,7 +227,7 @@ nav {
   width: 2.5rem;
   height: 2.5rem;
   border-width: 2px;
-  border-color: #ffffff;
+  border-color: #adadad;
   top: 5rem;
   right: 7.15rem; }
 
@@ -290,7 +237,7 @@ nav {
   height: 0.7rem;
   border-radius: 50%;
   display: inline-block;
-  background-color: #ffffff;
+  background-color: #adadad;
   margin: 0 auto;
   left: 0;
   right: 0;
@@ -311,13 +258,15 @@ nav {
 * {
   box-sizing: border-box; }
 
-#backgroundImage {
+.darkOverlay {
+  background-color: #484848;
+  background-image: url("../images/landingBG.jpg");
+  background-blend-mode: multiply;
   background-size: cover;
-  height: 100vh;
-  width: 100vw;
   top: 0;
   left: 0;
-  position: fixed;
+  width: 100vw;
+  height: 100vh;
   z-index: -999; }
 
 /*# sourceMappingURL=app.css.map */
