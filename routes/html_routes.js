@@ -129,5 +129,5 @@ module.exports = function (app) {
 };
 
 
-};
+
 
