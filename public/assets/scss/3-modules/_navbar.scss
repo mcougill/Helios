@@ -1,166 +1,21 @@
-// NAVBAR
+// COLORS
+$grayColor: #333;
+$whiteColor: #fff;
+$blackColor: #000000;
 //
-// Global Colors
-$whiteColor: #ffffff;
-$grayColor: rgba(255, 255, 255, 0.1);
-$blackColor: #000;
-$transBlack: rgba(0, 0, 0, 0.5);
-$navBarBlack: #1b1e21;
+// EVERYTHING NO BORDER
+* {
+    box-sizing: border-box;
+}
+
 //
 // FONTS
-//
 @font-face {
-    font-family: "Jupiter";
+    font-family: "jupiter";
     src: url("../fonts/jupiter.ttf");
 }
 
-body *,
-html * {
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
-}
-
-nav {
-    width: 100%;
-    background: transparent;
-    height: 70px;
-    position: absolute;
-    z-index: 1;
-    #brand {
-        float: left;
-        display: block;
-        margin-left: 84px;
-        font-size: 30px;
-        line-height: 70px;
-        font-weight: bold;
-        a {
-            color: $whiteColor;
-            transition: all 0.3s ease-out;
-            font-family: jupiter;
-            font-weight: 300;
-        }
-    }
-    body *,
-    html * {
-        box-sizing: border-box;
-    }
-    #menu {
-        float: left;
-        left: 65%;
-        position: relative;
-        li {
-            display: inline-block;
-            padding: 0px 30px;
-            cursor: pointer;
-            line-height: 70px;
-            position: relative;
-            transition: all 0.3s ease-out;
-        }
-        a {
-            color: $whiteColor;
-            font-family: jupiter;
-            font-weight: 200;
-        }
-    }
-}
-
-#toggle {
-    position: absolute;
-    right: 20px;
-    top: 14px;
-    z-index: 999;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    float: right;
-    transition: all 0.3s ease-out;
-    visibility: hidden;
-    opacity: 0;
-}
-
-#toggle .span {
-    height: 3px;
-    background: $whiteColor;
-    transition: all 0.3s ease-out;
-    backface-visibility: hidden;
-    margin: 5px auto;
-}
-
-#toggle.on #one {
-    transform: rotate(45deg) translateX(2px) translateY(4px);
-}
-
-#toggle.on #two {
-    opacity: 0;
-}
-
-#toggle.on #three {
-    transform: rotate(-45deg) translateX(8px) translateY(-10px);
-}
-
-#resize {
-    z-index: 1;
-    top: 0px;
-    position: absolute;
-    background: $blackColor;
-    width: 100%;
-    height: 100%;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 1s ease-out;
-    display: table;
-}
-
-#resize #menu {
-    height: 50px;
-    display: table-cell;
-    vertical-align: center;
-}
-
-#resize #menu li {
-    display: block;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 50px;
-    min-height: 50px;
-    font-weight: 200;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-}
-
-#resize #menu li a {
-    color: $whiteColor;
-}
-
-#resize.active {
-    visibility: visible;
-    opacity: 0.99;
-}
-
-// MEDIA QUERIES
-//
-@media (max-width: 768px) {
-    #toggle {
-        visibility: visible;
-        opacity: 1;
-        margin-top: 6px;
-    }
-    nav #brand {
-        margin-left: 18px;
-    }
-    #menu a {
-        font-family: jupiter;
-        font-weight: 200;
-        font-size: 20px;
-    }
-    nav #menu {
-        display: none;
-    }
-}
-
-@media (min-width: 768px) {
-    #resize {
-        visibility: hidden !important;
-    }
+@font-face {
+    font-family: "vdub";
+    src: url("../fonts/VDUB.TTF");
 }
