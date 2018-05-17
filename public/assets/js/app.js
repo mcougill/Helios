@@ -32,20 +32,22 @@ $(document).ready(function () {
 
         $.post('api/lyft/routes', coordinates, function (lyftInfo) {
           console.log(lyftInfo);
+
+          $.post('api/uber/routes', coordinates, function(uberInfo){
+            console.log(uberInfo)
+
+            uberInfo.rides.forEach(function(item){
+              lyftInfo.rides.push(item);
+            });
+
+            console.log(lyftInfo);
+          })
         });
 
       });
 
     });
   });
-
-
-  $("#request").on("click", function () {
-    $.post("lyft/request", function (data) {
-      console.log(data);
-    });
-  });
-
 
   $('#request').on('click', function () {
 
