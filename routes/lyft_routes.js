@@ -1,7 +1,10 @@
 const lyft = require('node-lyft');
 var request = require("request");
+const db = require("./../models");
 
 module.exports = function (app) {
+
+    var accountAccess;
 
     app.post('/api/lyft/routes', function (req, res) {
 
@@ -21,22 +24,20 @@ module.exports = function (app) {
         };
 
         apiInstance.getCost(pickup.lat, pickup.lng, opts).then(function (data) {
-            console.log(data);
-            res.status(200).json(data);
+            var returnedData = {
+                coordinates: req.body,
+                rides: data
+            };
+            res.status(200).json(returnedData);
         }, function (error) {
             console.error(error);
         });
 
     })
 
-    app.post('/lyft/request', function (req, res) {
+    app.post('/api/lyft/sandbox/request', function (req, res) {
 
-        var user = process.env.lyft_id;
-        var password = process.env.lyft_secret;
-
-        /* var auth = 'Basic ' + new Buffer(user + ':' + 'SANDBOX-' + password).toString('base64');
-
-        console.log(auth); */
+        var auth = 'Basic ' + new Buffer(`${process.env.lyft_id}:SANDBOX-${process.env.lyft_secret}`).toString('base64');
 
         var options = {
             method: 'POST',
@@ -45,25 +46,26 @@ module.exports = function (app) {
                 {
                     'Postman-Token': '4e103d91-c50e-41d8-860e-9df78056e223',
                     'Cache-Control': 'no-cache',
-                    auth: {
-                        username: user,
-                        password: `SANDBOX-${password}`
-                    },
+                    'Authorization': auth,
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
             body: '{"grant_type": "client_credentials", "scope": "public rides.read rides.request"}'
         };
 
-        console.log(options);
-
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
 
-            console.log(JSON.parse(body));
+            console.log(body);
 
-            var access = JSON.parse(body).access_token;
+            accountAccess = JSON.parse(body).access_token;
 
-            console.log(access);
+            console.log(accountAccess);
+
+            db.user.create({
+                firstName: 'Test',
+                lastName: 'Person',
+                currentToken: accountAccess
+            });
 
             var options = {
                 method: 'POST',
@@ -72,7 +74,7 @@ module.exports = function (app) {
                     {
                         'Postman-Token': '36c0947f-1006-4b71-b615-d26618d23419',
                         'Cache-Control': 'no-cache',
-                        Authorization: `Bearer ${access}`,
+                        Authorization: `Bearer ${accountAccess}`,
                         'Content-Type': 'application/json'
                     },
                 body:
@@ -93,19 +95,49 @@ module.exports = function (app) {
                 if (error) throw new Error(error);
 
                 console.log(body);
+
+                res.status(200).json(body);
+
+                db.user.update({
+                    currentRide: body.ride_id
+                }, {
+                    where: {
+                        firstName: 'Test'
+                    }
+                });
+
             });
-
-
 
         });
 
     });
 
+    app.get('/api/lyft/ride_details', function (req, res) {
+
+        db.user.findOne({
+            where: {
+                firstName: 'Test'
+            }
+        }).then(function (user) {
+            console.log(user.dataValues);
+
+            var options = {
+                method: 'GET',
+                url: `https://api.lyft.com/v1/rides/${user.dataValues.currentRide}`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.dataValues.currentToken}`
+                }
+            };
+
+            request(options, function (error, response, body) {
+
+                console.log(JSON.parse(body));
+
+                res.json(body);
+            });
+
+        });
+    });
+
 };
-
-// apiInstance.getCost(37.7763, -122.3918, opts).then((data) => {
-//   console.log(data);
-// }, (error) => {
-//   console.error(error);
-// });
-

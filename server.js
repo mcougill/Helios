@@ -54,9 +54,8 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 
 require('./routes/uber_routes.js')(app);
-// require('./routes/lyft_routes.js')(app);
+require('./routes/lyft_routes.js')(app);
 require('./routes/html_routes.js')(app);
-// require('./routes/maps_routes.js')(app);
 
 const PORT = process.env.PORT || 3000;
 
