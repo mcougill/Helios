@@ -20,14 +20,14 @@ module.exports = function (app) {
 
 
     //redirect user to authorization URL
-    app.get('/api/login', function (request, response) {
+    app.get('/api/uber/login', function (request, response) {
         var url = uber.getAuthorizeUrl(['history', 'profile', 'request', 'places']);
         response.redirect(url);
     });
 
 
     //receive redirect and get an access token
-    app.get('/api/callback', function (request, response) {
+    app.get('/api/uber/callback', function (request, response) {
         uber.authorizationAsync({ authorization_code: request.query.code })
             .spread(function (access_token, refresh_token, authorizedScopes, tokenExpiration) {
                 console.log("login success!");
@@ -50,7 +50,7 @@ module.exports = function (app) {
 
 
     //Price estimate request
-    app.get('/api/price', function (request, response) {
+    app.get('/api/uber/price', function (request, response) {
 
         // if no query params sent, respond with Bad Request
         if (!start_latitude || !start_longitude) {
@@ -71,7 +71,7 @@ module.exports = function (app) {
 
     //NOT WORKING YET 
     //book Uber
-    app.get('/api/book', function (request, response) {
+    app.get('/api/uber/book', function (request, response) {
 
         // if no query params sent, respond with Bad Request
         if (!start_latitude || !start_longitude) {
@@ -98,7 +98,7 @@ module.exports = function (app) {
 
 
     //receipt
-    app.get('/api/receipt', function (request, response) {
+    app.get('/api/uber/receipt', function (request, response) {
         uber.requests.getReceiptByIDAsync(uber.client_id)
             .then(function (res) {
                 console.log(res);

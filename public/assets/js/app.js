@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     $('#routes').on('click', function () {
@@ -7,7 +6,7 @@ $(document).ready(function () {
 
         var location = {
             pickup: 'KIPP Dream',
-            destination: '1230 Prince St'
+            destination: '9990 Richmond Ave.'
         }
 
         var queryURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${location.pickup}&key=AIzaSyDqVvFEbKT3bghZxOT581eUo156nRZR4bw`;
@@ -32,7 +31,7 @@ $(document).ready(function () {
                 coordinates.destination = res.results[0].geometry.location;
 
                 $.post('api/lyft/routes', coordinates, function(lyftInfo){
-                    console.log(lyftInfo.cost_estimates[0]);
+                    console.log(lyftInfo);
                 });
 
             });
@@ -45,10 +44,17 @@ $(document).ready(function () {
 
     $('#request').on('click', function () {
 
-        $.post('lyft/request', function (data) {
+        $.post('api/lyft/sandbox/request', function (data) {
             console.log(data);
         })
-    })
+    });
+
+    $('#details').on('click', function(){
+
+        $.get('api/lyft/ride_details', function (data){
+            console.log(data);
+        })
+    });
 
 });
 
