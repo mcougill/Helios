@@ -17,7 +17,7 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.use(new GoogleStrategy({
-    callbackURL: "/google/redirect",
+    callbackURL: "/auth/google/redirect",
     clientID: process.env.googleClient_id,
     clientSecret: process.env.googleClient_secret
 }, function (accessToken, refreshToken, profile, done) {
@@ -38,11 +38,12 @@ passport.use(new GoogleStrategy({
                 lastName: profile.name.familyName
             }).then(function (newUser) {
                 console.log(newUser.dataValues.id);
-                console.log('new user created ', newUser);
+                console.log('new google user created', newUser);
                 done(null, newUser);
             });
         }
     });
     // console.log(profile);
+    
 }));
 

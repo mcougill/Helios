@@ -21,19 +21,19 @@ module.exports = function (app) {
         //messageObj.messages = [];
     });
 
-    app.get('/google', passport.authenticate('google', {
-        scope: ['profile']
-    }));
+    // app.get('/google', passport.authenticate('google', {
+    //     scope: ['profile']
+    // }));
 
-    app.get('/google/redirect', passport.authenticate('google'), function (req, res) {
-        // messageObj.user = 'logged in as ' + req.user.dataValues.firstName;
-        //console.log('req.user', req.user);
-        res.redirect('/landing');
-        // res.send(req.user);
-    });
+    // app.get('/google/redirect', passport.authenticate('google'), function (req, res) {
+    //     // messageObj.user = 'logged in as ' + req.user.dataValues.firstName;
+    //     //console.log('req.user', req.user);
+    //     res.redirect('/landing');
+    //     // res.send(req.user);
+    // });
 
     app.get('/landing', authCheck, function (req, res) {
-        let user = req.user.dataValues.firstName || req.body.username;
+        let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
         let message = {
             message: `Logged in successfully as ${user}`
         }
@@ -139,17 +139,9 @@ module.exports = function (app) {
         });
     });
 
-<<<<<<< HEAD
     app.get('/logout', function (req, res) {
         messageObj.user = 'not logged in';
         req.logout();
         res.redirect('/');
     });
 };
-=======
-};
-
-
-
-
->>>>>>> 40d5d3c399bfdfa9495d58b69ceed385bd6aa0bb

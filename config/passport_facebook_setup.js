@@ -1,5 +1,5 @@
 const passport = require('passport');
-
+const FacebookStrategy = require('passport-facebook');
 const db = require("./../models");
 
 passport.serializeUser(function (user, done) {
@@ -17,49 +17,33 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.use(new FacebookStrategy({
-    clientID: facebook_app_id,
-    clientSecret: facebook_app_secret,
-    callbackURL: "/facebook/redirect"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    db.user.findOne({
-         where: {
-            facebookID:profile.id
-         } 
-        }, function (err, user) {
-      return cb(err, user);
-    });
-  }
+    clientID: process.env.facebook_test_id,
+    clientSecret: process.env.facebook_test_secret,
+    callbackURL: "/auth/facebook/redirect"
+},
+    function (accessToken, refreshToken, profile, done) {
+        console.log('////////////////////////////', profile);
+        db.user.findOne({
+            where: {
+                facebookID: profile.id
+            }
+        }).then(function (currentUser) {
+            if (currentUser) {
+                console.log(currentUser.dataValues.id);
+                console.log('That user already exists');
+                done(null, currentUser);
+            } else {
+                db.user.create({
+                    facebookID: profile.id,
+                    username: profile.displayName
+                }).then(function (newUser) {
+                    console.log(newUser.dataValues.id);
+                    console.log('new Facebook user created');
+                    done(null, newUser);
+                });
+            }
+        });
+    }
 ));
 
 
-
-passport.use(new GoogleStrategy({
-    callbackURL: "/google/redirect",
-    clientID: process.env.googleClient_id,
-    clientSecret: process.env.googleClient_secret
-}, function (accessToken, refreshToken, profile, done) {
-    // passport callback
-    db.user.findOne({
-        where: {
-            googleID: profile.id
-        }
-    }).then(function (currentUser) {
-        if (currentUser) {
-            console.log(currentUser.dataValues.id);
-            console.log('That user already exists');
-            done(null, currentUser);
-        } else {
-            db.user.create({
-                googleID: profile.id,
-                firstName: profile.name.givenName,
-                lastName: profile.name.familyName
-            }).then(function (newUser) {
-                console.log(newUser.dataValues.id);
-                console.log('new user created ', newUser);
-                done(null, newUser);
-            });
-        }
-    });
-    // console.log(profile);
-}));

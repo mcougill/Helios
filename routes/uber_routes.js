@@ -40,19 +40,12 @@ module.exports = function (app) {
     });
 
 
-<<<<<<< HEAD
-    // const start_latitude = query.lat;
-    // const start_longitude = query.lng;
-    // const end_latitude;
-    // const end_longitude;
-=======
     //placeholder testing variables
     const start_latitude = 29.7497;
     const start_longitude = -95.3773;
     const end_latitude = 29.743151
     const end_longitude = -95.388720;
     const product_id = "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f";
->>>>>>> 40d5d3c399bfdfa9495d58b69ceed385bd6aa0bb
 
 
 
