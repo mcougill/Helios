@@ -37,9 +37,15 @@ $(document).ready(function () {
             });
         
         });
-
+      });
     });
+  });
 
+  $("#request").on("click", function() {
+    $.post("lyft/request", function(data) {
+      console.log(data);
+    });
+  });
 
 
     $('#request').on('click', function () {
@@ -57,4 +63,3 @@ $(document).ready(function () {
     });
 
 });
-

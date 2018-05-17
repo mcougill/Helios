@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     googleID: DataTypes.STRING,
     currentRide: DataTypes.STRING,
     currentToken: DataTypes.STRING,
+    facebookID: DataTypes.STRING
   }, {});
   user.associate = function(models) {
       user.hasMany(models.rideInfo);
