@@ -2,16 +2,16 @@ const Uber = require("node-uber");
 const express = require('express');
 const app = express();
 
+
 module.exports = function (app) {
 
     const uber = new Uber({
-        client_id: 'process.env.client_id',
+        client_id: process.env.client_id,
 
-        client_secret: 'process.env.client_secret',
-        
-        server_token: 'process.env.server_token',
-      
-        redirect_uri: 'http://localhost:3000/api/callback',
+        client_secret: process.env.client_secret,
+
+        server_token: process.env.server_token,
+        redirect_uri: 'http://localhost:3000/api/uber/callback',
         name: 'Student Project',
         language: 'en_US',
         sandbox: true
@@ -20,17 +20,18 @@ module.exports = function (app) {
 
 
     //redirect user to authorization URL
-    app.get('/api/login', function (request, response) {
+    app.get('/api/uber/login', function (request, response) {
         var url = uber.getAuthorizeUrl(['history', 'profile', 'request', 'places']);
         response.redirect(url);
     });
 
 
     //receive redirect and get an access token
-    app.get('/api/callback', function (request, response) {
+    app.get('/api/uber/callback', function (request, response) {
         uber.authorizationAsync({ authorization_code: request.query.code })
             .spread(function (access_token, refresh_token, authorizedScopes, tokenExpiration) {
                 console.log("login success!");
+                console.log(access_token + " + " + tokenExpiration);
                 // redirect the user back to your actual app
                 response.redirect('/');
             })
@@ -50,7 +51,7 @@ module.exports = function (app) {
 
 
     //Price estimate request
-    app.get('/api/price', function (request, response) {
+    app.get('/api/uber/price', function (request, response) {
 
         // if no query params sent, respond with Bad Request
         if (!start_latitude || !start_longitude) {
@@ -68,10 +69,10 @@ module.exports = function (app) {
     });
 
 
-
-    //NOT WORKING YET 
     //book Uber
-    app.get('/api/book', function (request, response) {
+    //Working in "processing" status
+
+    app.get('/api/uber/book', function (request, response) {
 
         // if no query params sent, respond with Bad Request
         if (!start_latitude || !start_longitude) {
@@ -87,6 +88,8 @@ module.exports = function (app) {
             })
                 .then(function (res) {
                     console.log(res);
+                    console.log("break");
+                    console.log(res.request_id);
                 })
                 .error(function (err) {
                     console.error(err);
@@ -96,9 +99,25 @@ module.exports = function (app) {
     });
 
 
+    //placeholder request id
+    const requestID = '17cb78a7-b672-4d34-a288-a6c6e44d5315';
+    const statusArr = ['processing', 'accepted', 'arriving', 'in_progress', 'driver_canceled', 'completed'];
+
+    //sandbox ride status change
+    app.put('/api/uber/status', function (request, response) {
+        uber.requests.setStatusByIDAsync(requestID, statusArr[1])
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    })
+
+
 
     //receipt
-    app.get('/api/receipt', function (request, response) {
+    app.get('/api/uber/receipt', function (request, response) {
         uber.requests.getReceiptByIDAsync(uber.client_id)
             .then(function (res) {
                 console.log(res);
