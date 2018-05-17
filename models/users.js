@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    googleID: DataTypes.STRING
+    googleID: DataTypes.STRING,
+    facebookID: DataTypes.STRING
   }, {});
   user.associate = function(models) {
       user.hasMany(models.rideInfo);
