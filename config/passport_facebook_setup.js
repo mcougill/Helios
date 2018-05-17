@@ -22,7 +22,6 @@ passport.use(new FacebookStrategy({
     callbackURL: "/auth/facebook/redirect"
 },
     function (accessToken, refreshToken, profile, done) {
-        console.log('////////////////////////////', profile);
         db.user.findOne({
             where: {
                 facebookID: profile.id

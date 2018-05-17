@@ -18,11 +18,8 @@
   "homepage": "https://github.com/bmcampodonico/Helios#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
-
     "body-parser": "^1.18.2",
-
     "cookie-session": "^2.0.0-beta.3",
-
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
@@ -36,6 +33,7 @@
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
     "request": "^2.85.0",
     "sequelize": "^4.37.7"
   }

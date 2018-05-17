@@ -150,11 +150,11 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/logout', function (req, res) {
-        messageObj.user = 'not logged in';
-        req.logout();
-        res.redirect('/');
-    });
+    // app.get('/logout', function (req, res) {
+        
+    //     req.logout();
+    //     res.redirect('/');
+    // });
 };
 
 

@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const passportGoogleSetup = require('./config/passport_google_setup');
 const passportFacebookSetup = require('./config/passport_facebook_setup');
+const passportLocalSetup = require('./config/passport_local_setup');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const authRoutes = require('./routes/auth_routes');
