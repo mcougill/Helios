@@ -1,3 +1,14 @@
+
+const path = require ('path');
+
+module.exports = function(app){
+
+    app.get('/', function(req, res){
+        res.sendFile(path.join(__dirname, '../public/index.html'))
+    })
+
+}
+
 const db = require("./../models");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -127,6 +138,7 @@ module.exports = function (app) {
     });
 
 };
+
 
 
 
