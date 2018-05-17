@@ -25,9 +25,18 @@ module.exports = function (app) {
 
         apiInstance.getCost(pickup.lat, pickup.lng, opts).then(function (data) {
             var returnedData = {
-                coordinates: req.body,
-                rides: data
+                rides: []
             };
+
+            data.cost_estimates.forEach(function(item){
+                var newRide = {
+                    company: 'Lyft',
+                    type: item.display_name,
+                    estimate: `$${(item.estimated_cost_cents_min/100).toFixed(2)}-${(item.estimated_cost_cents_max/100).toFixed(2)}`,
+                    coordinates: req.body
+                }
+                returnedData.rides.push(newRide);
+            })
             res.status(200).json(returnedData);
         }, function (error) {
             console.error(error);
