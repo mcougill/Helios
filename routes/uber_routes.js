@@ -68,6 +68,7 @@ module.exports = function (app) {
         }
     });
 
+
     //book Uber
     //Working in "processing" status
 
@@ -87,6 +88,8 @@ module.exports = function (app) {
             })
                 .then(function (res) {
                     console.log(res);
+                    console.log("break");
+                    console.log(res.request_id);
                 })
                 .error(function (err) {
                     console.error(err);
@@ -94,6 +97,24 @@ module.exports = function (app) {
 
         }
     });
+
+
+    //placeholder request id
+    const requestID = '17cb78a7-b672-4d34-a288-a6c6e44d5315';
+    const statusArr = ['processing', 'accepted', 'arriving', 'in_progress', 'driver_canceled', 'completed'];
+
+    //sandbox ride status change
+    app.put('/api/uber/status', function (request, response) {
+        uber.requests.setStatusByIDAsync(requestID, statusArr[1])
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    })
+
+
 
     //receipt
     app.get('/api/uber/receipt', function (request, response) {
