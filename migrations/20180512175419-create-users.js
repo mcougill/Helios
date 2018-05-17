@@ -23,6 +23,12 @@ module.exports = {
             googleID: {
                 type: Sequelize.STRING
             },
+            currentRide: {
+                type: Sequelize.STRING
+            },
+            currentToken: {
+                type: Sequelize.STRING
+            },
             facebookID: {
                 type: Sequelize.STRING
             },
