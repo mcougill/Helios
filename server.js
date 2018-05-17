@@ -81,5 +81,6 @@ const httpsOptions = {
   cert: fs.readFileSync('./cert.pem')
 }
 const server = https.createServer(httpsOptions, app).listen(PORT, () => {
+    db.sequelize.sync();
   console.log('server running at ' + PORT)
 })

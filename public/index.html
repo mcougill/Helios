@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- RESET LINK -->
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- PERSONAL STYLE SHEET -->
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <!-- JQUERY SCRIPT LINKS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- PERSONAL JAVASCRIPT SHEET -->
+    <script src="./assets/js/app.js"></script>
+
+    <title>Helios</title>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand heliosBrand" href="./index.html">H E L I O S</a>
+        <button type="button" class="btn btn-outline-info">Login</button>
+    </nav>
+
+    <header class="vHeader container">
+        <div class="fullscreenVideoWrap">
+            <video src="./assets/video/carsBG.mov" autoplay='true' loop='true'></video>
+        </div>
+
+        <div class="headerOverlay"></div>
+        <div class="headerContent">
+            <h1>H E L I O S</h1>
+            <p>With Helios finding a ride has never been easier! Our technology brings together Uber and Lyft to not only find
+                you the fastest ride to your destination, but also the cheapest! We take both services, compare the prices,
+                and show you the best options for you to arrive at your destination.</p>
+
+            <div class="inputContainer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter pickup location" aria-label="Enter pickup location" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter destination" aria-label="Enter destination" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-info" type="button">Find A Ride!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </header>
+
+</body>
+
+</html>
