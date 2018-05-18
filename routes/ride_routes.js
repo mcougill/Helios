@@ -53,7 +53,8 @@ module.exports = function(app){
                 bubbleSortBasic(lyftInfo.rides)
 
                 if(lyftInfo.rides.length > 0){
-                    res.status(200).json(lyftInfo).render('cards', lyftInfo);
+                    res.render('cards', lyftInfo);
+                    //res.json(lyftInfo);
                 } else {
                     res.status(400).render('cards', {noRides:true});
                 }
@@ -63,16 +64,31 @@ module.exports = function(app){
 
     app.post('/api/ride/request', function(req,res){
 
+        console.log('the post')
+
+        console.log(req.body.company);
+
         var options ={
             method: 'POST',
-            body: req.body,
-            json: true
         }
 
-        if (req.body.company === 'Lyft'){
+        if (req.body.company === 'lyft'){
             options.url = 'http://localhost:3000/api/lyft/sandbox/request'
-        } else if (req.body.company === 'Uber'){
+
+            console.log('lyft')
+
+            request(options, function (error, respons, body){
+                console.log(body);
+            })
+
+        } else if (req.body.company === 'uber'){
             options.url = 'http://localhost:3000/api/uber/request'
-        }
-    })
+
+            request(options, function (error, respons, body){
+                console.log(body);
+            })
+        };
+
+    });
+
 };
