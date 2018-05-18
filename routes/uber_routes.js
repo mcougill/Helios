@@ -43,7 +43,7 @@ module.exports = function (app) {
     const product_id = "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f";
 
     //Price estimate request
-    app.post('/api/uber/routes', function (req, res) {
+    app.post('/api/uber/estimates', function (req, res) {
 
         // if no query params sent, respond with Bad Request
         if (!req.body.pickup || !req.body.destination) {
@@ -62,7 +62,8 @@ module.exports = function (app) {
                             company: 'Uber',
                             type: item.display_name,
                             estimate: item.estimate,
-                            coordinates: req.body
+                            coordinates: req.body,
+                            minimum: item.low_estimate
                         }
 
                         returnedData.rides.push(newRide);

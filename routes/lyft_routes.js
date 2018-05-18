@@ -6,7 +6,7 @@ module.exports = function (app) {
 
     var accountAccess;
 
-    app.post('/api/lyft/routes', function (req, res) {
+    app.post('/api/lyft/estimates', function (req, res) {
 
         let defaultClient = lyft.ApiClient.instance;
 
@@ -33,7 +33,8 @@ module.exports = function (app) {
                     company: 'Lyft',
                     type: item.display_name,
                     estimate: `$${(item.estimated_cost_cents_min/100).toFixed(2)}-${(item.estimated_cost_cents_max/100).toFixed(2)}`,
-                    coordinates: req.body
+                    coordinates: req.body,
+                    minimum: parseFloat((item.estimated_cost_cents_min/100).toFixed(2))
                 }
                 returnedData.rides.push(newRide);
             })
