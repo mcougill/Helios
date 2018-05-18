@@ -107,33 +107,40 @@ module.exports = function (app) {
                 "end_longitude": -95.346332
             })
                 .then(function (res) {
+
                     console.log(res);
 
                     //need to store requestID
                     const requestID = res.request_id;
                     console.log(requestID);
+                    //lifecycle of uber: ride statuses 
+                    var statusArr = ['processing', 'accepted', 'arriving', 'in_progress', 'driver_canceled', 'completed'];
+
+
+                    //setTimeout to iterate over ride statuses
+                    var counter = 0;
+                    currentRideStatus();
+                    
+                    function currentRideStatus() {
+                        setInterval(function () {
+                            statusArr[counter];
+                            counter++;
+                            if (counter === statusArr.length) {
+                                clearInterval(currentRideStatus);
+                            }
+                        }, 10 * 1000);
+                    }
+
+
                 })
                 .error(function (err) {
                     console.error(err);
                 });
 
         }
-    }); 
+    });
 
-  
 
-   //lifecycle of uber: ride statuses 
-    const statusArr = ['processing', 'accepted', 'arriving', 'in_progress', 'driver_canceled', 'completed'];
-
-    //setTimeout to iterate over ride statuses
-    var counter = 0;
-    var currentRideStatus = setInterval(function () {
-        statusArr[counter];
-        counter++;
-        if (counter === statusArr.length) {
-            clearInterval(currentRideStatus);
-        }
-    }, 5 * 1000);
 
 
     //sandbox ride status change
