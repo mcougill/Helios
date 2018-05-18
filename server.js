@@ -72,11 +72,9 @@ const PORT = process.env.PORT || 3000;
 const https = require('https')
 const fs = require('fs')
 // const port = 3000
-
 app.get('/', (req, res) => {
   res.send('WORKING!')
 })
-
 const httpsOptions = {
   key: fs.readFileSync('./key.pem'),
   cert: fs.readFileSync('./cert.pem')
