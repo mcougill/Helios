@@ -1,6 +1,19 @@
 <!-- MIDDLE CONTENT -->
 <header class="vHeader container">
 
+<nav class="navbar fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand heliosBrand" href="./index.html">H E L I O S</a>
+    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal">Login</button>
+</nav>
+<!--  -->
+
+<!-- MIDDLE CONTENT -->
+<header class="vHeader container">
+    <div class="fullscreenVideoWrap">
+        <video src="./assets/video/carsBG.mov" autoplay='true' loop='true'></video>
+    </div>
+
+
 
     <div class="headerOverlay"></div>
     <div class="headerContent">
@@ -61,10 +74,10 @@
                 </form>
 
                 <button type="button" class="btn btn-link newAccount" data-toggle="modal" data-target="#newAccountModal" data-dismiss="modal">Create new account</button>
-                <a href="http://facebook.com">
+                <a href="/auth/facebook">
                     <i class="fab fa-facebook-square fa-3x"></i>
                 </a>
-                <a href="http://google.com">
+                <a href="/auth/google">
                     <i class="fab fa-google-plus-square fa-3x"></i>
                 </a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
