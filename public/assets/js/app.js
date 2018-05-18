@@ -34,8 +34,8 @@ $(document).ready(function () {
 
         $.post('/api/ride/estimates', coordinates, function (estInfo) {
 
-          console.log('post');
           console.log(estInfo);
+          
         });
 
       });
