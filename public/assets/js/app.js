@@ -2,6 +2,8 @@ $(document).ready(function () {
 
   $('#routes').on('click', function () {
 
+    console.log('yes');
+
     event.preventDefault();
 
     var location = {
@@ -30,18 +32,10 @@ $(document).ready(function () {
 
         coordinates.destination = res.results[0].geometry.location;
 
-        $.post('api/lyft/routes', coordinates, function (lyftInfo) {
-          console.log(lyftInfo);
+        $.post('/api/ride/estimates', coordinates, function (estInfo) {
 
-          $.post('api/uber/routes', coordinates, function(uberInfo){
-            console.log(uberInfo)
-
-            uberInfo.rides.forEach(function(item){
-              lyftInfo.rides.push(item);
-            });
-
-            console.log(lyftInfo);
-          })
+          console.log(estInfo);
+          
         });
 
       });

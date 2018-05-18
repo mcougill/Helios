@@ -1,21 +1,10 @@
-<title>Choose your ride</title>
 
-<h1>Pick your chariot</h1>
-<script>
-Handlebars.registerHelper('ifRides', function(Donald) { //donny boi, whatever you decide to call your function, replace Donald with the name. Love, ScrumJesus.
-  if(Donald.rides.length()>0) {
-    return true;
-  }
-  return false;
-});
-</script>
-
-{{#ifRides Donald}}
+{{#if rides}}
     {{#each rides}} <!--loop through array of ride objects-->
         <h2>{{company}}</h2>
         <h2>{{estimate}}</h2>
-        <h2>{{typeOf}}</h2>
+        <h2>{{type}}</h2>
     {{/each}}
 {{else}}
-    {{Some kind of message that tells the user there aren't any rides available for them.....awe that sucks.....loser}}
-{{/ifRides}}
+    {{'Some kind of message that tells the user there aren\'t any rides available for them.....awe that sucks.....loser'}}
+{{/if}}
