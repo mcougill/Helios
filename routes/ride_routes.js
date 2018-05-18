@@ -53,12 +53,8 @@ module.exports = function(app){
                 bubbleSortBasic(lyftInfo.rides)
 
                 if(lyftInfo.rides.length > 0){
-<<<<<<< HEAD
                     res.render('cards', lyftInfo);
                     //res.json(lyftInfo);
-=======
-                    res.status(200).render('cards', lyftInfo);
->>>>>>> 8e56df1ba01f04b56f0a3dbe0257ed4dfed69c37
                 } else {
                     res.status(400).render('cards', {noRides:true});
                 }
@@ -66,33 +62,78 @@ module.exports = function(app){
         });
     });
 
-    app.post('/api/ride/request', function(req,res){
+    app.post('/api/ride/request', function(rideReq,rideRes){
 
         console.log('the post')
 
         console.log(req.body.company);
 
-        var options ={
-            method: 'POST',
-        }
 
-        if (req.body.company === 'lyft'){
-            options.url = 'http://localhost:3000/api/lyft/sandbox/request'
+        if (rideReq.body.company === 'lyft'){
+            
+            var options ={
+                method: 'POST',
+               url : 
+            'http://localhost:3000/api/lyft/sandbox/request'
+            }
 
             console.log('lyft')
 
-            request(options, function (error, respons, body){
+            request(options, function (error, response, body){
                 console.log(body);
             })
 
-        } else if (req.body.company === 'uber'){
-            options.url = 'http://localhost:3000/api/uber/request'
+            // If ride chosen is an Uber, first verify user
+        } else if (rideReq.body.company === 'uber'){
+            var options = {
+                method: 'GET',
+                url: '/api/uber/login'
+            }
 
-            request(options, function (error, respons, body){
-                console.log(body);
-            })
+            request(options, function (error, response, body){
+
+                if (error) throw error
+
+                //Once user has been verified, format info for ride request and send
+                app.get('/api/rides/uberAuth', function (req, res){
+
+                    var options = {
+                        method: 'POST',
+                        url: 'http://localhost:3000/api/uber/ride',
+                        body: {
+                           product_id: req.body.product_id,
+                           pickup: req.body.pickup,
+                           destination: req.body.destination 
+                        },
+                        json: true
+                    };
+
+                    request(options, function (error, response, body){
+                        console.log(body);
+                    })
+
+                });
+            });
         };
 
     });
+
+    // Listening to status changes from both companies
+    app.post('/webhooks', function (req, res){
+
+        console.log(req.body);
+
+        // If statement to determine what service is being used and redering page from status update
+        if (req.body.hasOwnProperty('href')){
+
+            res.render('status', {status: req.body.event.status})
+
+        } else if (req.body.hasOwnProperty('resource_href')){
+
+            res.render('status', {status: req.body.meta.status})
+
+        }
+
+    })  
 
 };

@@ -44,7 +44,7 @@ $(document).ready(function () {
 
   });
 
-  $('#request').on('click', function () {
+  $('.request').on('click', function () {
 
     console.log('yes');
 
