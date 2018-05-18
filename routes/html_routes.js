@@ -1,5 +1,5 @@
 
-const path = require ('path');
+const path = require('path');
 const db = require("./../models");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -13,13 +13,13 @@ const authCheck = function (req, res, next) {
 };
 
 module.exports = function (app) {
-    
+
     app.get('/', function (req, res) {
         // let messageObj = {
         //     user: req.body.username
         // };
-        
-        res.render('index');
+
+        res.render('test_index');
         //messageObj.messages = [];
     });
 
@@ -44,32 +44,57 @@ module.exports = function (app) {
     });
 
     app.get('/register', function (req, res) {
-        
+
         res.render('register');
         // messageObj.messages = [];
     });
 
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
+        let errors = [];
+        let messages = [];
         let password = req.body.password;
         let password2 = req.body.password2;
+        let names = [req.body.username, req.body.firstName, req.body.lastName];
         let patt = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
+        let patt2 = /(?=.*[a-z]).{2,}/i;
         let test = patt.test(password);
+        let test2;
+        
+        for (let i = 0; i < names.length; i++) {
+            if (!patt2.test(names[i])) {
+                test2 = false;
                 
+            }
+            console.log('test inside of loop');
+        }
+        console.log('firstName test', test2);
         console.log(req.body.password);
         console.log(req.body.password2);
-        
+
         if (password !== password2) {
-            
-            // messageObj.messages.push('Passwords do not match.');
-            // console.log(messageObj.messages);
-            res.redirect('/register');
-        } else if (req.body.password.length < 8) {
-           // messageObj.messages.push('Password must be at least 8 characters.');
-            res.redirect('/register');
-        } else if (!test) {
-            // messageObj.messages.push('Password must include at least one lowercase letter, one capital, letter, one number, and one special character.');
-            res.redirect('/register');
+            errors.push('Passwords do not match.');
+        }
+
+        if (req.body.password.length < 8) {
+            errors.push('Password must be at least 8 characters.');
+        }
+
+        if (!test) {
+            errors.push('Password must include at least one lowercase letter, one capital, letter, one number, and one special character.');
+        }
+        
+        if (!test2) {
+            errors.push('Username, First Name, and Last Name must contain at least 2 characters.');
+        }
+
+        if (errors.length > 0) {
+            res.render('register', {
+                errors: errors,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                username: req.body.username
+            });
         } else {
             db.user.findAll({
                 where: {
@@ -79,8 +104,13 @@ module.exports = function (app) {
                 .then(function (data) {
                     console.log(data, 'data');
                     if (data[0]) {
-                        // messageObj.messages.push('That username is already in use.');
-                        res.redirect('/register');
+                        messages.push('That username is already in use.');
+                        res.render('register', {
+                            errors: errors,
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            username: req.body.username
+                        });
                     } else {
 
                         // String password is being encrypted before being stored in the db
@@ -100,8 +130,8 @@ module.exports = function (app) {
                             });
                         });
 
-                        // messageObj.messages.push('Registration successful!');
-                        res.redirect('/');
+                        messages.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
+                        res.render('test_index', { messages: messages });
                     }
 
                 });
@@ -110,39 +140,39 @@ module.exports = function (app) {
         }
     });
 
-    app.post('/login', function (req, res) {
-        //messageObj.messages = [];
-        db.user.findOne({
-            where: {
-                username: req.body.username
-            }
-        }).then(function (data) {
-            if (data === null) {
-                // messageObj.messages.push('User not found. Please try again or register as a new user.');
-                res.redirect('/');
-            } else {
-                bcrypt.compare(req.body.password, data.dataValues.password, function (err, passwordEval) {
-                    if (err) console.error;
-                    if (passwordEval) {
-                        // messageObj.messages.push(`Welcome ${data.dataValues.firstName}`);
-                        // messageObj.user = 'logged in as ' + req.body.username;
-                        
-                        console.log('password eval was correct');
-                        res.redirect('/landing');
-                    } else {
-                        // messageObj.messages.push('The password you entered is incorrect.');
-                        console.log('password eval was incorrect');
-                        res.redirect('/');
-                    }
+    // app.post('/login', function (req, res) {
+    //     //messageObj.messages = [];
+    //     db.user.findOne({
+    //         where: {
+    //             username: req.body.username
+    //         }
+    //     }).then(function (data) {
+    //         if (data === null) {
+    //             // messageObj.messages.push('User not found. Please try again or register as a new user.');
+    //             res.redirect('/');
+    //         } else {
+    //             bcrypt.compare(req.body.password, data.dataValues.password, function (err, passwordEval) {
+    //                 if (err) console.error;
+    //                 if (passwordEval) {
+    //                     // messageObj.messages.push(`Welcome ${data.dataValues.firstName}`);
+    //                     // messageObj.user = 'logged in as ' + req.body.username;
 
-                });
+    //                     console.log('password eval was correct');
+    //                     res.redirect('/landing');
+    //                 } else {
+    //                     // messageObj.messages.push('The password you entered is incorrect.');
+    //                     console.log('password eval was incorrect');
+    //                     res.redirect('/');
+    //                 }
 
-            }
-        });
-    });
+    //             });
+
+    //         }
+    //     });
+    // });
 
     // app.get('/logout', function (req, res) {
-        
+
     //     req.logout();
     //     res.redirect('/');
     // });
