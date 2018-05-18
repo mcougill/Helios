@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- RESET LINK -->
-    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/reset.css"> {{!-- FONT AWESOME --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
     <!-- BOOTSTRAP STYLE SHEET -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
@@ -27,9 +29,26 @@
 </head>
 
 <body>
-    
-    {{{body}}}
+    <!-- NAVBAR -->
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand heliosBrand" href="./index.html">H E L I O S</a>
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal">Login</button>
+    </nav>
+    <!--  -->
 
+    {{!-- VIDEO BACKGROUND --}}
+    <div class="headerOverlay">
+        <div class="fullscreenVideoWrap">
+            <video src="./assets/video/carsBG.mov" autoplay='true' loop='true'></video>
+        </div>
+    </div>
+    {{!-- --}} {{{body}}}
+
+<<<<<<< HEAD
+=======
+
+    <button id='routes'>Click to find routes</button>
+>>>>>>> 8e56df1ba01f04b56f0a3dbe0257ed4dfed69c37
 </body>
 
 </html>
