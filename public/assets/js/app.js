@@ -2,6 +2,8 @@ $(document).ready(function () {
 
   $('#routes').on('click', function () {
 
+    console.log('yes');
+
     event.preventDefault();
 
     var location = {
@@ -30,22 +32,16 @@ $(document).ready(function () {
 
         coordinates.destination = res.results[0].geometry.location;
 
-        $.post('api/lyft/routes', coordinates, function (lyftInfo) {
-          console.log(lyftInfo);
+        $.post('/api/ride/estimates', coordinates, function (estInfo) {
+
+          console.log(estInfo);
+          
         });
 
       });
 
     });
   });
-
-
-  $("#request").on("click", function () {
-    $.post("lyft/request", function (data) {
-      console.log(data);
-    });
-  });
-
 
   $('#request').on('click', function () {
 

@@ -40,26 +40,35 @@ module.exports = function (app) {
             });
     });
 
-
-    //placeholder testing variables
-    const start_latitude = 29.7497;
-    const start_longitude = -95.3773;
-    const end_latitude = 29.743151
-    const end_longitude = -95.388720;
     const product_id = "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f";
 
-
-
     //Price estimate request
-    app.get('/api/uber/price', function (request, response) {
+    app.post('/api/uber/estimates', function (req, res) {
 
         // if no query params sent, respond with Bad Request
-        if (!start_latitude || !start_longitude) {
+        if (!req.body.pickup || !req.body.destination) {
             response.sendStatus(400);
         } else {
-            uber.estimates.getPriceForRouteAsync(start_latitude, start_longitude, end_latitude, end_longitude)
-                .then(function (res) {
-                    console.log(res);
+            uber.estimates.getPriceForRouteAsync(req.body.pickup.lat, req.body.pickup.lng, req.body.destination.lat, req.body.destination.lng)
+                .then(function (data) {
+
+                    console.log(data);
+
+                    var returnedData = {
+                        rides: []
+                    }
+                    data.prices.forEach(function(item){
+                        var newRide = {
+                            company: 'Uber',
+                            type: item.display_name,
+                            estimate: item.estimate,
+                            coordinates: req.body,
+                            minimum: item.low_estimate
+                        }
+
+                        returnedData.rides.push(newRide);
+                    })
+                    res.status(200).json(returnedData);
                 })
                 .error(function (err) {
                     console.error(err);

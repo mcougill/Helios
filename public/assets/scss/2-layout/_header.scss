@@ -5,85 +5,85 @@ $blackColor: #000000;
 //
 // EVERYTHING NO BORDER
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 //
 // FONTS
 @font-face {
-  font-family: "jupiter";
-  src: url("../fonts/jupiter.ttf");
+    font-family: "jupiter";
+    src: url("../fonts/jupiter.ttf");
 }
 
 @font-face {
-  font-family: "vdub";
-  src: url("../fonts/VDUB.TTF");
+    font-family: "vdub";
+    src: url("../fonts/VDUB.TTF");
 }
 
 // HEADER
 .vHeader {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  color: $whiteColor;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    color: $whiteColor;
 }
 
 .container {
-  max-width: 960;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin: auto;
-  text-align: center;
+    max-width: 960;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: auto;
+    text-align: center;
 }
 
 .fullscreenVideoWrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  video {
-    min-width: 100%;
-    min-height: 100%;
-  }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    video {
+        min-width: 100%;
+        min-height: 100%;
+    }
 }
 
 .headerOverlay {
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  background: $blackColor;
-  z-index: 1;
-  opacity: 0.75;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: $blackColor;
+    z-index: 1;
+    opacity: 0.75;
 }
 
 .headerContent {
-  z-index: 2;
-  h1 {
-    font-family: vdub;
-    font-size: 50px;
-    margin-bottom: 0;
-  }
-  p {
-    font-size: 1.5rem;
-    display: block;
-    padding-bottom: 2rem;
-  }
+    z-index: 2;
+    h1 {
+        font-family: vdub;
+        font-size: 80px;
+        margin-bottom: 0;
+    }
+    p {
+        font-size: 1.75rem;
+        display: block;
+        padding-bottom: 2rem;
+    }
 }
 
 .inputContainer {
-  margin: auto;
-  max-width: 500px;
+    margin: auto;
+    max-width: 500px;
 }
 
 @media (max-width: 960) {
-  .container {
-    padding-right: 3rem;
-    padding-left: 3rem;
-  }
+    .container {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
 }
 
 //

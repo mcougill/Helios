@@ -53,19 +53,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', authRoutes);
 
+require('./routes/ride_routes.js')(app);
 require('./routes/uber_routes.js')(app);
 require('./routes/lyft_routes.js')(app);
 require('./routes/html_routes.js')(app);
 
 const PORT = process.env.PORT || 3000;
 
-// db.sequelize.sync().then(function () {
-//     app.listen(PORT, function () {
-//         console.log(`Server started on port ${PORT}`);
-//     });
-// });
+ db.sequelize.sync().then(function () {
+     app.listen(PORT, function () {
+         console.log(`Server started on port ${PORT}`);
+    });
+});
 
-/////////////////////////////////////////////////////////////////////////////
+/* /////////////////////////////////////////////////////////////////////////////
 // const express = require('express')
 // const app = express()
 const https = require('https')
@@ -83,4 +84,4 @@ const httpsOptions = {
 const server = https.createServer(httpsOptions, app).listen(PORT, () => {
     db.sequelize.sync();
   console.log('server running at ' + PORT)
-})
+}) */
