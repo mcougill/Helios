@@ -2,12 +2,6 @@ const request = require('request');
 
 module.exports = function(app){
 
-    app.get('/api/ride/estimates', function(req, res){
-        res.json({
-            complete: 'yes'
-        });
-    })
-
     app.post('/api/ride/estimates', function (req, res){
 
         var lyftOptions = {
@@ -57,9 +51,28 @@ module.exports = function(app){
                   }
 
                 bubbleSortBasic(lyftInfo.rides)
-                    
-                res.json(lyftInfo);
-            })
-        })
+
+                if(lyftInfo.rides.length > 0){
+                    res.status(200).json(lyftInfo).render('cards', lyftInfo);
+                } else {
+                    res.status(400).render('cards', {noRides:true});
+                }
+            });
+        });
+    });
+
+    app.post('/api/ride/request', function(req,res){
+
+        var options ={
+            method: 'POST',
+            body: req.body,
+            json: true
+        }
+
+        if (req.body.company === 'Lyft'){
+            options.url = 'http://localhost:3000/api/lyft/sandbox/request'
+        } else if (req.body.company === 'Uber'){
+            options.url = 'http://localhost:3000/api/uber/request'
+        }
     })
-}
+};
