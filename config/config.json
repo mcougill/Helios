@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "ddpjhvtc7rgm8cyt",
-    "password": "nulhvikncvo7zqbb",
-    "database": "ijitq7t9k5f4tzw5",
-    "host": "wm63be5w8m7gs25a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": "StopPack9",
+    "database": "helios",
+    "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   },
@@ -15,10 +15,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "ddpjhvtc7rgm8cyt",
-    "password": "nulhvikncvo7zqbb",
-    "database": "ijitq7t9k5f4tzw5",
-    "host": "wm63be5w8m7gs25a.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": "StopPack9",
+    "database": "helios",
+    "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   }

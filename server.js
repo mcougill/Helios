@@ -62,20 +62,20 @@ require('./routes/html_routes.js')(app);
 
 const PORT = process.env.PORT || 3000;
 
-// db.sequelize.sync().then(function () {
-//     app.listen(PORT, function () {
-//         console.log(`Server started on port ${PORT}`);
-//     });
-// });
+db.sequelize.sync().then(function () {
+    app.listen(PORT, function () {
+        console.log(`Server started on port ${PORT}`);
+    });
+});
 
 /////////////////////////////////////////////////
 
-const httpsOptions = {
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem')
-};
+// const httpsOptions = {
+//     key: fs.readFileSync('./key.pem'),
+//     cert: fs.readFileSync('./cert.pem')
+// };
 
-const server = https.createServer(httpsOptions, app).listen(PORT, function () {
-    db.sequelize.sync();
-    console.log('Server running on ' + PORT);
-});
+// const server = https.createServer(httpsOptions, app).listen(PORT, function () {
+//     db.sequelize.sync();
+//     console.log('Server running on ' + PORT);
+// });

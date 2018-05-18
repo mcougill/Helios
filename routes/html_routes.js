@@ -15,11 +15,11 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
-        // let messageObj = {
-        //     user: req.body.username
-        // };
-
-        res.render('index');
+        let user = {
+            user: req.user
+        };
+        console.log('req.user', req.user);
+        res.render('index', user);
         //messageObj.messages = [];
     });
 
