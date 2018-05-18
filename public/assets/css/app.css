@@ -56,6 +56,12 @@
   margin: auto;
   max-width: 500px; }
 
+.cardButtons {
+  align-items: center; }
+
+.uberCard {
+  padding-top: 25px !important; }
+
 @media (max-width: 960) {
   .container {
     padding-right: 3rem;
