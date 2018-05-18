@@ -19,7 +19,7 @@ module.exports = function (app) {
         //     user: req.body.username
         // };
 
-        res.render('test_index');
+        res.render('index');
         //messageObj.messages = [];
     });
 
@@ -57,18 +57,16 @@ module.exports = function (app) {
         let password2 = req.body.password2;
         let names = [req.body.username, req.body.firstName, req.body.lastName];
         let patt = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
-        let patt2 = /(?=.*[a-z]).{2,}/i;
+        let patt2 = /(?=.*[a-z])(?=.*-).{2,}/i;
         let test = patt.test(password);
-        let test2;
-        
+        let test2 = true;
+
         for (let i = 0; i < names.length; i++) {
             if (!patt2.test(names[i])) {
                 test2 = false;
-                
             }
-            console.log('test inside of loop');
         }
-        console.log('firstName test', test2);
+        
         console.log(req.body.password);
         console.log(req.body.password2);
 
@@ -83,9 +81,9 @@ module.exports = function (app) {
         if (!test) {
             errors.push('Password must include at least one lowercase letter, one capital, letter, one number, and one special character.');
         }
-        
+
         if (!test2) {
-            errors.push('Username, First Name, and Last Name must contain at least 2 characters.');
+            errors.push('Username, First Name, and Last Name must contain at least 2 letter characters.');
         }
 
         if (errors.length > 0) {
@@ -131,7 +129,7 @@ module.exports = function (app) {
                         });
 
                         messages.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
-                        res.render('test_index', { messages: messages });
+                        res.render('index', { messages: messages });
                     }
 
                 });

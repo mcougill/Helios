@@ -66,22 +66,4 @@ const PORT = process.env.PORT || 3000;
     });
 });
 
-/* /////////////////////////////////////////////////////////////////////////////
-// const express = require('express')
-// const app = express()
-const https = require('https')
-const fs = require('fs')
-// const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('WORKING!')
-})
-
-const httpsOptions = {
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem')
-}
-const server = https.createServer(httpsOptions, app).listen(PORT, () => {
-    db.sequelize.sync();
-  console.log('server running at ' + PORT)
-}) */
