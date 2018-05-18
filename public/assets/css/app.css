@@ -69,6 +69,24 @@
 @font-face {
   font-family: "vdub";
   src: url("../fonts/VDUB.TTF"); }
+.fab {
+  position: relative;
+  top: 15px;
+  padding: 0 25px 0 0; }
+
+.newAccount {
+  position: relative;
+  padding-right: 25px; }
+
+* {
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: "jupiter";
+  src: url("../fonts/jupiter.ttf"); }
+@font-face {
+  font-family: "vdub";
+  src: url("../fonts/VDUB.TTF"); }
 .heliosBrand {
   font-family: vdub; }
 
