@@ -103,9 +103,9 @@ module.exports = function (app) {
 
 };
 
-apiInstance.getCost(37.7763, -122.3918, opts).then((data) => {
-  console.log(data);
-}, (error) => {
-  console.error(error);
-});
+// apiInstance.getCost(37.7763, -122.3918, opts).then((data) => {
+//   console.log(data);
+// }, (error) => {
+//   console.error(error);
+// });
 
