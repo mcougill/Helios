@@ -53,7 +53,7 @@ module.exports = function(app){
                 bubbleSortBasic(lyftInfo.rides)
 
                 if(lyftInfo.rides.length > 0){
-                    res.status(200).json(lyftInfo).render('cards', lyftInfo);
+                    res.status(200).render('cards', lyftInfo);
                 } else {
                     res.status(400).render('cards', {noRides:true});
                 }
