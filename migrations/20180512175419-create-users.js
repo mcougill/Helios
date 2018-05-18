@@ -23,6 +23,15 @@ module.exports = {
             googleID: {
                 type: Sequelize.STRING
             },
+            currentRide: {
+                type: Sequelize.STRING
+            },
+            currentToken: {
+                type: Sequelize.STRING
+            },
+            facebookID: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

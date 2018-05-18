@@ -40,26 +40,35 @@ module.exports = function (app) {
             });
     });
 
-
-    //placeholder testing variables
-    const start_latitude = 29.7497;
-    const start_longitude = -95.3773;
-    const end_latitude = 29.743151
-    const end_longitude = -95.388720;
     const product_id = "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f";
 
-
-
     //Price estimate request
-    app.get('/api/uber/price', function (request, response) {
+    app.post('/api/uber/estimates', function (req, res) {
 
         // if no query params sent, respond with Bad Request
-        if (!start_latitude || !start_longitude) {
+        if (!req.body.pickup || !req.body.destination) {
             response.sendStatus(400);
         } else {
-            uber.estimates.getPriceForRouteAsync(start_latitude, start_longitude, end_latitude, end_longitude)
-                .then(function (res) {
-                    console.log(res);
+            uber.estimates.getPriceForRouteAsync(req.body.pickup.lat, req.body.pickup.lng, req.body.destination.lat, req.body.destination.lng)
+                .then(function (data) {
+
+                    console.log(data);
+
+                    var returnedData = {
+                        rides: []
+                    }
+                    data.prices.forEach(function(item){
+                        var newRide = {
+                            company: 'Uber',
+                            type: item.display_name,
+                            estimate: item.estimate,
+                            coordinates: req.body,
+                            minimum: item.low_estimate
+                        }
+
+                        returnedData.rides.push(newRide);
+                    })
+                    res.status(200).json(returnedData);
                 })
                 .error(function (err) {
                     console.error(err);
@@ -67,6 +76,7 @@ module.exports = function (app) {
                 });
         }
     });
+
 
     //book Uber
     //Working in "processing" status
@@ -87,6 +97,8 @@ module.exports = function (app) {
             })
                 .then(function (res) {
                     console.log(res);
+                    console.log("break");
+                    console.log(res.request_id);
                 })
                 .error(function (err) {
                     console.error(err);
@@ -94,6 +106,24 @@ module.exports = function (app) {
 
         }
     });
+
+
+    //placeholder request id
+    const requestID = '17cb78a7-b672-4d34-a288-a6c6e44d5315';
+    const statusArr = ['processing', 'accepted', 'arriving', 'in_progress', 'driver_canceled', 'completed'];
+
+    //sandbox ride status change
+    app.put('/api/uber/status', function (request, response) {
+        uber.requests.setStatusByIDAsync(requestID, statusArr[1])
+            .then(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                console.error(err);
+            });
+    })
+
+
 
     //receipt
     app.get('/api/uber/receipt', function (request, response) {
