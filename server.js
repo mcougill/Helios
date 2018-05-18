@@ -59,16 +59,17 @@ require('./routes/html_routes.js')(app);
 
 const PORT = process.env.PORT || 3000;
 
-// db.sequelize.sync().then(function () {
-//     app.listen(PORT, function () {
-//         console.log(`Server started on port ${PORT}`);
-//     });
-// });
+db.sequelize.sync().then(function () {
+    app.listen(PORT, function () {
+        console.log(`Server started on port ${PORT}`);
+  });
+});
 
 /////////////////////////////////////////////////////////////////////////////
-// const express = require('express')
-// const app = express()
-const https = require('https')
+//const express = require('express')
+ //const app = express()
+
+/* const https = require('https')
 const fs = require('fs')
 // const port = 3000
 
@@ -83,4 +84,4 @@ const httpsOptions = {
 const server = https.createServer(httpsOptions, app).listen(PORT, () => {
     db.sequelize.sync();
   console.log('server running at ' + PORT)
-})
+}) */
