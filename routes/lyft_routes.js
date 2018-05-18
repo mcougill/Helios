@@ -34,7 +34,8 @@ module.exports = function (app) {
                     type: item.display_name,
                     estimate: `$${(item.estimated_cost_cents_min/100).toFixed(2)}-${(item.estimated_cost_cents_max/100).toFixed(2)}`,
                     coordinates: req.body,
-                    minimum: parseFloat((item.estimated_cost_cents_min/100).toFixed(2))
+                    minimum: parseFloat((item.estimated_cost_cents_min/100).toFixed(2)),
+                    id: null
                 }
                 returnedData.rides.push(newRide);
             })

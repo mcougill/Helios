@@ -32,7 +32,7 @@ module.exports = function (app) {
                 console.log("login success!");
                 console.log(access_token + " + " + tokenExpiration);
                 // redirect the user back to your actual app
-                response.redirect('/');
+                response.redirect('/api/rides/uberAuth');
             })
             .error(function (err) {
                 console.error(err);
@@ -63,7 +63,8 @@ module.exports = function (app) {
                             type: item.display_name,
                             estimate: item.estimate,
                             coordinates: req.body,
-                            minimum: item.low_estimate
+                            minimum: item.low_estimate,
+                            id: product_id
                         }
 
                         returnedData.rides.push(newRide);
@@ -79,32 +80,21 @@ module.exports = function (app) {
 
 
 
-    //placeholder variables
-    const product_id = "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f";
-    const start_latitude = 29.752554;
-    const start_longitude = -95.370401;
-
-
-    //request uber
-    app.get('/api/uber/request', function (request, response) {
+    app.get('/api/uber/ride', function (req, res) {
 
         // if no query params sent, respond with Bad Request
-        //if (!req.body.pickup || !req.body.destination) {
-        if (!start_latitude || !start_longitude) {
+        if (!req.body.pickup || !req.body.destination) {
+
             response.sendStatus(400);
         } else {
             uber.requests.createAsync({
                 "fare_id": null,
-                //product_id (i.e uberX) -- will need to pull from ride estimate 
-                "product_id": "9c0fd086-b4bd-44f1-a278-bdae3cdb3d9f",
-                /*  "start_latitude": req.body.pickup.lat,
-                 "start_longitude": req.body.pickup.lng,
-                 "end_latitude": req.body.destination.lat,
-                 "end_longitude": req.body.destination.lng, */
-                "start_latitude": 29.886034,
-                "start_longitude": -95.514986,
-                "end_latitude": 29.829653,
-                "end_longitude": -95.346332
+                "product_id": req.body.product_id,
+                "start_latitude": req.body.pickup.lat,
+                "start_longitude": req.body.pickup.lng,
+                "end_latitude": req.body.destination.lat,
+                "end_longitude": req.body.desitnation.lng
+
             })
                 .then(function (res) {
 
