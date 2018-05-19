@@ -129,6 +129,9 @@ section {
   color: #000000;
   align-items: flex-start; }
 
+.cardDynamic {
+  z-index: 5; }
+
 * {
   box-sizing: border-box; }
 
