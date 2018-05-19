@@ -1,7 +1,8 @@
- {{#if rides}} {{#each rides}} {{#if uber}}
 <div class="container-fluid">
     <div class="container">
         <div class="row">
+
+            {{#if rides}} {{#each rides}} {{#if uber}}
             <div class="col-sm-3">
                 <a href="#">
                     <div class="imageBox">
@@ -11,13 +12,8 @@
                     </div>
                 </a>
             </div>
-        </div>
-    </div>
-</div>
-{{else}}
-<div class="container-fluid">
-    <div class="container">
-        <div class="row">
+            {{else}}
+
             <div class="col-sm-3">
                 <a href="#">
                     <div class="imageBox">
@@ -27,7 +23,9 @@
                     </div>
                 </a>
             </div>
+
+            {{/if}} {{/each}} {{/if}}
+
         </div>
     </div>
 </div>
-{{/if}} {{/each}} {{/if}}
