@@ -17,8 +17,8 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.use(new FacebookStrategy({
-    clientID: process.env.facebook_test_id,
-    clientSecret: process.env.facebook_test_secret,
+    clientID: process.env.facebook_app_id,
+    clientSecret: process.env.facebook_app_secret,
     callbackURL: "/auth/facebook/redirect"
 },
     function (accessToken, refreshToken, profile, done) {

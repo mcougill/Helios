@@ -7,8 +7,8 @@ $(document).ready(function () {
     event.preventDefault();
 
     var location = {
-      pickup: 'KIPP Dream',
-      destination: '9990 Richmond Ave.'
+      pickup: $('#pickupLocation').val().trim(),
+      destination: $('#destLocation').val().trim()
     }
 
     var queryURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${location.pickup}&key=AIzaSyDqVvFEbKT3bghZxOT581eUo156nRZR4bw`;
@@ -34,18 +34,21 @@ $(document).ready(function () {
 
         $.post('/api/ride/estimates', coordinates, function (estInfo) {
 
-          console.log(estInfo);
-          
+          $('html').html(estInfo);
+
         });
 
       });
 
     });
+
   });
 
-  $('#request').on('click', function () {
+  $('.request').on('click', function () {
 
-    $.post('api/lyft/sandbox/request', function (data) {
+    console.log('yes');
+
+    $.post('/api/lyft/sandbox/request', function (data) {
       console.log(data);
     })
   });

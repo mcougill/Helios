@@ -1,10 +1,12 @@
 
-{{#if rides}}
-    {{#each rides}} <!--loop through array of ride objects-->
-        <h2>{{company}}</h2>
-        <h2>{{estimate}}</h2>
-        <h2>{{type}}</h2>
-    {{/each}}
-{{else}}
-    {{'Some kind of message that tells the user there aren\'t any rides available for them.....awe that sucks.....loser'}}
+
+{{#if rides}} {{#each rides}}
+
+<div id="card">
+    <h2>{{rides.company}}</h2>
+    <h2>{{rides.estimate}}</h2>
+    <h2>{{rides.type}}</h2>
+</div>
+{{/each}} 
+{{!-- {{else}} {{Some kind of message that tells the user there aren't any rides available for them.....awe that sucks.....loser}} --}}
 {{/if}}
