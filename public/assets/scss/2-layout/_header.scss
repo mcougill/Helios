@@ -87,12 +87,26 @@ $blackColor: #000000;
     padding-top: 25px !important;
 }
 
-.lyftCard {}
-
-@media (max-width: 960) {
+@media screen and (min-width: 640px) and (max-width: 960) {
     .container {
         padding-right: 3rem;
         padding-left: 3rem;
+    }
+}
+
+@media screen and (min-width: 1px) and (max-width: 640px) {}
+
+.heliosBrand {
+    font-size: 10px;
+}
+
+.headerContent {
+    padding-left: 20px;
+    h1 {
+        font-size: 30px;
+    }
+    p {
+        display: none;
     }
 }
 
