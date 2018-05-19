@@ -21,6 +21,7 @@ module.exports = function (app) {
     app.get('/api/uber/login', function (request, response) {
         var url = uber.getAuthorizeUrl(['history', 'profile', 'request', 'places']);
         console.log("hi");
+        console.log(url);
         response.redirect(url);
     });
 
