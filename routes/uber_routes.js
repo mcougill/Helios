@@ -8,6 +8,7 @@ module.exports = function(app) {
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
     redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
+    //redirect_uri: "http://localhost:3000/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
@@ -17,8 +18,10 @@ module.exports = function(app) {
   app.get("/api/uber/login", function(request, response) {
     var url = uber.getAuthorizeUrl(["history", "profile", "request", "places"]);
     console.log("hi");
-    console.log(url);
-    response.redirect(url);
+    response.contentType('application/json');
+    var data = JSON.stringify(url);
+    response.header('Content-Length', data.length);
+    response.end(data);
   });
 
   //receive redirect and get an access token
