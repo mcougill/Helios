@@ -13,7 +13,7 @@ const authCheck = function (req, res, next) {
 };
 
 module.exports = function (app) {
-
+    
     app.get('/', function (req, res) {
         let user = {
             user: req.user
@@ -36,8 +36,10 @@ module.exports = function (app) {
 
     app.get('/landing', authCheck, function (req, res) {
         let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
+        
         let message = {
-            message: `Logged in successfully as ${user}`
+            message: `Logged in successfully as ${user}`,
+            user: user
         }
         console.log(user);
         res.render('landing', message);

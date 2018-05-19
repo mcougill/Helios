@@ -21,7 +21,7 @@
             <br>
             <p>With Helios finding a ride has never been easier! Our technology brings together Uber and Lyft to not only find
                 you the fastest ride to your destination, but also the cheapest! We take both services, compare the prices,
-                and show you the best options for you to arrive at your destination./p>
+                and show you the best options for you to arrive at your destination.</p>
 
             <div class="inputContainer">
                 <div class="row">
@@ -64,7 +64,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="/auth/login" method="POST">
                         <div class="form-group">
                             <label for="username" class="col-form-label">Username:</label>
                             <input type="text" class="form-control" id="username">
@@ -73,8 +73,6 @@
                             <label for="password" class="col-form-label">Password:</label>
                             <input type="text" class="form-control" id="password">
                         </div>
-                    </form>
-
                     <button type="button" class="btn btn-link newAccount" data-toggle="modal" data-target="#newAccountModal" data-dismiss="modal">Create new account</button>
                     <a href="/auth/facebook">
                         <i class="fab fa-facebook-square fa-3x"></i>
@@ -83,8 +81,8 @@
                         <i class="fab fa-google-plus-square fa-3x"></i>
                     </a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    
                     <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
                 </div>
             </div>
         </div>
