@@ -64,30 +64,38 @@ module.exports = function(app){
 
     app.post('/api/ride/request', function(rideReq,rideRes){
 
-        console.log('the post')
-
-        console.log(req.body.company);
-
+        console.log(rideReq.body.company);
 
         if (rideReq.body.company === 'lyft'){
             
             var options ={
-                method: 'POST',
-               url : 
-            'http://localhost:3000/api/lyft/sandbox/request'
+                method: 'GET',
+                url: 'http://localhost:3000/api/lyft/login' 
             }
-
-            console.log('lyft')
 
             request(options, function (error, response, body){
                 console.log(body);
+
+                app.get('/api/rides/lyftAuth', function (req, res){
+
+                    var options = {
+                        method: 'POST',
+                        url: '/api/lyft/sandbox/request',
+                        body: rideReq,
+                        json: true
+                    }
+
+                    request(options, function(error, response, body){
+                        res.render('ride', body);
+                    })
+                })
             })
 
             // If ride chosen is an Uber, first verify user
         } else if (rideReq.body.company === 'uber'){
             var options = {
                 method: 'GET',
-                url: '/api/uber/login'
+                url: 'http://localhost:3000/api/uber/login'
             }
 
             request(options, function (error, response, body){
@@ -101,9 +109,9 @@ module.exports = function(app){
                         method: 'POST',
                         url: 'http://localhost:3000/api/uber/ride',
                         body: {
-                           product_id: req.body.product_id,
-                           pickup: req.body.pickup,
-                           destination: req.body.destination 
+                           product_id: rideReq.body.product_id,
+                           pickup: rideReq.body.pickup,
+                           destination: rideReq.body.destination 
                         },
                         json: true
                     };

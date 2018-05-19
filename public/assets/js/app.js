@@ -46,6 +46,10 @@ $(document).ready(function () {
 
   $('.request').on('click', function () {
 
+    var requestData = {
+      company = $(this).data('company');
+    }
+
     console.log('yes');
 
     $.post('/api/lyft/sandbox/request', function (data) {
