@@ -46,15 +46,30 @@ $(document).ready(function () {
 
   $('.request').on('click', function () {
 
+    console.log('yes')
+
+    event.preventDefault();
+
     var requestData = {
-      company = $(this).data('company');
+      company : $(this).data('company'),
+      coordinates : {
+        pickup: {
+          lat: $(this).data('pickLat'),
+          lng: $(this).data('pickLng')
+        },
+        destination: {
+          lat: $(this).data('destLat'),
+          lng: $(this).data('destLng')
+        }
+      },
+      product_id:$(this).data('id')
     }
 
-    console.log('yes');
+    console.log(requestData);
 
-    $.post('/api/lyft/sandbox/request', function (data) {
+    /* $.post('/api/lyft/sandbox/request', function (data) {
       console.log(data);
-    })
+    }) */
   });
 
   $('#details').on('click', function () {
