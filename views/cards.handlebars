@@ -1,6 +1,4 @@
- {{#if rides}} {{#each rides}} 
-
-{{#if uber}}
+ {{#if rides}} {{#each rides}} {{#if uber}}
 <div class="container-fluid">
     <div class="container">
         <div class="row">
@@ -23,7 +21,7 @@
             <div class="col-sm-3">
                 <a href="#">
                     <div class="imageBox">
-                        <img src="./images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                        <img src="./images/lyftLogo.jpg" class="img-responsive" alt="uberLogo">
                         <h3>{{rides.type}}</h3>
                         <h4>{{rides.estimate}}</h4>
                     </div>
@@ -32,8 +30,4 @@
         </div>
     </div>
 </div>
-{{/if}}
-
-
-{{/each}} {{!-- {{else}} {{Some kind of message that tells the user there aren't any rides available for them.....awe that
-sucks.....loser}} --}} {{/if}}
+{{/if}} {{/each}} {{/if}}
