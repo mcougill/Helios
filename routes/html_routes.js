@@ -18,10 +18,16 @@ module.exports = function (app) {
         let user = {
             user: req.user
         };
-        
+
         console.log('req.user', req.user);
         res.render('index', user);
         //messageObj.messages = [];
+    });
+
+    app.get('/userId', function (req, res) {
+        // if (req.user.dataValues.id) {
+        //     res.json(req.user.dataValues.id);
+        // }
     });
 
     app.get('/loginFail', function (req, res) {
@@ -49,6 +55,7 @@ module.exports = function (app) {
             user: user
         }
         console.log(user);
+        console.log(req.user.dataValues.id);
         res.render('landing', message);
     });
 
@@ -184,7 +191,6 @@ module.exports = function (app) {
     //     res.redirect('/');
     // });
 };
-
 
 
 
