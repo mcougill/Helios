@@ -30,7 +30,7 @@ module.exports = function (app) {
 
             data.cost_estimates.forEach(function(item){
                 var newRide = {
-                    company: 'Lyft',
+                    company: 'lyft',
                     type: item.display_name,
                     estimate: `$${(item.estimated_cost_cents_min/100).toFixed(2)}-${(item.estimated_cost_cents_max/100).toFixed(2)}`,
                     coordinates: req.body,
