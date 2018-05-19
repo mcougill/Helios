@@ -6,7 +6,7 @@ module.exports = function(app){
 
         var lyftOptions = {
             method: 'POST',
-            url: 'http://localhost:3000/api/lyft/estimates',
+            url: 'https://helios-rideshare.herokuapp.com/api/lyft/estimates',
             body: req.body,
             json: true
         }
@@ -18,7 +18,7 @@ module.exports = function(app){
 
             var uberOptions = {
                 method: 'POST',
-                url: 'http://localhost:3000/api/uber/estimates',
+                url: 'https://helios-rideshare.herokuapp.com/api/uber/estimates',
                 body: req.body,
                 json: true
             }
@@ -70,7 +70,7 @@ module.exports = function(app){
             
             var options ={
                 method: 'GET',
-                url: 'http://localhost:3000/api/lyft/login' 
+                url: 'https://helios-rideshare.herokuapp.com/api/lyft/login' 
             }
 
             request(options, function (error, response, body){
@@ -95,7 +95,7 @@ module.exports = function(app){
         } else if (rideReq.body.company === 'uber'){
             var options = {
                 method: 'GET',
-                url: 'http://localhost:3000/api/uber/login'
+                url: 'https://helios-rideshare.herokuapp.com/api/uber/login'
             }
 
             request(options, function (error, response, body){
@@ -107,7 +107,7 @@ module.exports = function(app){
 
                     var options = {
                         method: 'POST',
-                        url: 'http://localhost:3000/api/uber/ride',
+                        url: 'https://helios-rideshare.herokuapp.com/api/uber/ride',
                         body: {
                            product_id: rideReq.body.product_id,
                            pickup: rideReq.body.pickup,
