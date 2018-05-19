@@ -25,9 +25,9 @@ module.exports = function (app) {
     });
 
     app.get('/userId', function (req, res) {
-        // if (req.user.dataValues.id) {
-        //     res.json(req.user.dataValues.id);
-        // }
+        if (req.user.dataValues.id) {
+            res.json(req.user.dataValues.id);
+        }
     });
 
     app.get('/loginFail', function (req, res) {
