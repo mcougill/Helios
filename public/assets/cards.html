@@ -20,7 +20,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <!-- PERSONAL STYLE SHEET -->
-    <link rel="stylesheet" href="./assets/css/app.css">
+    <link rel="stylesheet" href="./css/app.css">
     <!-- JQUERY SCRIPT LINKS -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <!-- PERSONAL JAVASCRIPT SHEET -->
@@ -29,164 +29,108 @@
     <title>Helios - Ride Results</title>
 </head>
 
-<body>
+<body class="cardBody">
 
-    <!-- CARDS TO DISPLAY THE RESULTS OF UBER/LYFT -->
-    <div class="container">
+    <section>
         <!-- UBER -->
-        <div class="row">
-            <!-- #1 -->
-            <div class="col-sm-2 padding-top-xl">
-                <div class="card uberCard" style="width: 11rem;">
-                    <img class="card-img-top" src="./images/uberLogo.jpg" alt="uberLogo">
-                    <div class="card-body">
-                        <p class="card-text">Ride type: BIG CAR</p>
-                        <p class="card-text">Estimated Cost: $$$</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                    </div>
-                </div>
-            </div>
-            <!-- #2 -->
-            <div class="col-sm-2">
-                <div class="card uberCard" style="width: 11rem;">
-                    <img class="card-img-top" src="./images/uberLogo.jpg" alt="uberLogo">
-                    <div class="card-body">
-                        <p class="card-text">Ride type: BIG CAR</p>
-                        <p class="card-text">Estimated Cost: $$$</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                    </div>
-                </div>
-            </div>
-            <!-- #3     -->
-            <div class="col-sm-2">
-                <div class="card uberCard" style="width: 11rem;">
-                    <img class="card-img-top" src="./images/uberLogo.jpg" alt="uberLogo">
-                    <div class="card-body">
-                        <p class="card-text">Ride type: BIG CAR</p>
-                        <p class="card-text">Estimated Cost: $$$</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                    </div>
-                </div>
-            </div>
-            <!-- #4 -->
-            <div class="col-sm-2">
-                <div class="card uberCard" style="width: 11rem;">
-                    <img class="card-img-top" src="./images/uberLogo.jpg" alt="uberLogo">
-                    <div class="card-body">
-                        <p class="card-text">Ride type: BIG CAR</p>
-                        <p class="card-text">Estimated Cost: $$$</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                    </div>
-                </div>
-            </div>
-            <!-- #5 -->
-            <div class="col-sm-2">
-                <div class="card uberCard" style="width: 11rem;">
-                    <img class="card-img-top" src="./images/uberLogo.jpg" alt="uberLogo">
-                    <div class="card-body">
-                        <p class="card-text">Ride type: BIG CAR</p>
-                        <p class="card-text">Estimated Cost: $$$</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- LYFT -->
-            <div class="row">
-                <!-- #1 -->
-                <div class="col-sm-2">
-                    <div class="card lyftCard" style="width: 11rem;">
-                        <img class="card-img-top" src="./images/lyftLogo.jpg" alt="lyftLogo">
-                        <div class="card-body">
-                            <p class="card-text">Ride type: BIG CAR</p>
-                            <p class="card-text">Estimated Cost: $$$</p>
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
                         </div>
                     </div>
-                </div>
-                <!-- #2 -->
-                <div class="col-sm-2">
-                    <div class="card lyftCard" style="width: 11rem;">
-                        <img class="card-img-top" src="./images/lyftLogo.jpg" alt="lyftLogo">
-                        <div class="card-body">
-                            <p class="card-text">Ride type: BIG CAR</p>
-                            <p class="card-text">Estimated Cost: $$$</p>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
                         </div>
-                        <div class="card-body">
-                            <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="">
+                            <div class="imageBox">
+                                <img src="./images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <!-- LYFT -->
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/lyftLogo.jpg" class="img-responsive" alt="lyftLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/lyftLogo.jpg" class="img-responsive" alt="lyftLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/lyftLogo.jpg" class="img-responsive" alt="lyftLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/lyftLogo.jpg" class="img-responsive" alt="lyftLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="#">
+                            <div class="imageBox">
+                                <img src="./images/lyftLogo.jpg" class="img-responsive" alt="lyftLogo">
+                                <h3>CAR TYPE HERE!!</h3>
+                                <h4>ESTIMATED COST!!</h4>
+                        </a>
                         </div>
                     </div>
                 </div>
-                <!-- #3     -->
-                <div class="col-sm-2">
-                    <div class="card lyftCard" style="width: 11rem;">
-                        <img class="card-img-top" src="./images/lyftLogo.jpg" alt="lyftLogo">
-                        <div class="card-body">
-                            <p class="card-text">Ride type: BIG CAR</p>
-                            <p class="card-text">Estimated Cost: $$$</p>
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- #4 -->
-                <div class="col-sm-2">
-                    <div class="card lyftCard" style="width: 11rem;">
-                        <img class="card-img-top" src="./images/lyftLogo.jpg" alt="lyftLogo">
-                        <div class="card-body">
-                            <p class="card-text">Ride type: BIG CAR</p>
-                            <p class="card-text">Estimated Cost: $$$</p>
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- #5 -->
-                <div class="col-sm-2">
-                    <div class="card lyftCard" style="width: 11rem;">
-                        <img class="card-img-top" src="./images/lyftLogo.jpg" alt="lyftLogo">
-                        <div class="card-body">
-                            <p class="card-text">Ride type: BIG CAR</p>
-                            <p class="card-text">Estimated Cost: $$$</p>
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-outline-info cardButtons" type="button">Book this ride!</button>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-
             </div>
         </div>
-
-        <!--  -->
-
+    </section>
 
 </body>
 
