@@ -46,9 +46,7 @@ $(document).ready(function () {
 
   $(document).on('click', '.request', function () {
 
-    console.log(this);
-    console.log('yes')
-    console.log($(this).data('company'))
+    var url;
 
     event.preventDefault();
 
@@ -69,8 +67,13 @@ $(document).ready(function () {
 
     console.log(requestData);
 
-    $.post('/api/ride/request', requestData, function (data) {
-      console.log(data);
+    if (requestData.company === 'uber'){
+      url = '/api/uber/login';
+    }
+
+    $.get(url, function (data) {
+      console.log('returned');
+      window.location = data;
     })
   });
 
