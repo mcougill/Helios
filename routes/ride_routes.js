@@ -6,7 +6,7 @@ module.exports = function(app){
 
         var lyftOptions = {
             method: 'POST',
-            url: 'http://localhost:3000/api/lyft/estimates',
+            url: 'https://helios-rideshare.herokuapp.com/api/lyft/estimates',
             body: req.body,
             json: true
         }
@@ -18,7 +18,7 @@ module.exports = function(app){
 
             var uberOptions = {
                 method: 'POST',
-                url: 'http://localhost:3000/api/uber/estimates',
+                url: 'https://helios-rideshare.herokuapp.com/api/uber/estimates',
                 body: req.body,
                 json: true
             }
@@ -60,62 +60,6 @@ module.exports = function(app){
                 }
             });
         });
-    });
-
-    app.post('/api/ride/request', function(rideReq,rideRes){
-
-        console.log('the post')
-
-        console.log(req.body.company);
-
-
-        if (rideReq.body.company === 'lyft'){
-            
-            var options ={
-                method: 'POST',
-               url : 
-            'http://localhost:3000/api/lyft/sandbox/request'
-            }
-
-            console.log('lyft')
-
-            request(options, function (error, response, body){
-                console.log(body);
-            })
-
-            // If ride chosen is an Uber, first verify user
-        } else if (rideReq.body.company === 'uber'){
-            var options = {
-                method: 'GET',
-                url: '/api/uber/login'
-            }
-
-            request(options, function (error, response, body){
-
-                if (error) throw error
-
-                //Once user has been verified, format info for ride request and send
-                app.get('/api/rides/uberAuth', function (req, res){
-
-                    var options = {
-                        method: 'POST',
-                        url: 'http://localhost:3000/api/uber/ride',
-                        body: {
-                           product_id: req.body.product_id,
-                           pickup: req.body.pickup,
-                           destination: req.body.destination 
-                        },
-                        json: true
-                    };
-
-                    request(options, function (error, response, body){
-                        console.log(body);
-                    })
-
-                });
-            });
-        };
-
     });
 
     // Listening to status changes from both companies

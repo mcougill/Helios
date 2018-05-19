@@ -5,21 +5,21 @@ $blackColor: #000000;
 //
 // EVERYTHING NO BORDER
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 //
 // FONTS
 @font-face {
-    font-family: "jupiter";
-    src: url("../fonts/jupiter.ttf");
+  font-family: "jupiter";
+  src: url("../fonts/jupiter.ttf");
 }
 
 @font-face {
-    font-family: "vdub";
-    src: url("../fonts/VDUB.TTF");
+  font-family: "vdub";
+  src: url("../fonts/VDUB.TTF");
 }
 
 .heliosBrand {
-    font-family: vdub;
+  font-family: vdub;
 }

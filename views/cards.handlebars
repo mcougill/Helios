@@ -1,12 +1,38 @@
+<div class="container-fluid cardContainer">
+    <div class="container">
+        <div class="row cardRow">
 
+            {{#if rides}} {{#each rides}} {{#if uber}}
+            <div class="col-sm-3 request cardDynamic" 
+            data-picklat={{coordinates.pickup.lat}}
+            data-picklng={{coordinates.pickup.lng}}
+            data-destlat={{coordinates.destination.lat}}
+            data-destlng={{coordinates.destination.lng}}
+            data-id={{id}} 
+            data-company={{company}}>
+                <div class="imageBox">
+                    <img src="./assets/images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
+                    <h3>{{type}}</h3>
+                    <h4>{{estimate}}</h4>
+                </div>
+            </div>
+            {{else}}
 
-{{#if rides}} {{#each rides}}
+            <div class="col-sm-3 request cardDynamic" 
+            data-picklat={{coordinates.pickup.lat}} 
+            data-picklng={{coordinates.pickup.lng}}
+            data-destlat={{coordinates.destination.lat}} 
+            data-destlng={{coordinates.destination.lng}}
+            data-company={{company}}>
+                <div class="imageBox">
+                    <img src="./assets/images/lyftLogo.jpg" class="img-responsive" alt="uberLogo">
+                    <h3>{{type}}</h3>
+                    <h4>{{estimate}}</h4>
+                </div>
+            </div>
 
-<div id="card">
-    <h2>{{rides.company}}</h2>
-    <h2>{{rides.estimate}}</h2>
-    <h2>{{rides.type}}</h2>
+            {{/if}} {{/each}} {{/if}}
+
+        </div>
+    </div>
 </div>
-{{/each}} 
-{{!-- {{else}} {{Some kind of message that tells the user there aren't any rides available for them.....awe that sucks.....loser}} --}}
-{{/if}}

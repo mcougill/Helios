@@ -44,12 +44,36 @@ $(document).ready(function () {
 
   });
 
-  $('.request').on('click', function () {
+  $(document).on('click', '.request', function () {
 
-    console.log('yes');
+    var url;
 
-    $.post('/api/lyft/sandbox/request', function (data) {
-      console.log(data);
+    event.preventDefault();
+
+    var requestData = {
+      company : $(this).data('company'),
+      coordinates : {
+        pickup: {
+          lat: $(this).data('picklat'),
+          lng: $(this).data('picklng')
+        },
+        destination: {
+          lat: $(this).data('destlat'),
+          lng: $(this).data('destlng')
+        }
+      },
+      product_id:$(this).data('id')
+    }
+
+    console.log(requestData);
+
+    if (requestData.company === 'uber'){
+      url = '/api/uber/login';
+    }
+
+    $.get(url, function (data) {
+      console.log('returned');
+      window.location = data;
     })
   });
 

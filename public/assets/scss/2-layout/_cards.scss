@@ -1,0 +1,106 @@
+// COLORS
+$grayColor: #333;
+$whiteColor: #fff;
+$blackColor: #000000;
+$darkGray: #262626;
+//
+// EVERYTHING NO BORDER
+* {
+  box-sizing: border-box;
+}
+
+//
+// FONTS
+@font-face {
+  font-family: "jupiter";
+  src: url("../fonts/jupiter.ttf");
+}
+
+@font-face {
+  font-family: "vdub";
+  src: url("../fonts/VDUB.TTF");
+}
+
+.cardBody {
+  background: $darkGray;
+}
+
+section {
+  background: $darkGray;
+}
+
+.imageBox {
+  position: relative;
+  margin: 40px auto;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 300px;
+  h3 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 12%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: $whiteColor;
+    text-shadow: 0 2px 5xp rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+  }
+  h4 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    bottom: 2%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: $whiteColor;
+    text-shadow: 0 2px 5xp rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+  }
+}
+
+// RECIEPT
+.recieptBody {
+  background: $grayColor;
+}
+
+.recieptText {
+  position: relative;
+  top: 200%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $whiteColor;
+  align-items: center;
+  h5 {
+    font-size: 75px;
+  }
+}
+
+.col-form-label {
+  color: $blackColor;
+  align-items: flex-start;
+}
+
+.cardDynamic {
+  z-index: 5;
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.cardContainer {
+  padding-top: 50px;
+  background: $darkGray;
+  height: 100vh;
+}
+
+.cardRow {
+  background: $darkGray;
+  height: 100%;
+}
+
+//

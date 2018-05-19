@@ -75,6 +75,83 @@
 @font-face {
   font-family: "vdub";
   src: url("../fonts/VDUB.TTF"); }
+.cardBody {
+  background: #262626; }
+
+section {
+  background: #262626; }
+
+.imageBox {
+  position: relative;
+  margin: 40px auto;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 300px; }
+  .imageBox h3 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 12%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 2px 5xp rgba(0, 0, 0, 0.5);
+    transition: 0.5s; }
+  .imageBox h4 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    bottom: 2%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 2px 5xp rgba(0, 0, 0, 0.5);
+    transition: 0.5s; }
+
+.recieptBody {
+  background: #333; }
+
+.recieptText {
+  position: relative;
+  top: 200%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  align-items: center; }
+  .recieptText h5 {
+    font-size: 75px; }
+
+.col-form-label {
+  color: #000000;
+  align-items: flex-start; }
+
+.cardDynamic {
+  z-index: 5; }
+  .cardDynamic :hover {
+    cursor: pointer; }
+
+.cardContainer {
+  padding-top: 50px;
+  background: #262626;
+  height: 100vh; }
+
+.cardRow {
+  background: #262626;
+  height: 100%; }
+
+* {
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: "jupiter";
+  src: url("../fonts/jupiter.ttf"); }
+@font-face {
+  font-family: "vdub";
+  src: url("../fonts/VDUB.TTF"); }
 .fab {
   position: relative;
   top: 15px;
