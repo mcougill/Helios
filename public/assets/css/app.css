@@ -134,6 +134,15 @@ section {
   .cardDynamic :hover {
     cursor: pointer; }
 
+.cardContainer {
+  padding-top: 50px;
+  background: #262626;
+  height: 100vh; }
+
+.cardRow {
+  background: #262626;
+  height: 100%; }
+
 * {
   box-sizing: border-box; }
 
