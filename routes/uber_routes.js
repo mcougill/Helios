@@ -61,12 +61,13 @@ module.exports = function(app) {
           };
           data.prices.forEach(function(item) {
             var newRide = {
-              company: "Uber",
+              company: "uber",
               type: item.display_name,
               estimate: item.estimate,
               coordinates: req.body,
               minimum: item.low_estimate,
-              id: item.product_id
+              id: item.product_id,
+              uber: true
             };
 
             returnedData.rides.push(newRide);

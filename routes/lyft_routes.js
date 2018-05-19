@@ -30,12 +30,13 @@ module.exports = function (app) {
 
             data.cost_estimates.forEach(function(item){
                 var newRide = {
-                    company: 'Lyft',
+                    company: 'lyft',
                     type: item.display_name,
                     estimate: `$${(item.estimated_cost_cents_min/100).toFixed(2)}-${(item.estimated_cost_cents_max/100).toFixed(2)}`,
                     coordinates: req.body,
                     minimum: parseFloat((item.estimated_cost_cents_min/100).toFixed(2)),
-                    id: null
+                    id: null,
+                    uber: false
                 }
                 returnedData.rides.push(newRide);
             })
@@ -44,6 +45,57 @@ module.exports = function (app) {
             console.error(error);
         });
 
+    })
+
+    app.get('/api/lyft/login', function (req, res){
+
+        var options = {
+            method: 'GET',
+            url: `https://api.lyft.com/oauth/authorize?client_id=${process.env.lyft_id}&scope=public%20profile%20rides.read%20rides.request%20offline&state=active&response_type=code`
+        }
+
+        request(options, function (error, resopnse, body){
+
+            console.log(body);
+
+            app.get('/api/lyft/redirect/?code=:code', function(req, res){
+
+                var access = req.params.code;
+
+                var auth = 'Basic ' + new Buffer(`${process.env.lyft_id}:${process.env.lyft_secret}`).toString('base64');
+
+                var options = {
+                    method: 'POST',
+                    url: 'https://api.lyft.com/oauth/token',
+                    headers: {
+                        'Authorization': auth,
+                        'Content-Type': 'application/json'
+                    },
+                    body: `{"grant_type": "authorization_code", "code": ${access}}`,
+                    json: true
+                }
+
+                request(options, function (error, response, body){
+                    if (error) throw error
+
+                    console.log(body);
+
+                    // Send codes to database here
+
+                    var options = {
+                        method: 'GET',
+                        url: 'http://localhost:3000/api/rides/lyftAuth'
+                    }
+
+                    request(options, function (error, response, body){
+
+                        console.log (body);
+
+                    })
+                })
+            })
+
+        })
     })
 
     app.post('/api/lyft/sandbox/request', function (req, res) {
