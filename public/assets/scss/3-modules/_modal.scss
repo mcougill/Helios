@@ -5,28 +5,28 @@ $blackColor: #000000;
 //
 // EVERYTHING NO BORDER
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 //
 // FONTS
 @font-face {
-  font-family: "jupiter";
-  src: url("../fonts/jupiter.ttf");
+    font-family: "jupiter";
+    src: url("../fonts/jupiter.ttf");
 }
 
 @font-face {
-  font-family: "vdub";
-  src: url("../fonts/VDUB.TTF");
+    font-family: "vdub";
+    src: url("../fonts/VDUB.TTF");
 }
 
 .fab {
-  position: relative;
-  top: 15px;
-  padding: 0 25px 0 0;
+    position: relative;
+    top: 15px;
+    padding: 0 25px 0 0;
 }
 
 .newAccount {
-  position: relative;
-  padding-right: 25px;
+    position: relative;
+    padding-right: 25px;
 }
