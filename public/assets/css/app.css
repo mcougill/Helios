@@ -75,6 +75,60 @@
 @font-face {
   font-family: "vdub";
   src: url("../fonts/VDUB.TTF"); }
+.cardBody {
+  background: #262626; }
+
+section {
+  background: #262626; }
+
+.imageBox {
+  position: relative;
+  margin: 40px auto;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 300px; }
+  .imageBox h3 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: -24px;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 2px 5xp rgba(0, 0, 0, 0.5);
+    transition: 0.5s; }
+  .imageBox h4 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    bottom: -24px;
+    transform: translateY(50px);
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 2px 5xp rgba(0, 0, 0, 0.5);
+    transition: 0.5s; }
+
+.imageBox:hover h3 {
+  top: 12%;
+  transform: translateY(-50%); }
+
+.imageBox:hover h4 {
+  bottom: 2%;
+  transform: translateY(-50%); }
+
+* {
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: "jupiter";
+  src: url("../fonts/jupiter.ttf"); }
+@font-face {
+  font-family: "vdub";
+  src: url("../fonts/VDUB.TTF"); }
 .fab {
   position: relative;
   top: 15px;
