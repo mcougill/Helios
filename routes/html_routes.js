@@ -67,22 +67,19 @@ module.exports = function (app) {
 
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
+        
         let errors = [];
         let messages = [];
         let password = req.body.password;
         let password2 = req.body.password2;
         let names = [req.body.username, req.body.firstName, req.body.lastName];
         let patt = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
-        let patt2 = /(?=.*[a-z])(?=.*-).{2,}/i;
+        let patt2 = /^[a-zA-Z]{2,}/;
         let test = patt.test(password);
-        let test2 = true;
-
-        for (let i = 0; i < names.length; i++) {
-            if (!patt2.test(names[i])) {
-                test2 = false;
-            }
-        }
-
+        let test2 = patt2.test(req.body.username);
+        let test3 = patt2.test(req.body.firstName);
+        let test4 = patt2.test(req.body.lastName);
+                
         console.log(req.body.password);
         console.log(req.body.password2);
 
@@ -98,12 +95,12 @@ module.exports = function (app) {
             errors.push('Password must include at least one lowercase letter, one capital, letter, one number, and one special character.');
         }
 
-        if (!test2) {
-            errors.push('Username, First Name, and Last Name must contain at least 2 letter characters.');
+        if (!(test2 || test3 || test4)) {
+            errors.push('Username, First Name, and Last Name must contain only letter characters and have a minimum of 2 characters.');
         }
 
         if (errors.length > 0) {
-            res.render('register', {
+            res.render('index', {
                 errors: errors,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -119,7 +116,7 @@ module.exports = function (app) {
                     console.log(data, 'data');
                     if (data[0]) {
                         messages.push('That username is already in use.');
-                        res.render('register', {
+                        res.render('index', {
                             errors: errors,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
@@ -146,6 +143,7 @@ module.exports = function (app) {
 
                         messages.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
                         res.render('index', { messages: messages });
+                        console.log('new user was created');
                     }
 
                 });
