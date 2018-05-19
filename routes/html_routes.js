@@ -13,16 +13,23 @@ const authCheck = function (req, res, next) {
 };
 
 module.exports = function (app) {
-    
+
     app.get('/', function (req, res) {
         let user = {
             user: req.user
         };
+        
         console.log('req.user', req.user);
         res.render('index', user);
         //messageObj.messages = [];
     });
 
+    app.get('/loginFail', function (req, res) {
+        let loginFail = {
+            loginFail: 'Username/Password not found.'
+        };
+        res.render('index', loginFail);
+    });
     // app.get('/google', passport.authenticate('google', {
     //     scope: ['profile']
     // }));
@@ -36,7 +43,7 @@ module.exports = function (app) {
 
     app.get('/landing', authCheck, function (req, res) {
         let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-        
+
         let message = {
             message: `Logged in successfully as ${user}`,
             user: user
@@ -68,7 +75,7 @@ module.exports = function (app) {
                 test2 = false;
             }
         }
-        
+
         console.log(req.body.password);
         console.log(req.body.password2);
 
