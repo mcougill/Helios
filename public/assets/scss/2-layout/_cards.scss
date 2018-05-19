@@ -87,6 +87,9 @@ section {
 
 .cardDynamic {
     z-index: 5;
+    :hover {
+        cursor: pointer;
+    }
 }
 
 //

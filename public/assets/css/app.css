@@ -131,6 +131,8 @@ section {
 
 .cardDynamic {
   z-index: 5; }
+  .cardDynamic :hover {
+    cursor: pointer; }
 
 * {
   box-sizing: border-box; }
