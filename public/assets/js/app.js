@@ -44,9 +44,11 @@ $(document).ready(function () {
 
   });
 
-  $('.request').on('click', function () {
+  $(document).on('click', '.request', function () {
 
+    console.log(this);
     console.log('yes')
+    console.log($(this).data('company'))
 
     event.preventDefault();
 
@@ -54,12 +56,12 @@ $(document).ready(function () {
       company : $(this).data('company'),
       coordinates : {
         pickup: {
-          lat: $(this).data('pickLat'),
-          lng: $(this).data('pickLng')
+          lat: $(this).data('picklat'),
+          lng: $(this).data('picklng')
         },
         destination: {
-          lat: $(this).data('destLat'),
-          lng: $(this).data('destLng')
+          lat: $(this).data('destlat'),
+          lng: $(this).data('destlng')
         }
       },
       product_id:$(this).data('id')
@@ -67,9 +69,9 @@ $(document).ready(function () {
 
     console.log(requestData);
 
-    /* $.post('/api/lyft/sandbox/request', function (data) {
+    $.post('/api/ride/request', requestData, function (data) {
       console.log(data);
-    }) */
+    })
   });
 
   $('#details').on('click', function () {
