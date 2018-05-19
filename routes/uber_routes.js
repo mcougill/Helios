@@ -64,7 +64,8 @@ module.exports = function (app) {
                             estimate: item.estimate,
                             coordinates: req.body,
                             minimum: item.low_estimate,
-                            id: product_id
+                            id: item.product_id,
+                            uber: true
                         }
 
                         returnedData.rides.push(newRide);
