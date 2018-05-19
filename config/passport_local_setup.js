@@ -19,6 +19,7 @@ passport.deserializeUser(function (id, done) {
 
 passport.use(new LocalStrategy({passReqToCallback: true}, function (req, username, password, done) {
     // passport callback
+    console.log('passport strategy setup ran!!!!!!!!!!!!!!!!!!!!!!!!!');
     db.user.findOne({
         where: {
             username: username
