@@ -84,7 +84,7 @@ module.exports = function (app) {
 
                     var options = {
                         method: 'GET',
-                        url: 'http://localhost:3000/api/rides/lyftAuth'
+                        url: 'https://helios-rideshare.herokuapp.com/api/rides/lyftAuth'
                     }
 
                     request(options, function (error, response, body){
