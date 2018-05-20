@@ -1,5 +1,5 @@
 const request = require('request');
-const db = require("./../models")
+const db = require("./../models");
 
 module.exports = function (app) {
 
@@ -7,11 +7,11 @@ module.exports = function (app) {
 
         var lyftOptions = {
             method: 'POST',
-            url: 'https://helios-rideshare.herokuapp.com/api/lyft/estimates',
+            url: 'http://localhost:3000/api/lyft/estimates',
             body: req.body.coordinates,
             json: true
         }
-
+       // https://helios-rideshare.herokuapp.com/api/lyft/estimates
         request(lyftOptions, function (error, lyftResponse, lyftInfo) {
             if (error) throw error
 
@@ -19,11 +19,11 @@ module.exports = function (app) {
 
             var uberOptions = {
                 method: 'POST',
-                url: 'https://helios-rideshare.herokuapp.com/api/uber/estimates',
+                url: 'http://localhost:3000/api/uber/estimates',
                 body: req.body.coordinates,
                 json: true
             }
-
+            // https://helios-rideshare.herokuapp.com/api/uber/estimates
             request(uberOptions, function (error, uberResponse, uberInfo) {
                 if (error) throw error
 

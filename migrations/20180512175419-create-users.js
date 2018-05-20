@@ -23,6 +23,18 @@ module.exports = {
             googleID: {
                 type: Sequelize.STRING
             },
+            currentpickLat: {
+                type: Sequelize.DECIMAL(11, 8)
+            },
+            currentpickLng: {
+                type: Sequelize.DECIMAL(11, 8)
+            },
+            currentdestLat: {
+                type: Sequelize.DECIMAL(11, 8)
+            },
+            currentdestLng: {
+                type: Sequelize.DECIMAL(11, 8)
+            },
             currentRide: {
                 type: Sequelize.STRING
             },
