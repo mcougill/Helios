@@ -5,11 +5,9 @@
     </div>
     <div class="headerOverlay"></div>
     <div class="headerContent">
-        {{#if errors}}
-        {{#each errors}}
+        {{#if errors}} {{#each errors}}
         <h2 class="text-danger">{{this}}</h2>
-        {{/each}}
-        {{/if}}
+        {{/each}} {{/if}}
         <h2 class="text-success">{{message}}</h2>
         <h1>H E L I O S</h1>
         <br>
@@ -18,27 +16,29 @@
             you the best options for you to arrive at your destination.</p>
 
         <div class="inputContainer">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter pickup location" aria-label="Enter pickup location" aria-describedby="basic-addon2"
-                            id="pickupLocation">
-                        <div class="input-group-append">
+            <form action="#" method="POST">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter pickup location" aria-label="Enter pickup location" aria-describedby="basic-addon2"
+                                id="pickupLocation">
+                            <div class="input-group-append">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter destination" aria-label="Enter destination" aria-describedby="basic-addon2"
-                            id="destLocation">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-info" type="button" id="routes">Find A Ride!</button>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter destination" aria-label="Enter destination" aria-describedby="basic-addon2"
+                                id="destLocation">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-info" type="submit" id="routes">Find A Ride!</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -63,11 +63,11 @@
                     <div class="form-group">
                         <label for="username" class="col-form-label">Username:</label>
 
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input type="text" class="form-control" id="username1" name="username">
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password1" name="password">
                     </div>
                     <button type="button" class="btn btn-link newAccount" data-toggle="modal" data-target="#newAccountModal" data-dismiss="modal">Create new account</button>
                     <a href="/auth/facebook">
