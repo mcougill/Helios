@@ -18,14 +18,14 @@ module.exports = function (app) {
         let user;
         let message;
         if (req.user !== undefined) {
-            
+
             user = req.user.dataValues.firstName || req.user.dataValues.username
         } else {
             user = null;
         }
-        console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+        // console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
         // let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-        
+
         //|| req.user.dataValues.username || req.body.username;
         if (user) {
             message = `Welcome ${user}!`;
@@ -42,14 +42,10 @@ module.exports = function (app) {
         //messageObj.messages = [];
     });
 
-    // app.get('/userId', function (req, res) {
-    //     if (req.user.dataValues.id) {
-    //         res.json(req.user.dataValues.id);
-    //     }
-    // });
-    
-    app.get('/test', (req, res) => {
-        console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+    app.get('/loginFail', function (req, res) {
+        let errors = ['User/Password not found.'];
+        
+        res.render('index', {errors: errors});
     });
 
     app.get('/userId', function (req, res) {
@@ -59,7 +55,7 @@ module.exports = function (app) {
         } else {
             res.json(req.user.dataValues.id);
         }
-        
+
     });
 
     app.get('/register', function (req, res) {

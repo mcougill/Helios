@@ -1,22 +1,14 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-router.post('/login', passport.authenticate('local', {failureRedirect: '/auth/loginFail'}), function (req, res) {
+router.post('/login', passport.authenticate('local', {failureRedirect: '/loginFail'}), function (req, res) {
     console.log('the login route ran!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     res.redirect('/');
 });
 
-router.get('/loginFail', function (req, res) {
-    let loginFail = {
-        message: 'Login failed. User/Password not found.'
-    };
-    
-    res.redirect('/loginFail');
-});
-
 router.get('/logout', function (req, res) {
-    console.log(req.user);
-    console.log('logout ran//////////////////////////////');
+    // console.log(req.user);
+    // console.log('logout ran//////////////////////////////');
     req.logout();
     res.redirect('/');
 });
