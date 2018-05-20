@@ -5,11 +5,7 @@
     </div>
     <div class="headerOverlay"></div>
     <div class="headerContent">
-        {{#if errors}} 
-        {{#each errors}}
-        <h2 class="text-danger">{{this}}</h2>
-        {{/each}} 
-        {{/if}}
+        
         <h2 class="text-success">{{message}}</h2>
         <h1>H E L I O S</h1>
         <br>
@@ -98,19 +94,25 @@
                 </button>
             </div>
             <div class="modal-body">
+                {{#if errors}} 
+                {{#each errors}}
+                <h6 class="text-danger">{{this}}</h6>
+                {{/each}} 
+                {{/if}}
+                <h6></h6>
                 <form action="/register" method="POST">
                     <div class="form-group">
                         <label for="username" class="col-form-label">Enter your first name:</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName">
+                        <input type="text" class="form-control" id="firstName" name="firstName" value="{{firstName}}">
                     </div>
                     <div class="form-group">
                         <label for="username" class="col-form-label">Enter your last name:</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName">
+                        <input type="text" class="form-control" id="lastName" name="lastName" value="{{lastName}}">
                     </div>
                     <div class="form-group">
                         <label for="username" class="col-form-label">Choose a username:</label>
 
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input type="text" class="form-control" id="username" name="username" value="{{username}}">
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-form-label">Choose a password:</label>
