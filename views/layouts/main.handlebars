@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="./assets/css/app.css">
     <!-- PERSONAL JAVASCRIPT SHEET -->
     <script src="./assets/js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=AIzaSyAFuaWGp7mSHWHkI1rqpexi_YKNGFszVXQ"></script>
+    
+    
 
     <title>Helios</title>
 </head>
@@ -37,12 +40,39 @@
     {{> _video}}
     {{!-- --}} {{{body}}}
     <div id="loginFail" data-attr="{{loginFail}}"></div>
+    
     <script>
         let failStatus = $('#loginFail').attr('data-attr');
         if (failStatus) {
             $('#loginModal').modal('show');
         }
-    </script>  
+
+    </script> 
+     
+    <script>
+        var input = document.getElementById('autocomplete');
+        var search = new google.maps.places.Autocomplete(input, { types: ['address'] });
+        google.maps.event.addListener(search, 'place_changed', function () {
+
+        });
+        google.maps.event.addListener(search, 'place_changed', function (event) {
+        input = document.getElementById('autocomplete').value;
+        
+        var geocodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input + '&key=AIzaSyAFuaWGp7mSHWHkI1rqpexi_YKNGFszVXQ';
+        });
+
+        var input2 = document.getElementById('autocomplete2');
+        var search2 = new google.maps.places.Autocomplete(input2, { types: ['address'] });
+        google.maps.event.addListener(search2, 'place_changed', function () {
+
+        });
+        google.maps.event.addListener(search2, 'place_changed', function (event) {
+        input2 = document.getElementById('autocomplete2').value;
+        
+        var geocodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input2 + '&key=AIzaSyAFuaWGp7mSHWHkI1rqpexi_YKNGFszVXQ';
+        });
+    </script>
+    
 </body>
 
 </html>

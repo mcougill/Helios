@@ -5,9 +5,11 @@
     </div>
     <div class="headerOverlay"></div>
     <div class="headerContent">
-        {{#if errors}} {{#each errors}}
+        {{#if errors}} 
+        {{#each errors}}
         <h2 class="text-danger">{{this}}</h2>
-        {{/each}} {{/if}}
+        {{/each}} 
+        {{/if}}
         <h2 class="text-success">{{message}}</h2>
         <h1>H E L I O S</h1>
         <br>
@@ -20,6 +22,14 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group mb-3">
+
+                            <div id="locationField">
+                                <input id="autocomplete" name="location" placeholder="Enter your address" type="text"></input>
+                            </div>
+                            <div id="locationField2">
+                                <input id="autocomplete2" name="location" placeholder="Enter your address" type="text"></input>
+                            </div>
+                           
                             <input type="text" class="form-control" placeholder="Enter pickup location" aria-label="Enter pickup location" aria-describedby="basic-addon2"
                                 id="pickupLocation">
                             <div class="input-group-append">
