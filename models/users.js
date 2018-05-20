@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     currentpickLng: DataTypes.DECIMAL(11, 8),
     currentdestLat: DataTypes.DECIMAL(11, 8),
     currentdestLng: DataTypes.DECIMAL(11, 8),
+    currentType: DataTypes.STRING,
     currentRide: DataTypes.STRING,
-    currentToken: DataTypes.STRING,
     facebookID: DataTypes.STRING
   }, {});
   user.associate = function(models) {

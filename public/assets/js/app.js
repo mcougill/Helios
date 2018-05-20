@@ -70,17 +70,38 @@ $(document).ready(function () {
     event.preventDefault();
 
     if ($(this).data('company') === 'uber') {
-      url = '/api/uber/login';
-    } else if ($(this).data('company') === 'lyft') {
-      url = '/api/lyft/login';
-    }
 
-    // Send to the authentication
-    $.get(url, function (data) {
-      console.log('returned');
-      console.log(data);
-      window.location = data;
-    })
+      $.post('/api/ride/ride_type', {type:$(this).data('id')}, function (data) {
+
+        url = '/api/uber/login';
+
+        // Send to the authentication
+        $.get(url, function (data) {
+          console.log('returned');
+          console.log(data);
+          window.location = data;
+        });
+
+      });
+
+      url = '/api/uber/login';
+
+    } else if ($(this).data('company') === 'lyft') {
+
+      $.post('/api/ride/ride_type', {type:$(this).data('type')}, function (data) {
+
+        url = '/api/lyft/login';
+
+        // Send to the authentication
+        $.get(url, function (data) {
+          console.log('returned');
+          console.log(data);
+          window.location = data;
+
+        });
+
+      });
+    }
 
   });
 

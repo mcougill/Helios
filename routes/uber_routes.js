@@ -6,7 +6,7 @@ const request = require('request');
 
 module.exports = function (app) {
 
-    require('./html_routes.js')(app);
+  require('./html_routes.js')(app);
 
   const uber = new Uber({
     client_id: process.env.client_id,
@@ -96,68 +96,68 @@ module.exports = function (app) {
   app.get("/api/uber/ride", function (req, res) {
     console.log('post')
 
-      request({ method: 'GET', url: 'http://localhost:3000/userId' }, function (error, response, body) {
+    console.log(req.user.dataValues.id);
 
-        console.log(response);
+    db.user.findOne({
+      where: {
+        id: req.user.dataValues.id
+      }
+    }).then(function (user) {
+      console.log(user.dataValues);
 
-
-        db.user.findOne({
-          where: {
-            id: body
-          }
-        }).then(function (user) {
-
-          console.log(user);
+      var info = user.dataValues;
 
 
-          // if no query params sent, respond with Bad Request
 
-          /* uber.requests
-            .createAsync({
-              fare_id: null,
-              product_id: req.body.product_id,
-              start_latitude: req.body.coordinates.pickup.lat,
-              start_longitude: req.body.coordinates.pickup.lng,
-              end_latitude: req.body.coordinates.destination.lat,
-              end_longitude: req.body.coordinates.destination.lng
-            })
-            .then(function (res) {
-              console.log(res);
-  
-              //need to store requestID
-              const requestID = res.request_id;
-              console.log(requestID);
-              //lifecycle of uber: ride statuses
-              var statusArr = [
-                "processing",
-                "accepted",
-                "arriving",
-                "in_progress",
-                "driver_canceled",
-                "completed"
-              ];
-  
-              //setTimeout to iterate over ride statuses
-              var counter = 0;
-              currentRideStatus();
-  
-              function currentRideStatus() {
-                setInterval(function () {
-                  statusArr[counter];
-                  counter++;
-                  if (counter === statusArr.length) {
-                    clearInterval(currentRideStatus);
-                  }
-                }, 10 * 1000);
-              }
-            })
-            .error(function (err) {
-              console.error(err);
-            });
-   */
+      // if no query params sent, respond with Bad Request
+
+      uber.requests
+        .createAsync({
+          fare_id: null,
+          product_id: info.currentType,
+          start_latitude: info.currentpickLat,
+          start_longitude: info.currentpickLng,
+          end_latitude: info.currentpickLat,
+          end_longitude: info.currentpickLng
         })
+        .then(function (res) {
+          console.log(res);
 
-      })
+          //need to store requestID
+          const requestID = res.request_id;
+          console.log(requestID);
+          //lifecycle of uber: ride statuses
+          var statusArr = [
+            "processing",
+            "accepted",
+            "arriving",
+            "in_progress",
+            "driver_canceled",
+            "completed"
+          ];
+
+          //setTimeout to iterate over ride statuses
+          var counter = 0;
+          currentRideStatus();
+
+          function currentRideStatus() {
+            setInterval(function () {
+              statusArr[counter];
+              counter++;
+              if (counter === statusArr.length) {
+                clearInterval(currentRideStatus);
+              }
+            }, 10 * 1000);
+          }
+        })
+        .error(function (err) {
+          console.error(err);
+        });
+
+    })
+
+
+
 
 
 
