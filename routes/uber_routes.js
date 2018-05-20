@@ -53,14 +53,14 @@ module.exports = function (app) {
   //Price estimate request
   app.post("/api/uber/estimates", function (req, res) {
     // if no query params sent, respond with Bad Request
-    if (!req.body.pickup || !req.body.destination) {
+    if (!req.body.coordinates.pickup || !req.body.coordinates.destination) {
       response.sendStatus(400);
     } else {
       uber.estimates.getPriceForRouteAsync(
-        req.body.pickup.lat,
-        req.body.pickup.lng,
-        req.body.destination.lat,
-        req.body.destination.lng
+        req.body.coordinates.pickup.lat,
+        req.body.coordinates.pickup.lng,
+        req.body.coordinates.destination.lat,
+        req.body.coordinates.destination.lng
       )
         .then(function (data) {
           console.log(data);
@@ -76,7 +76,8 @@ module.exports = function (app) {
               coordinates: req.body,
               minimum: item.low_estimate,
               id: item.product_id,
-              uber: true
+              uber: true,
+              user: req.body.user
             };
 
             returnedData.rides.push(newRide);
@@ -95,68 +96,70 @@ module.exports = function (app) {
   app.get("/api/uber/ride", function (req, res) {
     console.log('post')
 
-    request({ mehod: 'GET', url: 'localhost:3000/userID' }, function (error, response, body) {
+      request({ mehod: 'GET', url: 'http://localhost:3000/userID' }, function (error, response, body) {
 
-      console.log(response);
-
-
-      db.user.findOne({
-        where: {
-          id: body
-        }
-      }).then(function (user) {
-
-        console.log(user);
+        console.log(response);
 
 
-        // if no query params sent, respond with Bad Request
+        db.user.findOne({
+          where: {
+            id: body
+          }
+        }).then(function (user) {
 
-        /* uber.requests
-          .createAsync({
-            fare_id: null,
-            product_id: req.body.product_id,
-            start_latitude: req.body.coordinates.pickup.lat,
-            start_longitude: req.body.coordinates.pickup.lng,
-            end_latitude: req.body.coordinates.destination.lat,
-            end_longitude: req.body.coordinates.destination.lng
-          })
-          .then(function (res) {
-            console.log(res);
+          console.log(user);
 
-            //need to store requestID
-            const requestID = res.request_id;
-            console.log(requestID);
-            //lifecycle of uber: ride statuses
-            var statusArr = [
-              "processing",
-              "accepted",
-              "arriving",
-              "in_progress",
-              "driver_canceled",
-              "completed"
-            ];
 
-            //setTimeout to iterate over ride statuses
-            var counter = 0;
-            currentRideStatus();
+          // if no query params sent, respond with Bad Request
 
-            function currentRideStatus() {
-              setInterval(function () {
-                statusArr[counter];
-                counter++;
-                if (counter === statusArr.length) {
-                  clearInterval(currentRideStatus);
-                }
-              }, 10 * 1000);
-            }
-          })
-          .error(function (err) {
-            console.error(err);
-          });
- */
+          /* uber.requests
+            .createAsync({
+              fare_id: null,
+              product_id: req.body.product_id,
+              start_latitude: req.body.coordinates.pickup.lat,
+              start_longitude: req.body.coordinates.pickup.lng,
+              end_latitude: req.body.coordinates.destination.lat,
+              end_longitude: req.body.coordinates.destination.lng
+            })
+            .then(function (res) {
+              console.log(res);
+  
+              //need to store requestID
+              const requestID = res.request_id;
+              console.log(requestID);
+              //lifecycle of uber: ride statuses
+              var statusArr = [
+                "processing",
+                "accepted",
+                "arriving",
+                "in_progress",
+                "driver_canceled",
+                "completed"
+              ];
+  
+              //setTimeout to iterate over ride statuses
+              var counter = 0;
+              currentRideStatus();
+  
+              function currentRideStatus() {
+                setInterval(function () {
+                  statusArr[counter];
+                  counter++;
+                  if (counter === statusArr.length) {
+                    clearInterval(currentRideStatus);
+                  }
+                }, 10 * 1000);
+              }
+            })
+            .error(function (err) {
+              console.error(err);
+            });
+   */
+        })
+
       })
 
-    })
+
 
   });
 

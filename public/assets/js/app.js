@@ -41,6 +41,8 @@ $(document).ready(function () {
             }
           }
 
+          console.log(serverData);
+
 
           $.post('/api/ride/estimates', serverData, function (estInfo) {
 
