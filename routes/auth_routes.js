@@ -32,12 +32,4 @@ router.get('/google/redirect', passport.authenticate('google'), function (req, r
     // res.send(req.user);
 });
 
-router.get('/facebook', passport.authenticate('facebook', {
-    scope: ['public_profile']
-}));
-
-router.get('/facebook/redirect', passport.authenticate('facebook'), function (req, res) {
-    res.redirect('/landing');
-})
-
 module.exports = router;

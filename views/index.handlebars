@@ -5,7 +5,12 @@
     </div>
     <div class="headerOverlay"></div>
     <div class="headerContent">
-        <h2 class="text-danger">{{errors}}</h2>
+        {{#if errors}}
+        {{#each errors}}
+        <h2 class="text-danger">{{this}}</h2>
+        {{/each}}
+        {{/if}}
+        <h2 class="text-success">{{message}}</h2>
         <h1>H E L I O S</h1>
         <br>
         <p>With Helios finding a ride has never been easier! Our technology brings together Uber and Lyft to not only find you
@@ -62,11 +67,8 @@
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-form-label">Password:</label>
-                        <input type="text" class="form-control" id="password" name="password">
-
-                        <input type="text" class="form-control" id="loginUsername">
+                        <input type="password" class="form-control" id="password" name="password">
                     </div>
-
                     <button type="button" class="btn btn-link newAccount" data-toggle="modal" data-target="#newAccountModal" data-dismiss="modal">Create new account</button>
                     <a href="/auth/facebook">
                         <i class="fab fa-facebook-square fa-3x"></i>
