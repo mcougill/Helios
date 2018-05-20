@@ -4,10 +4,6 @@
 
             {{#if rides}} {{#each rides}} {{#if uber}}
             <div class="col-sm-3 request cardDynamic" 
-            data-picklat={{coordinates.pickup.lat}}
-            data-picklng={{coordinates.pickup.lng}}
-            data-destlat={{coordinates.destination.lat}}
-            data-destlng={{coordinates.destination.lng}}
             data-id={{id}} 
             data-company={{company}}
             data-userid={{user}}>
@@ -20,10 +16,6 @@
             {{else}}
 
             <div class="col-sm-3 request cardDynamic" 
-            data-picklat={{coordinates.pickup.lat}} 
-            data-picklng={{coordinates.pickup.lng}}
-            data-destlat={{coordinates.destination.lat}} 
-            data-destlng={{coordinates.destination.lng}}
             data-company={{company}}
             data-userid={{user}}>
                 <div class="imageBox">

@@ -25,11 +25,13 @@ module.exports = function (app) {
             'endLng': destination.lng,
         };
 
+        // Calling the API with the necessary info
         apiInstance.getCost(pickup.lat, pickup.lng, opts).then(function (data) {
             var returnedData = {
                 rides: []
             };
 
+            // Iterating over the returned array to format
             data.cost_estimates.forEach(function(item){
                 var newRide = {
                     company: 'lyft',
@@ -43,7 +45,10 @@ module.exports = function (app) {
                 }
                 returnedData.rides.push(newRide);
             })
+
+            // Sending formatted data back to client
             res.status(200).json(returnedData);
+
         }, function (error) {
             console.error(error);
         });
@@ -56,136 +61,11 @@ module.exports = function (app) {
 
         res.send(url);
 
-       /*  var options = {
-            method: 'GET',
-            url: `https://api.lyft.com/oauth/authorize?client_id=${process.env.lyft_id}&scope=public%20profile%20rides.read%20rides.request%20offline&state=active&response_type=code`
-        }
-
-        request(options, function (error, resopnse, body){
-
-            console.log(body);
-
-            app.get('/api/lyft/redirect/?code=:code', function(req, res){
-
-                var access = req.params.code;
-
-                var auth = 'Basic ' + new Buffer(`${process.env.lyft_id}:${process.env.lyft_secret}`).toString('base64');
-
-                var options = {
-                    method: 'POST',
-                    url: 'https://api.lyft.com/oauth/token',
-                    headers: {
-                        'Authorization': auth,
-                        'Content-Type': 'application/json'
-                    },
-                    body: `{"grant_type": "authorization_code", "code": ${access}}`,
-                    json: true
-                }
-
-                request(options, function (error, response, body){
-                    if (error) throw error
-
-                    console.log(body);
-
-                    // Send codes to database here
-
-                    var options = {
-                        method: 'GET',
-                        url: 'https://helios-rideshare.herokuapp.com/api/rides/lyftAuth'
-                    }
-
-                    request(options, function (error, response, body){
-
-                        console.log (body);
-
-                    })
-                })
-            })
-
-        })
-    })
-
-    app.post('/api/lyft/sandbox/request', function (req, res) {
-
-        var auth = 'Basic ' + new Buffer(`${process.env.lyft_id}:SANDBOX-${process.env.lyft_secret}`).toString('base64');
-
-        var options = {
-            method: 'POST',
-            url: 'https://api.lyft.com/oauth/token',
-            headers:
-                {
-                    'Postman-Token': '4e103d91-c50e-41d8-860e-9df78056e223',
-                    'Cache-Control': 'no-cache',
-                    'Authorization': auth,
-                    'Content-Type': 'application/json;charset=UTF-8'
-                },
-            body: '{"grant_type": "client_credentials", "scope": "public rides.read rides.request"}'
-        };
-
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-
-            console.log(body);
-
-            accountAccess = JSON.parse(body).access_token;
-
-            console.log(accountAccess);
-
-            db.user.create({
-                firstName: 'Test',
-                lastName: 'Person',
-                currentToken: accountAccess
-            });
-
-            var options = {
-                method: 'POST',
-                url: 'https://api.lyft.com/v1/rides',
-                headers:
-                    {
-                        'Postman-Token': '36c0947f-1006-4b71-b615-d26618d23419',
-                        'Cache-Control': 'no-cache',
-                        Authorization: `Bearer ${accountAccess}`,
-                        'Content-Type': 'application/json'
-                    },
-                body:
-                    {
-                        ride_type: 'lyft',
-                        origin: { lat: 37.77663, lng: -122.39227 },
-                        destination:
-                            {
-                                lat: 37.771,
-                                lng: -122.39123,
-                                address: 'Mission Bay Boulevard North'
-                            }
-                    },
-                json: true
-            };
-
-            request(options, function (error, response, body) {
-                if (error) throw new Error(error);
-
-                console.log(body);
-
-                res.status(200).json(body);
-
-                db.user.update({
-                    currentRide: body.ride_id
-                }, {
-                    where: {
-                        firstName: 'Test'
-                    }
-                });
-
-            });
-
-        });
- */
     });
 
 
     app.get('/api/lyft/redirect', function(req, res){
-        console.log(req.params);
-        console.log(req)
+        console.log(req.query.code);
     });
 
     app.get('/api/lyft/ride_details', function (req, res) {
