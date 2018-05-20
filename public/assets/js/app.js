@@ -92,10 +92,10 @@ $(document).ready(function () {
       url = '/api/uber/login';
     }
 
-    /* $.post("/api/uber/ride", requestData, function (data) {
+    $.get(url, function (data) {
       console.log('returned');
       window.location = data;
-    }) */
+    })
 
   });
 
