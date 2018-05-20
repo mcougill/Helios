@@ -3,6 +3,7 @@ const db = require("./../models");
 
 module.exports = function (app) {
 
+    // Listening for the post request
     app.post('/api/ride/estimates', function (req, res) {
 
         var lyftOptions = {
@@ -11,6 +12,8 @@ module.exports = function (app) {
             body: req.body,
             json: true
         }
+
+        // First make the request to lyft and recieve formatted data back
         // https://helios-rideshare.herokuapp.com/api/lyft/estimates
         request(lyftOptions, function (error, lyftResponse, lyftInfo) {
             if (error) throw error
@@ -23,12 +26,15 @@ module.exports = function (app) {
                 body: req.body,
                 json: true
             }
+
+            // Request to uber and receive formatted data back
             // https://helios-rideshare.herokuapp.com/api/uber/estimates
             request(uberOptions, function (error, uberResponse, uberInfo) {
                 if (error) throw error
 
                 console.log(uberInfo)
 
+                // Push uber data into array returned by lyft
                 uberInfo.rides.forEach(function (item) {
                     lyftInfo.rides.push(item);
                 });
@@ -39,7 +45,7 @@ module.exports = function (app) {
                     array[j] = temp;
                 }
 
-
+                // Run a bubble sort to arrange by price
                 function bubbleSortBasic(array) {
                     for (var i = 0; i < array.length; i++) {
                         for (var j = 1; j < array.length; j++) {
@@ -57,6 +63,7 @@ module.exports = function (app) {
 
                     lyftInfo.user = true;
 
+                    // Write the current coordinates to the database at the user's location
                     db.user.update({
                         currentpickLat: req.body.coordinates.pickup.lat,
                         currentpickLng: req.body.coordinates.pickup.lng,
@@ -70,6 +77,7 @@ module.exports = function (app) {
 
                             console.log(lyftInfo);
 
+                            // Render the cards page
                             res.status(200).render('cards', lyftInfo);
                         })
 
