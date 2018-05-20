@@ -2,11 +2,11 @@ $(document).ready(function () {
 
   $('#routes').on('click', function () {
 
+    event.preventDefault();
+
     $.get('/userId', function (userId) {
 
       console.log(userId);
-
-      event.preventDefault();
 
       var location = {
         pickup: $('#pickupLocation').val().trim(),
@@ -92,10 +92,10 @@ $(document).ready(function () {
       url = '/api/uber/login';
     }
 
-    /* $.post("/api/uber/ride", requestData, function (data) {
+    $.get(url, function (data) {
       console.log('returned');
       window.location = data;
-    }) */
+    })
 
   });
 
