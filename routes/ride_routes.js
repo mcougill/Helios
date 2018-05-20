@@ -8,10 +8,10 @@ module.exports = function (app) {
         var lyftOptions = {
             method: 'POST',
             url: 'http://localhost:3000/api/lyft/estimates',
-            body: req.body.coordinates,
+            body: req.body,
             json: true
         }
-       // https://helios-rideshare.herokuapp.com/api/lyft/estimates
+        // https://helios-rideshare.herokuapp.com/api/lyft/estimates
         request(lyftOptions, function (error, lyftResponse, lyftInfo) {
             if (error) throw error
 
@@ -20,7 +20,7 @@ module.exports = function (app) {
             var uberOptions = {
                 method: 'POST',
                 url: 'http://localhost:3000/api/uber/estimates',
-                body: req.body.coordinates,
+                body: req.body,
                 json: true
             }
             // https://helios-rideshare.herokuapp.com/api/uber/estimates
@@ -54,35 +54,25 @@ module.exports = function (app) {
                 bubbleSortBasic(lyftInfo.rides)
 
                 if (lyftInfo.rides.length > 0) {
-                    res.status(200).render('cards', lyftInfo);
 
-                    if (req.body.user) {
+                    lyftInfo.user = true;
 
-                        db.user.update({
-                            currentpickLat: req.body.coordinates.pickup.lat,
-                            currentpickLng: req.body.coordinates.pickup.lng,
-                            currentdestLat: req.body.coordinates.destination.lat,
-                            currentdestLng: req.body.coordinates.destination.lng,
-                        }, {
-                                where: {
-                                    id: req.body.user
-                                }
-                            }).then(function (data) {
-                                console.log(data);
-                            })
-                            
-                    } else {
-                        
-                        db.user.create({
-                            currentpickLat: req.body.coordinates.pickup.lat,
-                            currentpickLng: req.body.coordinates.pickup.lng,
-                            currentdestLat: req.body.coordinates.destination.lat,
-                            currentdestLng: req.body.coordinates.destination.lng,
-                        }).then(function(data){
-                            console.log(data);
+                    db.user.update({
+                        currentpickLat: req.body.coordinates.pickup.lat,
+                        currentpickLng: req.body.coordinates.pickup.lng,
+                        currentdestLat: req.body.coordinates.destination.lat,
+                        currentdestLng: req.body.coordinates.destination.lng,
+                    }, {
+                            where: {
+                                id: req.body.user
+                            }
+                        }).then(function (data) {
+
+                            console.log(lyftInfo);
+
+                            res.status(200).render('cards', lyftInfo);
                         })
 
-                    }
 
                 } else {
                     res.status(400).render('cards', { noRides: true });

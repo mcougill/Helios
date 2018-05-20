@@ -15,8 +15,8 @@ module.exports = function (app) {
 
 
         let apiInstance = new lyft.PublicApi();
-        let destination = req.body.destination
-        let pickup = req.body.pickup
+        let destination = req.body.coordinates.destination
+        let pickup = req.body.coordinates.pickup
 
         let opts = {
             'endLat': destination.lat,
@@ -36,7 +36,8 @@ module.exports = function (app) {
                     coordinates: req.body,
                     minimum: parseFloat((item.estimated_cost_cents_min/100).toFixed(2)),
                     id: null,
-                    uber: false
+                    uber: false,
+                    user: req.body.user
                 }
                 returnedData.rides.push(newRide);
             })
