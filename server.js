@@ -4,38 +4,16 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const passportGoogleSetup = require('./config/passport_google_setup');
-const passportFacebookSetup = require('./config/passport_facebook_setup');
 const passportLocalSetup = require('./config/passport_local_setup');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const authRoutes = require('./routes/auth_routes');
 const https = require('https');
 const fs = require('fs');
-// const session = require('express-session');
 
 const app = express();
 
-// const sess = {
-//     secret: process.env.expressSessionCookieKey,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {}
-// };
-
 const db = require("./models");
-
-// if (app.get('env') === 'production') {
-//     app.set('trust proxy', 1);
-//     sess.cookie.secure = true;
-// }
-
-// app.use(session(sess));
-// app.use(function (req, res, next) {
-//     if (!req.session.views) {
-//         req.session.views = {};
-//     }
-//     next();
-// });
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -68,14 +46,3 @@ db.sequelize.sync().then(function () {
     });
 });
 
-/////////////////////////////////////////////////
-
-// const httpsOptions = {
-//     key: fs.readFileSync('./key.pem'),
-//     cert: fs.readFileSync('./cert.pem')
-// };
-
-// const server = https.createServer(httpsOptions, app).listen(PORT, function () {
-//     db.sequelize.sync();
-//     console.log('Server running on ' + PORT);
-// });

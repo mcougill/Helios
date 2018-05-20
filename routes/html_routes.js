@@ -13,26 +13,23 @@ const authCheck = function (req, res, next) {
 };
 
 module.exports = function (app) {
-    
+
     app.get('/', function (req, res) {
         let user = {
             user: req.user
         };
+
         console.log('req.user', req.user);
         res.render('index', user);
         //messageObj.messages = [];
     });
 
-    // app.get('/google', passport.authenticate('google', {
-    //     scope: ['profile']
-    // }));
+    app.get('/userId', function (req, res) {
+        if (req.user.dataValues.id) {
+            res.json(req.user.dataValues.id);
+        }
+    });
 
-    // app.get('/google/redirect', passport.authenticate('google'), function (req, res) {
-    //     // messageObj.user = 'logged in as ' + req.user.dataValues.firstName;
-    //     //console.log('req.user', req.user);
-    //     res.redirect('/landing');
-    //     // res.send(req.user);
-    // });
 
     app.get('/userId', function (req, res) {
 
@@ -44,15 +41,25 @@ module.exports = function (app) {
     });
 
 
+
+   // app.get('/loginFail', function (req, res) {
+     //   let loginFail = {
+       //     loginFail: 'Username/Password not found.'
+        //};
+        //res.render('index', loginFail);
+    //});
+    
+
     app.get('/landing', authCheck, function (req, res) {
         let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-        
+
         let message = {
-            message: `Logged in successfully as ${user}`,
+            message: `Welcome back ${user}!`,
             user: user
         }
         console.log(user);
-        res.render('landing', message);
+        console.log(req.user.dataValues.id);
+        res.render('index', message);
     });
 
     app.get('/register', function (req, res) {
@@ -63,22 +70,19 @@ module.exports = function (app) {
 
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
+
         let errors = [];
-        let messages = [];
+        let message = [];
         let password = req.body.password;
         let password2 = req.body.password2;
         let names = [req.body.username, req.body.firstName, req.body.lastName];
         let patt = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
-        let patt2 = /(?=.*[a-z])(?=.*-).{2,}/i;
+        let patt2 = /^[a-zA-Z]{2,}/;
         let test = patt.test(password);
-        let test2 = true;
+        let test2 = patt2.test(req.body.username);
+        let test3 = patt2.test(req.body.firstName);
+        let test4 = patt2.test(req.body.lastName);
 
-        for (let i = 0; i < names.length; i++) {
-            if (!patt2.test(names[i])) {
-                test2 = false;
-            }
-        }
-        
         console.log(req.body.password);
         console.log(req.body.password2);
 
@@ -94,12 +98,12 @@ module.exports = function (app) {
             errors.push('Password must include at least one lowercase letter, one capital, letter, one number, and one special character.');
         }
 
-        if (!test2) {
-            errors.push('Username, First Name, and Last Name must contain at least 2 letter characters.');
+        if (!(test2 || test3 || test4)) {
+            errors.push('Username, First Name, and Last Name must contain only letter characters and have a minimum of 2 characters.');
         }
 
         if (errors.length > 0) {
-            res.render('register', {
+            res.render('index', {
                 errors: errors,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -114,8 +118,8 @@ module.exports = function (app) {
                 .then(function (data) {
                     console.log(data, 'data');
                     if (data[0]) {
-                        messages.push('That username is already in use.');
-                        res.render('register', {
+                        errors.push('That username is already in use.');
+                        res.render('index', {
                             errors: errors,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
@@ -140,8 +144,9 @@ module.exports = function (app) {
                             });
                         });
 
-                        messages.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
-                        res.render('index', { messages: messages });
+                        message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
+                        res.render('index', { message: message });
+                        console.log('new user was created');
                     }
 
                 });
@@ -149,45 +154,7 @@ module.exports = function (app) {
 
         }
     });
-
-    // app.post('/login', function (req, res) {
-    //     //messageObj.messages = [];
-    //     db.user.findOne({
-    //         where: {
-    //             username: req.body.username
-    //         }
-    //     }).then(function (data) {
-    //         if (data === null) {
-    //             // messageObj.messages.push('User not found. Please try again or register as a new user.');
-    //             res.redirect('/');
-    //         } else {
-    //             bcrypt.compare(req.body.password, data.dataValues.password, function (err, passwordEval) {
-    //                 if (err) console.error;
-    //                 if (passwordEval) {
-    //                     // messageObj.messages.push(`Welcome ${data.dataValues.firstName}`);
-    //                     // messageObj.user = 'logged in as ' + req.body.username;
-
-    //                     console.log('password eval was correct');
-    //                     res.redirect('/landing');
-    //                 } else {
-    //                     // messageObj.messages.push('The password you entered is incorrect.');
-    //                     console.log('password eval was incorrect');
-    //                     res.redirect('/');
-    //                 }
-
-    //             });
-
-    //         }
-    //     });
-    // });
-
-    // app.get('/logout', function (req, res) {
-
-    //     req.logout();
-    //     res.redirect('/');
-    // });
 };
-
 
 
 
