@@ -43,9 +43,11 @@ module.exports = function (app) {
     });
 
     app.get('/loginFail', function (req, res) {
-        let errors = ['User/Password not found.'];
-        
-        res.render('index', {errors: errors});
+        let loginFail = ['User/Password not found.'];
+        let hbsObj = {
+            loginFail: loginFail
+        };
+        res.render('index', hbsObj);
     });
 
     app.get('/userId', function (req, res) {
@@ -58,20 +60,13 @@ module.exports = function (app) {
 
     });
 
-    app.get('/register', function (req, res) {
-
-        res.render('register');
-        // messageObj.messages = [];
-    });
-
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
-
+        
         let errors = [];
         let message = [];
         let password = req.body.password;
         let password2 = req.body.password2;
-        let names = [req.body.username, req.body.firstName, req.body.lastName];
         let patt = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
         let patt2 = /^[a-zA-Z]{2,}/;
         let test = patt.test(password);
@@ -103,7 +98,8 @@ module.exports = function (app) {
                 errors: errors,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                username: req.body.username
+                username: req.body.username,
+                registerFail: true
             });
         } else {
             db.user.findAll({

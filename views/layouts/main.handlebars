@@ -41,12 +41,18 @@
     {{{body}}}
     
     <div id="loginFail" data-attr="{{loginFail}}"></div>
+    <div id="registerFail" data-attr="{{registerFail}}"></div>
     
     <script>
         let failStatus = $('#loginFail').attr('data-attr');
         if (failStatus) {
             $('#loginModal').modal('show');
-        }
+        };
+
+        let registerStatus = $('#registerFail').attr('data-attr');
+        if (registerStatus) {
+            $('#newAccountModal').modal('show');
+        };
 
     </script> 
      
