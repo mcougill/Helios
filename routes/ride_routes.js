@@ -9,7 +9,7 @@ module.exports = function (app) {
 
         var lyftOptions = {
             method: 'POST',
-            url: 'http://localhost:3000/api/lyft/estimates',
+            url: 'https://helios-rideshare.herokuapp.com//api/lyft/estimates',
             body: req.body,
             json: true
         }
@@ -23,7 +23,7 @@ module.exports = function (app) {
 
             var uberOptions = {
                 method: 'POST',
-                url: 'http://localhost:3000/api/uber/estimates',
+                url: 'https://helios-rideshare.herokuapp.com//api/uber/estimates',
                 body: req.body,
                 json: true
             }
