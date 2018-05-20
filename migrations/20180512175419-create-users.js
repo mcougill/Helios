@@ -38,7 +38,7 @@ module.exports = {
             currentRide: {
                 type: Sequelize.STRING
             },
-            currentToken: {
+            currentType: {
                 type: Sequelize.STRING
             },
             facebookID: {
