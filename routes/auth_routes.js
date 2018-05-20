@@ -1,8 +1,17 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-router.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (req, res) {
+router.post('/login', passport.authenticate('local', {failureRedirect: '/auth/loginFail'}), function (req, res) {
+    console.log('the login route ran!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     res.redirect('/landing');
+});
+
+router.get('/loginFail', function (req, res) {
+    let loginFail = {
+        message: 'Login failed. User/Password not found.'
+    };
+    
+    res.redirect('/loginFail');
 });
 
 router.get('/logout', function (req, res) {
@@ -22,13 +31,5 @@ router.get('/google/redirect', passport.authenticate('google'), function (req, r
     res.redirect('/landing');
     // res.send(req.user);
 });
-
-router.get('/facebook', passport.authenticate('facebook', {
-    scope: ['public_profile']
-}));
-
-router.get('/facebook/redirect', passport.authenticate('facebook'), function (req, res) {
-    res.redirect('/landing');
-})
 
 module.exports = router;
