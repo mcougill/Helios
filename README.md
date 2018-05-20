@@ -7,6 +7,7 @@ BCrypt
 CSS
 Express.js
 Handlebars.js
+jQuery
 MySQL
 Node.js
 Passport.js
