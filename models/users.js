@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     googleID: DataTypes.STRING,
+    currentpickLat: DataTypes.DECIMAL(11, 8),
+    currentpickLng: DataTypes.DECIMAL(11, 8),
+    currentdestLat: DataTypes.DECIMAL(11, 8),
+    currentdestLng: DataTypes.DECIMAL(11, 8),
     currentRide: DataTypes.STRING,
     currentToken: DataTypes.STRING,
     facebookID: DataTypes.STRING

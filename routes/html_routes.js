@@ -30,13 +30,26 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/loginFail', function (req, res) {
-        let loginFail = {
-            loginFail: 'Username/Password not found.'
-        };
-        res.render('index', loginFail);
+
+    app.get('/userId', function (req, res) {
+
+        if (!req.user) {
+            res.send('no user');
+        } else {
+            res.send(req.user.dataValue.id);
+        }
     });
+
+
+
+   // app.get('/loginFail', function (req, res) {
+     //   let loginFail = {
+       //     loginFail: 'Username/Password not found.'
+        //};
+        //res.render('index', loginFail);
+    //});
     
+
     app.get('/landing', authCheck, function (req, res) {
         let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
 
