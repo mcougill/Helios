@@ -5,6 +5,9 @@ const db = require('./../models')
 const request = require('request');
 
 module.exports = function (app) {
+
+    require('./html_routes.js')(app);
+
   const uber = new Uber({
     client_id: process.env.client_id,
     client_secret: process.env.client_secret,
@@ -93,7 +96,7 @@ module.exports = function (app) {
   app.get("/api/uber/ride", function (req, res) {
     console.log('post')
 
-      request({ mehod: 'GET', url: 'http://localhost:3000/userID' }, function (error, response, body) {
+      request({ method: 'GET', url: 'http://localhost:3000/userId' }, function (error, response, body) {
 
         console.log(response);
 

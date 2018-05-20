@@ -33,10 +33,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', authRoutes);
 
+require('./routes/html_routes.js')(app);
 require('./routes/ride_routes.js')(app);
 require('./routes/uber_routes.js')(app);
 require('./routes/lyft_routes.js')(app);
-require('./routes/html_routes.js')(app);
+
 
 const PORT = process.env.PORT || 3000;
 
