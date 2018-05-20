@@ -93,7 +93,7 @@ module.exports = function (app) {
   app.get("/api/uber/ride", function (req, res) {
     console.log('post')
 
-      request({ mehod: 'GET', url: 'http://localhost:3000/userID' }, function (error, response, body) {
+      request({ method: 'GET', url: 'http://localhost:3000/userId' }, function (error, response, body) {
 
         console.log(response);
 
