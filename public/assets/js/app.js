@@ -2,11 +2,11 @@ $(document).ready(function () {
 
   $('#routes').on('click', function () {
 
+    event.preventDefault();
+
     $.get('/userId', function (userId) {
 
       console.log(userId);
-
-      event.preventDefault();
 
       var location = {
         pickup: $('#pickupLocation').val().trim(),
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
       }).then(function (res) {
 
-          var pickup = res.results[0].geometry.location
+        var pickup = res.results[0].geometry.location
 
         var queryURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${location.destination}&key=AIzaSyDqVvFEbKT3bghZxOT581eUo156nRZR4bw`;
 
@@ -33,23 +33,14 @@ $(document).ready(function () {
 
           var destination = res.results[0].geometry.location;
 
-          if (userId === 'no user'){
-            var serverData = {
-              user: null,
-              coordinates: {
-                pickup: pickup,
-                destination: destination
-              }
-            }
-          } else {
-            var serverData = {
-              user: userId,
-              coordinates: {
-                pickup: pickup,
-                destination: destination
-              }
+          var serverData = {
+            user: userId,
+            coordinates: {
+              pickup: pickup,
+              destination: destination
             }
           }
+
 
           $.post('/api/ride/estimates', serverData, function (estInfo) {
 
@@ -90,12 +81,15 @@ $(document).ready(function () {
 
     if (requestData.company === 'uber') {
       url = '/api/uber/login';
+    } else if (requestData.company === 'lyft') {
+      url = '/api/lyft/login';
     }
 
-    /* $.post("/api/uber/ride", requestData, function (data) {
+    $.get(url, function (data) {
       console.log('returned');
+      console.log(data);
       window.location = data;
-    }) */
+    })
 
   });
 
