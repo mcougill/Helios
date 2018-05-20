@@ -15,12 +15,30 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
-        let user = {
-            user: req.user
-        };
+        let user;
+        let message;
+        if (req.user !== undefined) {
+            
+            user = req.user.dataValues.firstName || req.user.dataValues.username
+        } else {
+            user = null;
+        }
+        console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+        // let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
+        
+        //|| req.user.dataValues.username || req.body.username;
+        if (user) {
+            message = `Welcome ${user}!`;
+        } else {
+            message = null;
+        }
 
+        let viewInfo = {
+            message: message,
+            user: user
+        };
         // console.log('req.user', req.user);
-        res.render('index', user);
+        res.render('index', viewInfo);
         //messageObj.messages = [];
     });
 
@@ -29,7 +47,10 @@ module.exports = function (app) {
     //         res.json(req.user.dataValues.id);
     //     }
     // });
-
+    
+    app.get('/test', (req, res) => {
+        console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+    });
 
     app.get('/userId', function (req, res) {
         console.log('this is the user from line 35 in html routes', req.user);
@@ -38,18 +59,7 @@ module.exports = function (app) {
         } else {
             res.json(req.user.dataValues.id);
         }
-    });
-
-    app.get('/landing', function (req, res) {
-        let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-
-        let message = {
-            message: `Welcome back ${user}!`,
-            user: user
-        }
-        // console.log(user);
-        // console.log(req.user.dataValues.id);
-        res.render('index', message);
+        
     });
 
     app.get('/register', function (req, res) {
@@ -145,7 +155,6 @@ module.exports = function (app) {
         }
     });
 };
-
 
 
 

@@ -44,7 +44,7 @@ $(document).ready(function () {
 
           $.post('/api/ride/estimates', serverData, function (estInfo) {
 
-            $('html').html(estInfo);
+            // $('html').html(estInfo);
 
           });
 

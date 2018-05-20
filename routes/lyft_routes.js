@@ -4,6 +4,8 @@ const db = require("./../models");
 
 module.exports = function (app) {
 
+    require('./html_routes.js')(app);
+
     var accountAccess;
 
     app.post('/api/lyft/estimates', function (req, res) {

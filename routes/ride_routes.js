@@ -3,6 +3,8 @@ const db = require("./../models");
 
 module.exports = function (app) {
 
+    require('./html_routes.js')(app);
+
     app.post('/api/ride/estimates', function (req, res) {
 
         var lyftOptions = {
@@ -55,7 +57,7 @@ module.exports = function (app) {
 
                 if (lyftInfo.rides.length > 0) {
                     res.status(200).render('cards', lyftInfo);
-
+                    console.log('req.user xxxxxxxxxxxxxxxxxxxxxxxxx', req.user);                    
                     if (req.body.user) {
 
                         db.user.update({
@@ -91,8 +93,7 @@ module.exports = function (app) {
         });
     });
 
-
-
+    
     // Listening to status changes from both companies
     app.post('/webhooks', function (req, res) {
 

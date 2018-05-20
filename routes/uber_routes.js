@@ -5,6 +5,9 @@ const db = require('./../models')
 const request = require('request');
 
 module.exports = function (app) {
+
+    require('./html_routes.js')(app);
+
   const uber = new Uber({
     client_id: process.env.client_id,
     client_secret: process.env.client_secret,
