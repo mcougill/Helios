@@ -49,7 +49,11 @@ module.exports = function (app) {
 
     app.get('/api/lyft/login', function (req, res){
 
-        var options = {
+        var url = `https://api.lyft.com/oauth/authorize?client_id=${process.env.lyft_id}&scope=public%20profile%20rides.read%20rides.request%20offline&state=active&response_type=code`
+
+        res.send(url);
+
+       /*  var options = {
             method: 'GET',
             url: `https://api.lyft.com/oauth/authorize?client_id=${process.env.lyft_id}&scope=public%20profile%20rides.read%20rides.request%20offline&state=active&response_type=code`
         }
@@ -172,7 +176,13 @@ module.exports = function (app) {
             });
 
         });
+ */
+    });
 
+
+    app.get('/api/lyft/redirect', function(req, res){
+        console.log(req.params);
+        console.log(req)
     });
 
     app.get('/api/lyft/ride_details', function (req, res) {
