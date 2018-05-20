@@ -19,7 +19,7 @@ module.exports = function (app) {
             user: req.user
         };
 
-        console.log('req.user', req.user);
+        // console.log('req.user', req.user);
         res.render('index', user);
         //messageObj.messages = [];
     });
@@ -32,7 +32,7 @@ module.exports = function (app) {
 
 
     app.get('/userId', function (req, res) {
-        
+        console.log('this is the user from line 35 in html routes', req.user);
         if (!req.user) {
             res.json('no user');
         } else {
@@ -47,8 +47,8 @@ module.exports = function (app) {
             message: `Welcome back ${user}!`,
             user: user
         }
-        console.log(user);
-        console.log(req.user.dataValues.id);
+        // console.log(user);
+        // console.log(req.user.dataValues.id);
         res.render('index', message);
     });
 
@@ -73,8 +73,8 @@ module.exports = function (app) {
         let test3 = patt2.test(req.body.firstName);
         let test4 = patt2.test(req.body.lastName);
 
-        console.log(req.body.password);
-        console.log(req.body.password2);
+        // console.log(req.body.password);
+        // console.log(req.body.password2);
 
         if (password !== password2) {
             errors.push('Passwords do not match.');
@@ -106,7 +106,7 @@ module.exports = function (app) {
                 }
             })
                 .then(function (data) {
-                    console.log(data, 'data');
+                    // console.log(data, 'data');
                     if (data[0]) {
                         errors.push('That username is already in use.');
                         res.render('index', {
@@ -140,7 +140,7 @@ module.exports = function (app) {
                     }
 
                 });
-            console.log(req.body.username);
+            // console.log(req.body.username);
 
         }
     });

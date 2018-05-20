@@ -15,7 +15,7 @@ module.exports = function (app) {
         request(lyftOptions, function (error, lyftResponse, lyftInfo) {
             if (error) throw error
 
-            console.log(lyftInfo)
+            console.log('lyft info line 18 ride route', lyftInfo)
 
             var uberOptions = {
                 method: 'POST',
