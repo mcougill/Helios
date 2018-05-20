@@ -13,7 +13,7 @@ module.exports = function (app) {
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
     //redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
-    redirect_uri: "https://helios-rideshare.herokuapp.com//api/uber/callback",
+    redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
