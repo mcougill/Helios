@@ -17,9 +17,9 @@
   },
   "production": {
     "username": "root",
-    "password": "",
+    "password": "StopPack9",
     "database": "helios",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   }

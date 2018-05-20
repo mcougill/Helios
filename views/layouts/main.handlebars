@@ -50,24 +50,24 @@
     </script> 
      
     <script>
-        var input = document.getElementById('autocomplete');
+        var input = document.getElementById('pickupLocation');
         var search = new google.maps.places.Autocomplete(input, { types: ['address'] });
         google.maps.event.addListener(search, 'place_changed', function () {
 
         });
         google.maps.event.addListener(search, 'place_changed', function (event) {
-        input = document.getElementById('autocomplete').value;
+        input = document.getElementById('pickupLocation').value;
         
         var geocodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input + '&key=AIzaSyAFuaWGp7mSHWHkI1rqpexi_YKNGFszVXQ';
         });
 
-        var input2 = document.getElementById('autocomplete2');
+        var input2 = document.getElementById('destLocation');
         var search2 = new google.maps.places.Autocomplete(input2, { types: ['address'] });
         google.maps.event.addListener(search2, 'place_changed', function () {
 
         });
         google.maps.event.addListener(search2, 'place_changed', function (event) {
-        input2 = document.getElementById('autocomplete2').value;
+        input2 = document.getElementById('destLocation').value;
         
         var geocodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input2 + '&key=AIzaSyAFuaWGp7mSHWHkI1rqpexi_YKNGFszVXQ';
         });
