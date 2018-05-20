@@ -17,6 +17,7 @@
             the fastest ride to your destination, but also the cheapest! We take both services, compare the prices, and show
             you the best options for you to arrive at your destination.</p>
 
+        {{#if user}}
         <div class="inputContainer">
             <div class="row">
                 <div class="col-sm-12">
@@ -38,6 +39,16 @@
                 </div>
             </div>
         </div>
+
+        {{else}}
+        {{!-- enter html here to tell user to login --}}
+        <div class='row'>
+            <div class="col-sm-12">
+                <div class="headerContent">Please login to continue...</div>
+            </div>
+        </div>
+        {{/if}}
+
     </div>
 </header>
 <!--  -->

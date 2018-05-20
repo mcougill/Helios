@@ -5,8 +5,7 @@
             {{#if rides}} {{#each rides}} {{#if uber}}
             <div class="col-sm-3 request cardDynamic" 
             data-id={{id}} 
-            data-company={{company}}
-            data-userid={{user}}>
+            data-company={{company}}>
                 <div class="imageBox">
                     <img src="./assets/images/uberLogo.jpg" class="img-responsive" alt="uberLogo">
                     <h3>{{type}}</h3>
@@ -17,7 +16,7 @@
 
             <div class="col-sm-3 request cardDynamic" 
             data-company={{company}}
-            data-userid={{user}}>
+            data-type={{type}}>
                 <div class="imageBox">
                     <img src="./assets/images/lyftLogo.jpg" class="img-responsive" alt="uberLogo">
                     <h3>{{type}}</h3>

@@ -90,6 +90,21 @@ module.exports = function (app) {
         });
     });
 
+
+    app.post('/api/ride/ride_type', function(req, res){
+
+        console.log(req.body.type)
+        console.log(req.user.dataValues.id);
+        db.user.update({
+            currentType: req.body.type
+        }, {
+            where: {
+                id: req.user.dataValues.id
+            }
+        }).then(function(data){
+            res.status(200).send('updated')
+        })
+    })
     
     // Listening to status changes from both companies
     app.post('/webhooks', function (req, res) {
