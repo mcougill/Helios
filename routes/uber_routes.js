@@ -1,14 +1,15 @@
 const Uber = require("node-uber");
 const express = require("express");
 const app = express();
+const db = require('./../models')
 
 module.exports = function(app) {
   const uber = new Uber({
     client_id: process.env.client_id,
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
-    redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
-    //redirect_uri: "http://localhost:3000/api/uber/callback",
+    //redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
+    redirect_uri: "http://localhost:3000/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
@@ -22,6 +23,7 @@ module.exports = function(app) {
     var data = JSON.stringify(url);
     response.header('Content-Length', data.length);
     response.end(data);
+    console.log(data);
   });
 
   //receive redirect and get an access token
@@ -37,7 +39,7 @@ module.exports = function(app) {
         console.log("login success!");
         console.log(access_token + " + " + tokenExpiration);
         // redirect the user back to your actual app
-        response.redirect("/api/rides/uberAuth");
+        response.redirect("/api/uber/auth");
       })
       .error(function(err) {
         console.error(err);
@@ -85,19 +87,23 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/api/uber/ride", function(req, res) {
+
+  app.post("/api/uber/ride", function(req, res) {
+      console.log('post')
+      console.log(req.body);
     // if no query params sent, respond with Bad Request
-    if (!req.body.pickup || !req.body.destination) {
-      response.sendStatus(400);
+    if (!req.body.coordinates.pickup || !req.body.coordinates.destination) {
+      res.sendStatus(400);
     } else {
+        console.log('else')
       uber.requests
         .createAsync({
           fare_id: null,
           product_id: req.body.product_id,
-          start_latitude: req.body.pickup.lat,
-          start_longitude: req.body.pickup.lng,
-          end_latitude: req.body.destination.lat,
-          end_longitude: req.body.desitnation.lng
+          start_latitude: req.body.coordinates.pickup.lat,
+          start_longitude: req.body.coordinates.pickup.lng,
+          end_latitude: req.body.coordinates.destination.lat,
+          end_longitude: req.body.coordinates.destination.lng
         })
         .then(function(res) {
           console.log(res);

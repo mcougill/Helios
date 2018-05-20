@@ -34,6 +34,16 @@ module.exports = function (app) {
     //     // res.send(req.user);
     // });
 
+    app.get('/userId', function (req, res) {
+
+        if (!req.user) {
+            res.send('no user');
+        } else {
+            res.send(req.user.dataValue.id);
+        }
+    });
+
+
     app.get('/landing', authCheck, function (req, res) {
         let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
         
