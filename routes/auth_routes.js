@@ -3,7 +3,7 @@ const passport = require('passport');
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/auth/loginFail'}), function (req, res) {
     console.log('the login route ran!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    res.redirect('/landing');
+    res.redirect('/');
 });
 
 router.get('/loginFail', function (req, res) {
@@ -28,7 +28,7 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/redirect', passport.authenticate('google'), function (req, res) {
     // messageObj.user = 'logged in as ' + req.user.dataValues.firstName;
     // console.log('req.user', req.user);
-    res.redirect('/landing');
+    res.redirect('/');
     // res.send(req.user);
 });
 

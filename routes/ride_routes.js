@@ -3,7 +3,8 @@ const db = require("./../models");
 
 module.exports = function (app) {
 
-    // Listening for the post request
+    require('./html_routes.js')(app);
+
     app.post('/api/ride/estimates', function (req, res) {
 
         var lyftOptions = {
@@ -18,7 +19,7 @@ module.exports = function (app) {
         request(lyftOptions, function (error, lyftResponse, lyftInfo) {
             if (error) throw error
 
-            console.log(lyftInfo)
+            console.log('lyft info line 18 ride route', lyftInfo)
 
             var uberOptions = {
                 method: 'POST',
@@ -89,8 +90,7 @@ module.exports = function (app) {
         });
     });
 
-
-
+    
     // Listening to status changes from both companies
     app.post('/webhooks', function (req, res) {
 

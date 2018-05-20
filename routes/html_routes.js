@@ -15,12 +15,30 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
-        let user = {
-            user: req.user
-        };
+        let user;
+        let message;
+        if (req.user !== undefined) {
+            
+            user = req.user.dataValues.firstName || req.user.dataValues.username
+        } else {
+            user = null;
+        }
+        console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+        // let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
+        
+        //|| req.user.dataValues.username || req.body.username;
+        if (user) {
+            message = `Welcome ${user}!`;
+        } else {
+            message = null;
+        }
 
-        console.log('req.user', req.user);
-        res.render('index', user);
+        let viewInfo = {
+            message: message,
+            user: user
+        };
+        // console.log('req.user', req.user);
+        res.render('index', viewInfo);
         //messageObj.messages = [];
     });
 
@@ -29,27 +47,19 @@ module.exports = function (app) {
     //         res.json(req.user.dataValues.id);
     //     }
     // });
-
+    
+    app.get('/test', (req, res) => {
+        console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+    });
 
     app.get('/userId', function (req, res) {
-        
+        console.log('this is the user from line 35 in html routes', req.user);
         if (!req.user) {
             res.json('no user');
         } else {
             res.json(req.user.dataValues.id);
         }
-    });
-
-    app.get('/landing', function (req, res) {
-        let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-
-        let message = {
-            message: `Welcome back ${user}!`,
-            user: user
-        }
-        console.log(user);
-        console.log(req.user.dataValues.id);
-        res.render('index', message);
+        
     });
 
     app.get('/register', function (req, res) {
@@ -73,8 +83,8 @@ module.exports = function (app) {
         let test3 = patt2.test(req.body.firstName);
         let test4 = patt2.test(req.body.lastName);
 
-        console.log(req.body.password);
-        console.log(req.body.password2);
+        // console.log(req.body.password);
+        // console.log(req.body.password2);
 
         if (password !== password2) {
             errors.push('Passwords do not match.');
@@ -106,7 +116,7 @@ module.exports = function (app) {
                 }
             })
                 .then(function (data) {
-                    console.log(data, 'data');
+                    // console.log(data, 'data');
                     if (data[0]) {
                         errors.push('That username is already in use.');
                         res.render('index', {
@@ -140,12 +150,11 @@ module.exports = function (app) {
                     }
 
                 });
-            console.log(req.body.username);
+            // console.log(req.body.username);
 
         }
     });
 };
-
 
 
 
