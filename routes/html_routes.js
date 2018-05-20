@@ -31,16 +31,6 @@ module.exports = function (app) {
     });
 
 
-    app.get('/userId', function (req, res) {
-
-        if (!req.user) {
-            res.send('no user');
-        } else {
-            res.send(req.user.dataValue.id);
-        }
-    });
-
-
 
    // app.get('/loginFail', function (req, res) {
      //   let loginFail = {

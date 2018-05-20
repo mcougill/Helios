@@ -103,10 +103,12 @@ module.exports = function (app) {
         }
       }).then(function (user) {
 
+        console.log(user);
+
 
         // if no query params sent, respond with Bad Request
 
-        uber.requests
+        /* uber.requests
           .createAsync({
             fare_id: null,
             product_id: req.body.product_id,
@@ -148,7 +150,7 @@ module.exports = function (app) {
           .error(function (err) {
             console.error(err);
           });
-
+ */
       })
 
     })

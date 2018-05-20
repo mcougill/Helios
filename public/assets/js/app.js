@@ -2,11 +2,11 @@ $(document).ready(function () {
 
   $('#routes').on('click', function () {
 
+    event.preventDefault();
+
     $.get('/userId', function (userId) {
 
       console.log(userId);
-
-      event.preventDefault();
 
       var location = {
         pickup: $('#pickupLocation').val().trim(),
