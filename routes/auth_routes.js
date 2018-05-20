@@ -19,7 +19,6 @@ router.get('/google', passport.authenticate('google', {
 
 router.get('/google/redirect', passport.authenticate('google'), function (req, res) {
     // messageObj.user = 'logged in as ' + req.user.dataValues.firstName;
-    // console.log('req.user', req.user);
     res.redirect('/');
     // res.send(req.user);
 });
