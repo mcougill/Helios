@@ -1,4 +1,3 @@
-
 const path = require('path');
 const db = require("./../models");
 const bcrypt = require('bcrypt');
@@ -43,13 +42,24 @@ module.exports = function (app) {
     });
 
 
-    app.get('/status/:type', function(req, res){
+    app.get('/status/:type', function (req, res) {
+        console.log('getting to html')
         console.log(req.params.type);
-        res.render('status', {status: req.params.type})
+        res.render('status', { status: req.params.type })
+        console.log(res.render('status', {status: req.params.type}));
     })
-    
+
+    app.get('/receipt/:amount', function (req, res){
+        res.render('receipt', {
+            user: req.user.firstName,
+            cost: req.params.amount
+        })
+    })
+
     app.get('/test', (req, res) => {
         console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+
+    })
 
     app.get('/loginFail', function (req, res) {
         let loginFail = ['User/Password not found.'];
@@ -72,7 +82,7 @@ module.exports = function (app) {
 
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
-        
+
         let errors = [];
         let message = [];
         let password = req.body.password;
@@ -157,6 +167,3 @@ module.exports = function (app) {
         }
     });
 };
-
-
-
