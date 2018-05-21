@@ -31,7 +31,7 @@ module.exports = function (app) {
         } else {
             user = null;
         }
-        
+
         if (user) {
             message = `Welcome ${user}!`;
         } else {
@@ -49,13 +49,13 @@ module.exports = function (app) {
 
 
     app.get('/status/:type', function (req, res) {
-        res.render('status', { 
+        res.render('status', {
             status: req.params.type,
             user: req.user
-         })
+        })
     })
 
-    app.get('/receipt/:amount', function (req, res){
+    app.get('/receipt/:amount', function (req, res) {
         res.render('receipt', {
             user: req.user.firstName,
             cost: req.params.amount
@@ -78,7 +78,7 @@ module.exports = function (app) {
     });
 
     app.get('/userId', function (req, res) {
-     
+
         if (!req.user) {
             res.json('no user');
         } else {
@@ -101,7 +101,7 @@ module.exports = function (app) {
         let test3 = patt2.test(req.body.firstName);
         let test4 = patt2.test(req.body.lastName);
 
-  
+
 
         if (password !== password2) {
             errors.push('Passwords do not match.');
@@ -134,7 +134,7 @@ module.exports = function (app) {
                 }
             })
                 .then(function (data) {
-               
+
                     if (data[0]) {
                         errors.push('That username is already in use.');
                         res.render('index', {
@@ -164,12 +164,13 @@ module.exports = function (app) {
 
                         message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
                         res.render('index', { message: message });
-                   
+
                     }
 
                 });
-          
+
 
         }
     });
+
 };
