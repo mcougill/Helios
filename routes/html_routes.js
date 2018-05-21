@@ -15,6 +15,7 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
+        
         let user = {
             user: req.user
         };
@@ -59,9 +60,9 @@ module.exports = function (app) {
         res.render('receipt', {
             user: req.user.firstName,
             cost: req.params.amount
-        })
+        });
 
-    })
+    });
 
     app.get('/test', (req, res) => {
         console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
