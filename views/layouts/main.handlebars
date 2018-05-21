@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./assets/images/helios.png">
     <!-- RESET LINK -->
     <link rel="stylesheet" href="./assets/css/reset.css"> {{!-- FONT AWESOME --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
@@ -40,12 +41,18 @@
     {{{body}}}
     
     <div id="loginFail" data-attr="{{loginFail}}"></div>
+    <div id="registerFail" data-attr="{{registerFail}}"></div>
     
     <script>
         let failStatus = $('#loginFail').attr('data-attr');
         if (failStatus) {
             $('#loginModal').modal('show');
-        }
+        };
+
+        let registerStatus = $('#registerFail').attr('data-attr');
+        if (registerStatus) {
+            $('#newAccountModal').modal('show');
+        };
 
     </script> 
      
