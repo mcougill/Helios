@@ -49,8 +49,10 @@ module.exports = function (app) {
     app.get('/status/:type', function (req, res) {
         console.log('getting to html')
         console.log(req.params.type);
-        res.render('status', { status: req.params.type })
-        console.log(res.render('status', {status: req.params.type}));
+        res.render('status', { 
+            status: req.params.type,
+            user: req.user
+         })
     })
 
     app.get('/receipt/:amount', function (req, res){
