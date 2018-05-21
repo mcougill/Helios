@@ -4,6 +4,8 @@ const db = require("./../models");
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
+    // console.log('YYYYYYYYYYYYYYYYYYYYYYY');
+
 });
 
 passport.deserializeUser(function (id, done) {
@@ -13,6 +15,7 @@ passport.deserializeUser(function (id, done) {
         }
     }).then(function (user) {
         done(null, user);
+        
     });
 });
 
@@ -43,7 +46,7 @@ passport.use(new GoogleStrategy({
             });
         }
     });
-    // console.log(profile);
-    
+    // console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+
 }));
 
