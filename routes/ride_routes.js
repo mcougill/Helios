@@ -112,16 +112,13 @@ module.exports = function (app) {
         console.log(req.body);
 
         // If statement to determine what service is being used and redering page from status update
-        if (req.body.hasOwnProperty('href')) {
 
-            res.render('status', { status: req.body.event.status })
+    })
 
-        } else if (req.body.hasOwnProperty('resource_href')) {
-
-            res.render('status', { status: req.body.meta.status })
-
-        }
-
+    app.get('/webhooks/:status', function(req, res){
+        console.log('getting to hooks');
+        console.log(req.params.status)
+        res.redirect(`/status/${req.params.status}`);
     })
 
 };

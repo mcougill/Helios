@@ -21,13 +21,13 @@ module.exports = function (app) {
 
   //log in and redirect user to authorization URL
   app.get("/api/uber/login", function (request, response) {
-    var url = uber.getAuthorizeUrl(["history", "profile", "request", "places"]);
+    var url = uber.getAuthorizeUrl(["history", "profile", "request", "places", "request_receipt"]);
     console.log("hi");
     response.contentType('application/json');
     var data = JSON.stringify(url);
     response.header('Content-Length', data.length);
     response.end(data);
-    console.log(data);
+    console.log('login' + data);
   });
 
   //receive redirect and get an access token
@@ -107,7 +107,9 @@ module.exports = function (app) {
 
       var info = user.dataValues;
 
-
+      console.log(info.currentType)
+      console.log(info.currentpickLat)
+      console.log(info.currentpickLng)
 
       // if no query params sent, respond with Bad Request
 
@@ -117,56 +119,67 @@ module.exports = function (app) {
           product_id: info.currentType,
           start_latitude: info.currentpickLat,
           start_longitude: info.currentpickLng,
-          end_latitude: info.currentpickLat,
-          end_longitude: info.currentpickLng
+          end_latitude: info.currentdestLat,
+          end_longitude: info.currentdestLng
         })
         .then(function (res) {
           console.log(res);
 
           //need to store requestID
           const requestID = res.request_id;
-          console.log(requestID);
-          //lifecycle of uber: ride statuses
-          var statusArr = [
-            "processing",
-            "accepted",
-            "arriving",
-            "in_progress",
-            "driver_canceled",
-            "completed"
-          ];
 
-          //setTimeout to iterate over ride statuses
-          var counter = 0;
-          currentRideStatus();
+          setTimeout(function () {
+            uber.requests.setStatusByIDAsync(requestID, 'accepted').then(function (res) {
+              console.log(res);
 
-          function currentRideStatus() {
-            setInterval(function () {
-              statusArr[counter];
-              counter++;
-              if (counter === statusArr.length) {
-                clearInterval(currentRideStatus);
-              }
-            }, 10 * 1000);
-          }
+              setTimeout(function () {
+                uber.requests.getCurrentAsync().then(function (res) {
+                  console.log(res);
+
+                  setTimeout(function () {
+                    uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
+                      console.log(res);
+
+                      setTimeout(function () {
+                        uber.requests.getReceiptByIDAsync(requestID).then(function (res) {
+                          console.log(res);
+
+                          setTimeout(function () {
+                            uber.requests.deleteByIDAsync(requestID).then(function (res) {
+                              console.log('deleted');
+                            })
+                          }, 5000)
+
+                        })
+
+                      }, 5000);
+
+                    })
+
+                  }, 5000);
+
+                })
+
+              }, 5000);
+
+            });
+
+          }, 5000)
+
         })
+
         .error(function (err) {
           console.error(err);
         });
 
-    })
-
-
-
-
-
+    });
 
   });
 
+
   //sandbox ride status change
-  app.put("/api/uber/status", function (request, response) {
-    uber.requests
-      .setStatusByIDAsync(requestID, currentRideStatus)
+  app.get("/api/uber/status", function (request, response) {
+    uber.requests.getCurrentAsync()
       .then(function (res) {
         console.log(res);
       })
@@ -176,9 +189,9 @@ module.exports = function (app) {
   });
 
   //receipt
-  app.get("/api/uber/receipt", function (request, response) {
+  app.get("/api/uber/delete", function (request, response) {
     uber.requests
-      .getReceiptByIDAsync(uber.client_id)
+      .deleteByIDAsync('dbfc5482-9046-4084-ba37-b278cfd7e5bf')
       .then(function (res) {
         console.log(res);
       })

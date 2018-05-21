@@ -42,11 +42,10 @@ module.exports = function (app) {
         //messageObj.messages = [];
     });
 
-    // app.get('/userId', function (req, res) {
-    //     if (req.user.dataValues.id) {
-    //         res.json(req.user.dataValues.id);
-    //     }
-    // });
+    app.get('/status/:type', function(req, res){
+        console.log(req.params.type);
+        res.render('status', {status: req.params.type})
+    })
     
     app.get('/test', (req, res) => {
         console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
