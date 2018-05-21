@@ -12,8 +12,8 @@ module.exports = function (app) {
     client_id: process.env.client_id,
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
-    //redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
-    redirect_uri: "http://localhost:3000/api/uber/callback",
+    redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
+    //redirect_uri: "http://localhost:3000/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
@@ -123,7 +123,7 @@ module.exports = function (app) {
           const requestID = res.request_id;
 
 
-          request({ method: "GET", url: "http://localhost:3000/webhooks/processing" }, function (error) {
+          request({ method: "GET", url: "https://helios-rideshare.herokuapp.com/webhooks/processing" }, function (error) {
 
 
             setTimeout(function () {
@@ -134,7 +134,7 @@ module.exports = function (app) {
                   uber.requests.getCurrentAsync().then(function (res) {
                     console.log(res);
 
-                    request({ method: "GET", url: "http://localhost:3000/webhooks/accepted" }, function (error) {
+                    request({ method: "GET", url: "https://helios-rideshare.herokuapp.com/webhooks/accepted" }, function (error) {
 
                       setTimeout(function () {
                         uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
