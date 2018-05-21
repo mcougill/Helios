@@ -15,8 +15,10 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
-        
-        res.render('index');
+        let user = {
+            user: req.user
+        };
+        res.render('index', user);
     });
 
     app.get('/loggedIn', function (req, res) {
