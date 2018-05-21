@@ -152,11 +152,12 @@ module.exports = function (app) {
                                     password: hash
                                 });
                             });
+                        });
 
-                            message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
-                            res.render('index', { message: message });
+                        message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
+                        res.render('index', { message: message });
 
-                        }
+                    }
 
                 });
 
