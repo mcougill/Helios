@@ -15,11 +15,11 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
-        let user;
-        let message;
+        let user = null;
+        let message = null;
         if (req.user !== undefined) {
 
-            user = req.user.dataValues.firstName || req.user.dataValues.username
+            user = req.user.dataValues.firstName || req.user.dataValues.username;
         } else {
             user = null;
         }
