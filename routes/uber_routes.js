@@ -120,12 +120,12 @@ module.exports = function (app) {
           uber.requests.setStatusByIDAsync(requestID, 'completed')
           .then(function(data){
 
-            uber.requests.getReceiptByIDAsync(requestID).then(function(data){
-
-              res.redirect(`/receipt/${data.total_charged}`).end();
+            uber.requests.getReceiptByIDAsync(requestID).then(function(receipt){
 
               uber.requests.deleteByIDAsync(requestID).then(function(data){
                 console.log('deleted')
+
+                res.redirect(`/receipt/${receipt.total_charged}`).end();
               })
 
             })
