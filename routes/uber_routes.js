@@ -128,27 +128,40 @@ module.exports = function (app) {
           //need to store requestID
           const requestID = res.request_id;
 
-          setTimeout(function () {
-            uber.requests.setStatusByIDAsync(requestID, 'accepted').then(function (res) {
-              console.log(res);
+          request({ method: "GET", url: "http://localhost:3000/webhooks/processing" }, function (error) {
 
-              setTimeout(function () {
-                uber.requests.getCurrentAsync().then(function (res) {
-                  console.log(res);
 
-                  setTimeout(function () {
-                    uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
-                      console.log(res);
+            setTimeout(function () {
+              uber.requests.setStatusByIDAsync(requestID, 'accepted').then(function (res) {
+                console.log(res);
+
+                setTimeout(function () {
+                  uber.requests.getCurrentAsync().then(function (res) {
+                    console.log(res);
+
+                    request({ method: "GET", url: "http://localhost:3000/webhooks/accepted" }, function (error) {
 
                       setTimeout(function () {
-                        uber.requests.getReceiptByIDAsync(requestID).then(function (res) {
+                        uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
                           console.log(res);
 
                           setTimeout(function () {
-                            uber.requests.deleteByIDAsync(requestID).then(function (res) {
-                              console.log('deleted');
+                            uber.requests.getReceiptByIDAsync(requestID).then(function (res) {
+                              console.log(res);
+
+                              request({ method: "GET", url: `http://localhost:3000/receipt/${res.total_charged}` }, function (error) {
+
+                                setTimeout(function () {
+                                  uber.requests.deleteByIDAsync(requestID).then(function (res) {
+                                    console.log('deleted');
+                                  })
+                                }, 5000)
+
+                              })
+
                             })
-                          }, 5000)
+
+                          }, 5000);
 
                         })
 
@@ -156,15 +169,15 @@ module.exports = function (app) {
 
                     })
 
-                  }, 5000);
+                  })
 
-                })
+                }, 5000);
 
-              }, 5000);
+              });
 
-            });
+            }, 5000)
 
-          }, 5000)
+          })
 
         })
 

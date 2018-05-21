@@ -105,15 +105,6 @@ module.exports = function (app) {
             res.status(200).send('updated')
         })
     })
-    
-    // Listening to status changes from both companies
-    app.post('/webhooks', function (req, res) {
-
-        console.log(req.body);
-
-        // If statement to determine what service is being used and redering page from status update
-
-    })
 
     app.get('/webhooks/:status', function(req, res){
         console.log('getting to hooks');
