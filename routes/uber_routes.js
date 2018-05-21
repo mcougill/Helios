@@ -13,7 +13,7 @@ module.exports = function (app) {
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
     //redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
-    redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
+    redirect_uri: "http://localhost:3000/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
@@ -122,27 +122,40 @@ module.exports = function (app) {
           //need to store requestID
           const requestID = res.request_id;
 
-          setTimeout(function () {
-            uber.requests.setStatusByIDAsync(requestID, 'accepted').then(function (res) {
+
+          request({ method: "GET", url: "http://localhost:3000/webhooks/processing" }, function (error) {
 
 
-              setTimeout(function () {
-                uber.requests.getCurrentAsync().then(function (res) {
+            setTimeout(function () {
+              uber.requests.setStatusByIDAsync(requestID, 'accepted').then(function (res) {
+                console.log(res);
 
+                setTimeout(function () {
+                  uber.requests.getCurrentAsync().then(function (res) {
+                    console.log(res);
 
-                  setTimeout(function () {
-                    uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
-
+                    request({ method: "GET", url: "http://localhost:3000/webhooks/accepted" }, function (error) {
 
                       setTimeout(function () {
-                        uber.requests.getReceiptByIDAsync(requestID).then(function (res) {
-
+                        uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
+                          console.log(res);
 
                           setTimeout(function () {
-                            uber.requests.deleteByIDAsync(requestID).then(function (res) {
+                            uber.requests.getReceiptByIDAsync(requestID).then(function (res) {
+                              console.log(res);
+
+                              res.redirect(`/receipt/${res.total_charged}`)
+
+                                setTimeout(function () {
+                                  uber.requests.deleteByIDAsync(requestID).then(function (res) {
+                                    console.log('deleted');
+                                  })
+                                }, 5000)
+
 
                             })
-                          }, 5000)
+
+                          }, 5000);
 
                         })
 
@@ -150,15 +163,15 @@ module.exports = function (app) {
 
                     })
 
-                  }, 5000);
+                  })
 
-                })
+                }, 5000);
 
-              }, 5000);
+              });
 
-            });
+            }, 5000)
 
-          }, 5000)
+          })
 
         })
 
@@ -185,7 +198,7 @@ module.exports = function (app) {
   //delete
   app.get("/api/uber/delete", function (request, response) {
     uber.requests
-      .deleteByIDAsync('dbfc5482-9046-4084-ba37-b278cfd7e5bf')
+      .deleteByIDAsync('31de76b3-924f-4738-9132-fd02467c8655')
       .then(function (res) {
         
       })
