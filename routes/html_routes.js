@@ -15,17 +15,17 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
-        let user;
-        let message;
+        let user = null;
+        let message = null;
         if (req.user !== undefined) {
-            
-            user = req.user.dataValues.firstName || req.user.dataValues.username
+
+            user = req.user.dataValues.firstName || req.user.dataValues.username;
         } else {
             user = null;
         }
-        console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+        // console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
         // let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-        
+
         //|| req.user.dataValues.username || req.body.username;
         if (user) {
             message = `Welcome ${user}!`;
@@ -42,6 +42,7 @@ module.exports = function (app) {
         //messageObj.messages = [];
     });
 
+
     app.get('/status/:type', function(req, res){
         console.log(req.params.type);
         res.render('status', {status: req.params.type})
@@ -49,6 +50,14 @@ module.exports = function (app) {
     
     app.get('/test', (req, res) => {
         console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+
+    app.get('/loginFail', function (req, res) {
+        let loginFail = ['User/Password not found.'];
+        let hbsObj = {
+            loginFail: loginFail
+        };
+        res.render('index', hbsObj);
+
     });
 
     app.get('/userId', function (req, res) {
@@ -58,23 +67,16 @@ module.exports = function (app) {
         } else {
             res.json(req.user.dataValues.id);
         }
-        
-    });
 
-    app.get('/register', function (req, res) {
-
-        res.render('register');
-        // messageObj.messages = [];
     });
 
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
-
+        
         let errors = [];
         let message = [];
         let password = req.body.password;
         let password2 = req.body.password2;
-        let names = [req.body.username, req.body.firstName, req.body.lastName];
         let patt = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
         let patt2 = /^[a-zA-Z]{2,}/;
         let test = patt.test(password);
@@ -106,7 +108,8 @@ module.exports = function (app) {
                 errors: errors,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                username: req.body.username
+                username: req.body.username,
+                registerFail: true
             });
         } else {
             db.user.findAll({
