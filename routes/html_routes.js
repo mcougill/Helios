@@ -23,8 +23,6 @@ module.exports = function (app) {
         } else {
             user = null;
         }
-        // console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
-        // let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
 
         //|| req.user.dataValues.username || req.body.username;
         if (user) {
@@ -37,14 +35,13 @@ module.exports = function (app) {
             message: message,
             user: user
         };
-        // console.log('req.user', req.user);
+
         res.render('index', viewInfo);
-        //messageObj.messages = [];
+
     });
 
 
     app.get('/status/:type', function (req, res) {
-        console.log(req.params.type);
         res.render('status', { status: req.params.type })
     })
 
@@ -61,7 +58,7 @@ module.exports = function (app) {
         });
 
         app.get('/userId', function (req, res) {
-            console.log('this is the user from line 35 in html routes', req.user);
+
             if (!req.user) {
                 res.json('no user');
             } else {
@@ -84,8 +81,7 @@ module.exports = function (app) {
             let test3 = patt2.test(req.body.firstName);
             let test4 = patt2.test(req.body.lastName);
 
-            // console.log(req.body.password);
-            // console.log(req.body.password2);
+
 
             if (password !== password2) {
                 errors.push('Passwords do not match.');
@@ -118,7 +114,7 @@ module.exports = function (app) {
                     }
                 })
                     .then(function (data) {
-                        // console.log(data, 'data');
+
                         if (data[0]) {
                             errors.push('That username is already in use.');
                             res.render('index', {
@@ -142,21 +138,20 @@ module.exports = function (app) {
                                         username: req.body.username,
                                         password: hash
                                     });
-
                                 });
-                            });
 
-                            message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
-                            res.render('index', { message: message });
-                            console.log('new user was created');
-                        }
+                                message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
+                                res.render('index', { message: message });
 
-                    });
-                // console.log(req.body.username);
+                            }
 
-            }
-        });
+                });
+
+
+
+            });
+
+
+
     });
-
-
 };

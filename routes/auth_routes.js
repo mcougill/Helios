@@ -2,13 +2,10 @@ const router = require('express').Router();
 const passport = require('passport');
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/loginFail'}), function (req, res) {
-    console.log('the login route ran!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     res.redirect('/');
 });
 
 router.get('/logout', function (req, res) {
-    // console.log(req.user);
-    // console.log('logout ran//////////////////////////////');
     req.logout();
     res.redirect('/');
 });
