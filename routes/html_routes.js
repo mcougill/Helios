@@ -42,12 +42,22 @@ module.exports = function (app) {
         //messageObj.messages = [];
     });
 
+
+    app.get('/status/:type', function(req, res){
+        console.log(req.params.type);
+        res.render('status', {status: req.params.type})
+    })
+    
+    app.get('/test', (req, res) => {
+        console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+
     app.get('/loginFail', function (req, res) {
         let loginFail = ['User/Password not found.'];
         let hbsObj = {
             loginFail: loginFail
         };
         res.render('index', hbsObj);
+
     });
 
     app.get('/userId', function (req, res) {
