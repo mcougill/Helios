@@ -13,5 +13,5 @@ Node.js
 Passport.js
 Sequelize
 
-#Link
+
 https://helios-rideshare.herokuapp.com/
