@@ -4,6 +4,7 @@ const db = require("./../models");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const passport = require('passport');
+const passportGoogleSetup = require('./../config/passport_google_setup.js')
 const authCheck = function (req, res, next) {
     if (!req.user) {
         res.redirect('/');
@@ -15,6 +16,12 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
+        
+        res.render('index');
+    });
+
+    app.get('/loggedIn', function (req, res) {
+        console.log('logged in route ran');
         let user = null;
         let message = null;
         if (req.user !== undefined) {
@@ -23,10 +30,7 @@ module.exports = function (app) {
         } else {
             user = null;
         }
-        // console.log('user at / !!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
-        // let user = req.user.dataValues.firstName || req.user.dataValues.username || req.body.username;
-
-        //|| req.user.dataValues.username || req.body.username;
+        
         if (user) {
             message = `Welcome ${user}!`;
         } else {
@@ -37,9 +41,8 @@ module.exports = function (app) {
             message: message,
             user: user
         };
-        // console.log('req.user', req.user);
+
         res.render('index', viewInfo);
-        //messageObj.messages = [];
     });
 
     app.get('/loginFail', function (req, res) {
