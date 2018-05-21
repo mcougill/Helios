@@ -15,6 +15,7 @@ const authCheck = function (req, res, next) {
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
+        
         let user = {
             user: req.user
         };
@@ -31,7 +32,7 @@ module.exports = function (app) {
         } else {
             user = null;
         }
-        
+
         if (user) {
             message = `Welcome ${user}!`;
         } else {
@@ -49,19 +50,19 @@ module.exports = function (app) {
 
 
     app.get('/status/:type', function (req, res) {
-        res.render('status', { 
+        res.render('status', {
             status: req.params.type,
             user: req.user
-         })
+        })
     })
 
     app.get('/receipt/:amount', function (req, res) {
         res.render('receipt', {
             user: req.user.firstName,
             cost: req.params.amount
-        })
+        });
 
-    })
+    });
 
     app.get('/test', (req, res) => {
         console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
@@ -168,6 +169,8 @@ module.exports = function (app) {
 
                 });
 
+
         }
     });
+
 };
