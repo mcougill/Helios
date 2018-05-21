@@ -1,13 +1,12 @@
 <!-- NAVBAR -->
 <nav class="navbar fixed-top navbar-dark bg-dark">
     <div class="text-align-left">
-    <a class="navbar-brand heliosBrand" href="/">H E L I O S</a>
-    <img src="./assets/images/helios.png" alt="helios logo" width="100">
+        <a class="navbar-brand heliosBrand" href="./index.html"></a>
+        <img src="./assets/images/helios.png" alt="helios logo" width="50">
     </div>
     {{#unless user}}
     <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal">Login</button>
-    {{/unless}} 
-    {{#if user}}
+    {{/unless}} {{#if user}}
     <form action="/auth/logout" method="GET">
         <button type="submit" class="btn btn-outline-info">Logout</button>
     </form>
