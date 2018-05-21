@@ -7,8 +7,6 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/loginF
 });
 
 router.get('/logout', function (req, res) {
-    // console.log(req.user);
-    // console.log('logout ran//////////////////////////////');
     req.logout();
     res.redirect('/');
 });

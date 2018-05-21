@@ -12,8 +12,8 @@ module.exports = function (app) {
     client_id: process.env.client_id,
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
-    //redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
     redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
+    //redirect_uri: "http://localhost:3000/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
@@ -21,13 +21,11 @@ module.exports = function (app) {
 
   //log in and redirect user to authorization URL
   app.get("/api/uber/login", function (request, response) {
-    var url = uber.getAuthorizeUrl(["history", "profile", "request", "places"]);
-    console.log("hi");
+    var url = uber.getAuthorizeUrl(["history", "profile", "request", "places", "request_receipt"]);
     response.contentType('application/json');
     var data = JSON.stringify(url);
     response.header('Content-Length', data.length);
     response.end(data);
-    console.log(data);
   });
 
   //receive redirect and get an access token
@@ -40,8 +38,7 @@ module.exports = function (app) {
         authorizedScopes,
         tokenExpiration
       ) {
-        console.log("login success!");
-        console.log(access_token + " + " + tokenExpiration);
+
         // redirect the user back to your actual app
         response.redirect("/api/uber/ride");
       })
@@ -63,7 +60,7 @@ module.exports = function (app) {
         req.body.coordinates.destination.lng
       )
         .then(function (data) {
-          console.log(data);
+
 
           var returnedData = {
             rides: []
@@ -94,19 +91,15 @@ module.exports = function (app) {
 
 
   app.get("/api/uber/ride", function (req, res) {
-    console.log('post')
-
-    console.log(req.user.dataValues.id);
 
     db.user.findOne({
       where: {
         id: req.user.dataValues.id
       }
     }).then(function (user) {
-      console.log(user.dataValues);
+
 
       var info = user.dataValues;
-
 
 
       // if no query params sent, respond with Bad Request
@@ -117,56 +110,37 @@ module.exports = function (app) {
           product_id: info.currentType,
           start_latitude: info.currentpickLat,
           start_longitude: info.currentpickLng,
-          end_latitude: info.currentpickLat,
-          end_longitude: info.currentpickLng
+          end_latitude: info.currentdestLat,
+          end_longitude: info.currentdestLng
         })
-        .then(function (res) {
-          console.log(res);
+        .then(function (data) {
 
           //need to store requestID
-          const requestID = res.request_id;
-          console.log(requestID);
-          //lifecycle of uber: ride statuses
-          var statusArr = [
-            "processing",
-            "accepted",
-            "arriving",
-            "in_progress",
-            "driver_canceled",
-            "completed"
-          ];
+          const requestID = data.request_id;
 
-          //setTimeout to iterate over ride statuses
-          var counter = 0;
-          currentRideStatus();
+          uber.requests.setStatusByIDAsync(requestID, 'completed')
+          .then(function(data){
 
-          function currentRideStatus() {
-            setInterval(function () {
-              statusArr[counter];
-              counter++;
-              if (counter === statusArr.length) {
-                clearInterval(currentRideStatus);
-              }
-            }, 10 * 1000);
-          }
+            uber.requests.getReceiptByIDAsync(requestID).then(function(data){
+
+              res.redirect(`/receipt/${data.total_charged}`)
+
+            })
+          })
+
         })
         .error(function (err) {
           console.error(err);
         });
 
-    })
-
-
-
-
-
+    });
 
   });
 
+
   //sandbox ride status change
-  app.put("/api/uber/status", function (request, response) {
-    uber.requests
-      .setStatusByIDAsync(requestID, currentRideStatus)
+  app.get("/api/uber/status", function (request, response) {
+    uber.requests.getCurrentAsync()
       .then(function (res) {
         console.log(res);
       })
@@ -175,10 +149,10 @@ module.exports = function (app) {
       });
   });
 
-  //receipt
-  app.get("/api/uber/receipt", function (request, response) {
+  //delete
+  app.get("/api/uber/delete", function (request, response) {
     uber.requests
-      .getReceiptByIDAsync(uber.client_id)
+      .deleteByIDAsync('3d034163-3d5e-499c-8502-b970bcd6c21b')
       .then(function (res) {
         console.log(res);
       })

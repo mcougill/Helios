@@ -1,4 +1,3 @@
-
 const path = require('path');
 const db = require("./../models");
 const bcrypt = require('bcrypt');
@@ -45,16 +44,39 @@ module.exports = function (app) {
         res.render('index', viewInfo);
     });
 
+
+
+    app.get('/status/:type', function (req, res) {
+        console.log('getting to html')
+        console.log(req.params.type);
+        res.render('status', { status: req.params.type })
+        console.log(res.render('status', {status: req.params.type}));
+    })
+
+    app.get('/receipt/:amount', function (req, res){
+        res.render('receipt', {
+            user: req.user.firstName,
+            cost: req.params.amount
+        })
+
+    })
+
+    app.get('/test', (req, res) => {
+        console.log('user at /test !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.user);
+
+    })
+
     app.get('/loginFail', function (req, res) {
         let loginFail = ['User/Password not found.'];
         let hbsObj = {
             loginFail: loginFail
         };
         res.render('index', hbsObj);
+
     });
 
     app.get('/userId', function (req, res) {
-        console.log('this is the user from line 35 in html routes', req.user);
+     
         if (!req.user) {
             res.json('no user');
         } else {
@@ -65,7 +87,7 @@ module.exports = function (app) {
 
     app.post('/register', function (req, res) {
         // users submitted info will be validated and queried against the database for duplicates, then upon success will be redirected to login page, otherwise return an error to the user
-        
+
         let errors = [];
         let message = [];
         let password = req.body.password;
@@ -77,8 +99,7 @@ module.exports = function (app) {
         let test3 = patt2.test(req.body.firstName);
         let test4 = patt2.test(req.body.lastName);
 
-        // console.log(req.body.password);
-        // console.log(req.body.password2);
+  
 
         if (password !== password2) {
             errors.push('Passwords do not match.');
@@ -111,7 +132,7 @@ module.exports = function (app) {
                 }
             })
                 .then(function (data) {
-                    // console.log(data, 'data');
+               
                     if (data[0]) {
                         errors.push('That username is already in use.');
                         res.render('index', {
@@ -141,15 +162,12 @@ module.exports = function (app) {
 
                         message.push(`Registration successful. Welcome ${req.body.firstName}! You can now login.`);
                         res.render('index', { message: message });
-                        console.log('new user was created');
+                   
                     }
 
                 });
-            // console.log(req.body.username);
+          
 
         }
     });
 };
-
-
-

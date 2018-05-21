@@ -7,7 +7,6 @@ $(document).ready(function () {
     // Calling the current users Id to read/write to the db
     $.get('/userId', function (userId) {
 
-      console.log(userId);
 
       var location = {
         pickup: $('#pickupLocation').val().trim(),
@@ -44,7 +43,6 @@ $(document).ready(function () {
             }
           }
 
-          console.log(serverData);
 
           // Sending all data to the ride estimates to ping both services
           $.post('/api/ride/estimates', serverData, function (estInfo) {
@@ -77,8 +75,7 @@ $(document).ready(function () {
 
         // Send to the authentication
         $.get(url, function (data) {
-          console.log('returned');
-          console.log(data);
+       
           window.location = data;
         });
 
@@ -94,8 +91,7 @@ $(document).ready(function () {
 
         // Send to the authentication
         $.get(url, function (data) {
-          console.log('returned');
-          console.log(data);
+          
           window.location = data;
 
         });

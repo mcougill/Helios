@@ -32,13 +32,13 @@ module.exports = function (app) {
             };
 
             // Iterating over the returned array to format
-            data.cost_estimates.forEach(function(item){
+            data.cost_estimates.forEach(function (item) {
                 var newRide = {
                     company: 'lyft',
                     type: item.display_name,
-                    estimate: `$${(item.estimated_cost_cents_min/100).toFixed(2)}-${(item.estimated_cost_cents_max/100).toFixed(2)}`,
+                    estimate: `$${(item.estimated_cost_cents_min / 100).toFixed(2)}-${(item.estimated_cost_cents_max / 100).toFixed(2)}`,
                     coordinates: req.body,
-                    minimum: parseFloat((item.estimated_cost_cents_min/100).toFixed(2)),
+                    minimum: parseFloat((item.estimated_cost_cents_min / 100).toFixed(2)),
                     id: null,
                     uber: false,
                     user: req.body.user
@@ -55,7 +55,7 @@ module.exports = function (app) {
 
     })
 
-    app.get('/api/lyft/login', function (req, res){
+    app.get('/api/lyft/login', function (req, res) {
 
         var url = `https://api.lyft.com/oauth/authorize?client_id=${process.env.lyft_id}&scope=public%20profile%20rides.read%20rides.request%20offline&state=active&response_type=code`
 
@@ -64,36 +64,11 @@ module.exports = function (app) {
     });
 
 
-    app.get('/api/lyft/redirect', function(req, res){
-        console.log(req.query.code);
-    });
+    app.get('/api/lyft/redirect', function (req, res) {
+       
 
-    app.get('/api/lyft/ride_details', function (req, res) {
+        res.redirect('/status/pending');
 
-        db.user.findOne({
-            where: {
-                firstName: 'Test'
-            }
-        }).then(function (user) {
-            console.log(user.dataValues);
-
-            var options = {
-                method: 'GET',
-                url: `https://api.lyft.com/v1/rides/${user.dataValues.currentRide}`,
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.dataValues.currentToken}`
-                }
-            };
-
-            request(options, function (error, response, body) {
-
-                console.log(JSON.parse(body));
-
-                res.json(body);
-            });
-
-        });
     });
 
 };
