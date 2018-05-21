@@ -22,12 +22,10 @@ module.exports = function (app) {
   //log in and redirect user to authorization URL
   app.get("/api/uber/login", function (request, response) {
     var url = uber.getAuthorizeUrl(["history", "profile", "request", "places", "request_receipt"]);
-    console.log("hi");
     response.contentType('application/json');
     var data = JSON.stringify(url);
     response.header('Content-Length', data.length);
     response.end(data);
-    console.log('login' + data);
   });
 
   //receive redirect and get an access token
@@ -40,8 +38,7 @@ module.exports = function (app) {
         authorizedScopes,
         tokenExpiration
       ) {
-        console.log("login success!");
-        console.log(access_token + " + " + tokenExpiration);
+
         // redirect the user back to your actual app
         response.redirect("/api/uber/ride");
       })
@@ -63,7 +60,7 @@ module.exports = function (app) {
         req.body.coordinates.destination.lng
       )
         .then(function (data) {
-          console.log(data);
+
 
           var returnedData = {
             rides: []
@@ -94,22 +91,19 @@ module.exports = function (app) {
 
 
   app.get("/api/uber/ride", function (req, res) {
-    console.log('post')
 
-    console.log(req.user.dataValues.id);
+
+
 
     db.user.findOne({
       where: {
         id: req.user.dataValues.id
       }
     }).then(function (user) {
-      console.log(user.dataValues);
+
 
       var info = user.dataValues;
 
-      console.log(info.currentType)
-      console.log(info.currentpickLat)
-      console.log(info.currentpickLng)
 
       // if no query params sent, respond with Bad Request
 
@@ -123,10 +117,11 @@ module.exports = function (app) {
           end_longitude: info.currentdestLng
         })
         .then(function (res) {
-          console.log(res);
+
 
           //need to store requestID
           const requestID = res.request_id;
+
 
           request({ method: "GET", url: "http://localhost:3000/webhooks/processing" }, function (error) {
 
@@ -156,6 +151,7 @@ module.exports = function (app) {
                                     console.log('deleted');
                                   })
                                 }, 5000)
+
 
                             })
 
@@ -192,19 +188,19 @@ module.exports = function (app) {
   app.get("/api/uber/status", function (request, response) {
     uber.requests.getCurrentAsync()
       .then(function (res) {
-        console.log(res);
+        
       })
       .error(function (err) {
         console.error(err);
       });
   });
 
-  //receipt
+  //delete
   app.get("/api/uber/delete", function (request, response) {
     uber.requests
       .deleteByIDAsync('31de76b3-924f-4738-9132-fd02467c8655')
       .then(function (res) {
-        console.log(res);
+        
       })
       .error(function (err) {
         console.error(err);

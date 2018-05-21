@@ -65,7 +65,7 @@ module.exports = function (app) {
 
 
     app.get('/api/lyft/redirect', function (req, res) {
-        console.log(req.query.code);
+       
 
         res.redirect('/status/pending');
 

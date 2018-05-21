@@ -19,7 +19,7 @@ module.exports = function (app) {
         request(lyftOptions, function (error, lyftResponse, lyftInfo) {
             if (error) throw error
 
-            console.log('lyft info line 18 ride route', lyftInfo)
+            
 
             var uberOptions = {
                 method: 'POST',
@@ -33,7 +33,7 @@ module.exports = function (app) {
             request(uberOptions, function (error, uberResponse, uberInfo) {
                 if (error) throw error
 
-                console.log(uberInfo)
+        
 
                 // Push uber data into array returned by lyft
                 uberInfo.rides.forEach(function (item) {
@@ -76,7 +76,7 @@ module.exports = function (app) {
                             }
                         }).then(function (data) {
 
-                            console.log(lyftInfo);
+                            
 
                             // Render the cards page
                             res.status(200).render('cards', lyftInfo);
@@ -93,8 +93,7 @@ module.exports = function (app) {
 
     app.post('/api/ride/ride_type', function(req, res){
 
-        console.log(req.body.type)
-        console.log(req.user.dataValues.id);
+      
         db.user.update({
             currentType: req.body.type
         }, {
@@ -105,7 +104,7 @@ module.exports = function (app) {
             res.status(200).send('updated')
         })
     })
-
+  
     app.get('/webhooks/:status', function(req, res){
         res.redirect(`/status/${req.params.status}`);
     })
