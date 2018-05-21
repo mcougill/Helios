@@ -13,7 +13,6 @@ module.exports = function (app) {
     client_secret: process.env.client_secret,
     server_token: process.env.server_token,
     redirect_uri: "https://helios-rideshare.herokuapp.com/api/uber/callback",
-    //redirect_uri: "http://localhost:3000/api/uber/callback",
     name: "Student Project",
     language: "en_US",
     sandbox: true
@@ -121,9 +120,13 @@ module.exports = function (app) {
           uber.requests.setStatusByIDAsync(requestID, 'completed')
           .then(function(data){
 
-            uber.requests.getReceiptByIDAsync(requestID).then(function(data){
+            uber.requests.getReceiptByIDAsync(requestID).then(function(receipt){
 
-              res.redirect(`/receipt/${data.total_charged}`)
+              uber.requests.deleteByIDAsync(requestID).then(function(data){
+                console.log('deleted')
+
+                res.redirect(`/receipt/${receipt.total_charged}`).end();
+              })
 
             })
           })
