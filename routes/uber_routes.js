@@ -92,9 +92,6 @@ module.exports = function (app) {
 
   app.get("/api/uber/ride", function (req, res) {
 
-
-
-
     db.user.findOne({
       where: {
         id: req.user.dataValues.id
@@ -116,65 +113,22 @@ module.exports = function (app) {
           end_latitude: info.currentdestLat,
           end_longitude: info.currentdestLng
         })
-        .then(function (res) {
-
+        .then(function (data) {
 
           //need to store requestID
-          const requestID = res.request_id;
+          const requestID = data.request_id;
 
+          uber.requests.setStatusByIDAsync(requestID, 'completed')
+          .then(function(data){
 
-          request({ method: "GET", url: "http://localhost:3000/webhooks/processing" }, function (error) {
+            uber.requests.getReceiptByIDAsync(requestID).then(function(data){
 
+              res.redirect(`/receipt/${data.total_charged}`)
 
-            setTimeout(function () {
-              uber.requests.setStatusByIDAsync(requestID, 'accepted').then(function (res) {
-                console.log(res);
-
-                setTimeout(function () {
-                  uber.requests.getCurrentAsync().then(function (res) {
-                    console.log(res);
-
-                    request({ method: "GET", url: "http://localhost:3000/webhooks/accepted" }, function (error) {
-
-                      setTimeout(function () {
-                        uber.requests.setStatusByIDAsync(requestID, 'completed').then(function (res) {
-                          console.log(res);
-
-                          setTimeout(function () {
-                            uber.requests.getReceiptByIDAsync(requestID).then(function (res) {
-                              console.log(res);
-
-                              res.redirect(`/receipt/${res.total_charged}`)
-
-                                setTimeout(function () {
-                                  uber.requests.deleteByIDAsync(requestID).then(function (res) {
-                                    console.log('deleted');
-                                  })
-                                }, 5000)
-
-
-                            })
-
-                          }, 5000);
-
-                        })
-
-                      }, 5000);
-
-                    })
-
-                  })
-
-                }, 5000);
-
-              });
-
-            }, 5000)
-
+            })
           })
 
         })
-
         .error(function (err) {
           console.error(err);
         });
@@ -188,7 +142,7 @@ module.exports = function (app) {
   app.get("/api/uber/status", function (request, response) {
     uber.requests.getCurrentAsync()
       .then(function (res) {
-        
+        console.log(res);
       })
       .error(function (err) {
         console.error(err);
@@ -198,9 +152,9 @@ module.exports = function (app) {
   //delete
   app.get("/api/uber/delete", function (request, response) {
     uber.requests
-      .deleteByIDAsync('31de76b3-924f-4738-9132-fd02467c8655')
+      .deleteByIDAsync('3d034163-3d5e-499c-8502-b970bcd6c21b')
       .then(function (res) {
-        
+        console.log(res);
       })
       .error(function (err) {
         console.error(err);
