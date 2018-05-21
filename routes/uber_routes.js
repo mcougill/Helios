@@ -122,7 +122,11 @@ module.exports = function (app) {
 
             uber.requests.getReceiptByIDAsync(requestID).then(function(data){
 
-              res.redirect(`/receipt/${data.total_charged}`)
+              res.redirect(`/receipt/${data.total_charged}`).end();
+
+              uber.requests.deleteByIDAsync(requestID).then(function(data){
+                console.log('deleted')
+              })
 
             })
           })
