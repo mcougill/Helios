@@ -158,7 +158,6 @@ module.exports = function (app) {
                                     username: req.body.username,
                                     password: hash
                                 });
-
                             });
                         });
 
