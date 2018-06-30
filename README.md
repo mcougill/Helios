@@ -1,17 +1,32 @@
 # Helios
 
-Helios is a ride sharing application that allows for the user to book the cheapest ride from multiple ride sharing companies - giving the user the ability to compare the prices and choose a ride without having to open multiple ride sharing applications to see the price of a particular ride at any given time. At the same time, this will keep the user from paying extremely high prices during peak hours and this will also bring business to the smaller ride sharing companies who, in some cities, are dominated by some of the bigger ride sharing companies. The goal of this application is to inform the user of all prices between multiple ride sharing companies without the user having to hop between applications to find the cheapest price for their ride.  
+Helios is a Ride sharing application that pulls realtime data from Uber and Lyft to allow user to call most cost-effective ride without the user having to hop between applications. 
 
-# Tech Used:
-BCrypt
-CSS
-Express.js
-Handlebars.js
-jQuery
-MySQL
-Node.js
-Passport.js
-Sequelize
+**Link to Deployed Page:** https://helios-rideshare.herokuapp.com/
 
+**Built With**
+- Javascript
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Bootstrap
+- Handlebars.js
+- Several NPM packages 
 
-https://helios-rideshare.herokuapp.com/
+**Team**
+- Molly Cougill
+- Brant Campdomonico 
+- Chris Jones
+- David Vizena
+- Donald Linnell 
+
+**Project Demo**
+
+![main screen](./assets/images/main.png "Initial User View")
+
+![User Login](./assets/images/login.png "User Login")
+
+![Enter Route](./assets/images/coordinates.png "Enter Route")
+
+![Compare Prices](./assets/images/price.png "Compare Prices")
